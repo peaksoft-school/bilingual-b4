@@ -1,0 +1,30 @@
+#spring.datasource.url=jdbc:postgresql://localhost:5432/bilingual
+#spring.datasource.username=postgres
+#spring.datasource.password=postgres
+#spring.jpa.hibernate.ddl-auto=create-drop
+#spring.jpa.show-sql=false
+#spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL10Dialect
+#server.port=4040
+#server.error.include-message=always
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/bilingual
+    username: postgres
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+server:
+  port: 4040
+  error:
+    include-message: always
+application:
+  jwt:
+    secret-key: HRlELXqpSB
+    token-prefix: Bearer
+    expiration-date-after-days: 30
