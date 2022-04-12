@@ -27,7 +27,7 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    @ManyToMany(cascade = {MERGE,DETACH,PERSIST,REFRESH},mappedBy = "roles")
+    @ManyToMany(cascade = {MERGE,DETACH,PERSIST,REFRESH},mappedBy = "roles",fetch = FetchType.EAGER)
     private List<AuthInfo> authInfo;
 
 

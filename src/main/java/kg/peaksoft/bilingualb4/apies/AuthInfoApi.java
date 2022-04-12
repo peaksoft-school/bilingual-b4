@@ -13,7 +13,7 @@ import javax.annotation.security.PermitAll;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/authentication")
+@RequestMapping("/api/login")
 public class AuthInfoApi {
 
     private final AuthInfoService authInfoService;

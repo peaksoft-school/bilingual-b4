@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
@@ -22,7 +23,8 @@ import static javax.persistence.CascadeType.ALL;
 public class AuthInfo implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authInfo_sequence")
+    @SequenceGenerator(name = "authInfo_sequence", sequenceName = "authInfo_seq", allocationSize = 1)
     Long id;
     private String email;
     private String password;
@@ -31,11 +33,11 @@ public class AuthInfo implements UserDetails {
     private boolean isCredentialsNonExpired = true;
     private boolean isEnabled = true;
 
-    @ManyToMany(cascade = ALL)
+    @ManyToMany(cascade = {PERSIST,REMOVE},fetch = FetchType.EAGER)
     @JoinTable(name = "authInfo_roles",
             joinColumns = @JoinColumn(name = "authInfo_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
 
     @Override

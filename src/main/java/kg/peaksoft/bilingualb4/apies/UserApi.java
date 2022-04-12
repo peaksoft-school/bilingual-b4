@@ -25,9 +25,8 @@ public class UserApi {
         return userService.findAll();
     }
 
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/save")
-    @PermitAll
     public UserResponse save(@PathVariable("id") Long id,
                              @RequestBody UserRequest userRequest) {
         return userService.save(id, userRequest);
