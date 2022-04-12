@@ -1,8 +1,10 @@
 package kg.peaksoft.bilingualb4;
 
+import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@AllArgsConstructor
 @SpringBootApplication
 public class BilingualB4Application {
 

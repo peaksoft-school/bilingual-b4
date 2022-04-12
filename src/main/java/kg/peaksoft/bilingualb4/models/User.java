@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class User {
     private String password;
 
     @OneToOne(cascade = ALL)
+    @JsonIgnore
     private AuthInfo authInfo;
 
     public User(String userName, String email, String password) {

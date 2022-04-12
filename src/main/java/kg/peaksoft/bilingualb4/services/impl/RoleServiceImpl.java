@@ -7,7 +7,6 @@ import kg.peaksoft.bilingualb4.mappers.viewMapper.RoleViewMapper;
 import kg.peaksoft.bilingualb4.repositories.RoleRepository;
 import kg.peaksoft.bilingualb4.services.RoleService;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -38,4 +38,5 @@ public class UserEditMapper {
         user.setUserName(userRequest.getUserName());
         user.setEmail(userRequest.getEmail());
     }
+
 }
