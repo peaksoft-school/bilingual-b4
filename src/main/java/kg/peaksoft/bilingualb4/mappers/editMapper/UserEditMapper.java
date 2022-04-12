@@ -16,7 +16,7 @@ public class UserEditMapper {
     }
 
 
-    public User create(Long id, UserRequest userRequest) {
+    public User create(UserRequest userRequest) {
         if (userRequest == null) {
             return null;
         }
@@ -28,7 +28,7 @@ public class UserEditMapper {
         AuthInfo authInfo = new AuthInfo();
         authInfo.setEmail(userRequest.getEmail());
         authInfo.setPassword(user.getPassword());
-        authInfo.setAuthInfo1(roleRepository.getById(id));
+        authInfo.setAuthInfo1(roleRepository.getByName("CLIENT"));
 
         user.setAuthInfo(authInfo);
         return user;

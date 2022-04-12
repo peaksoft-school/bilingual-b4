@@ -24,7 +24,6 @@ public class BilingualB4Application {
         System.out.println("Welcome colleagues, project name is Bilingual!");
     }
 
-
     @PostConstruct
     public void save() {
         User user = new User();
@@ -41,7 +40,6 @@ public class BilingualB4Application {
         authInfo.setPassword(user.getPassword());
 
         authInfo.setAuthInfo1(role);
-
 
         user.setAuthInfo(authInfo);
         userRepository.save(user);

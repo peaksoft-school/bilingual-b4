@@ -38,13 +38,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse save(Long id, UserRequest userRequest) {
+    public UserResponse save(UserRequest userRequest) {
         log.info("Saving new user {} to the database", userRequest.getUserName());
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        System.out.println(userRequest.getPassword());
         return userViewMapper.view(
                 userRepository.save(
-                        userEditMapper.create(id, userRequest)));
+                        userEditMapper.create(userRequest)));
     }
 
     @Override

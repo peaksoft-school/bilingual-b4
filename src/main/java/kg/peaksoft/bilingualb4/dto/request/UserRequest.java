@@ -2,6 +2,7 @@ package kg.peaksoft.bilingualb4.dto.request;
 
 import com.sun.istack.NotNull;
 import kg.peaksoft.bilingualb4.annotations.ValidPassword;
+import kg.peaksoft.bilingualb4.models.Role;
 import lombok.Getter;
 import lombok.Setter;
 

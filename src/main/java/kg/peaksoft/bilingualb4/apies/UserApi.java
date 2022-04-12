@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user/{id}")
+@RequestMapping("/api")
 public class UserApi {
 
     private final UserService userService;
@@ -26,10 +26,9 @@ public class UserApi {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/save")
-    public UserResponse save(@PathVariable("id") Long id,
-                             @RequestBody UserRequest userRequest) {
-        return userService.save(id, userRequest);
+    @PostMapping("/registration")
+    public UserResponse save(@RequestBody UserRequest userRequest) {
+        return userService.save(userRequest);
     }
 
    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")

@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,8 +38,8 @@ public class AuthInfo implements UserDetails {
     @JoinTable(name = "authInfo_roles",
             joinColumns = @JoinColumn(name = "authInfo_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

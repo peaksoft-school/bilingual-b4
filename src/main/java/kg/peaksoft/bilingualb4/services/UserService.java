@@ -11,7 +11,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    UserResponse save(Long id, UserRequest userRequest);
+    UserResponse save(UserRequest userRequest);
 
     Optional<User> findById(Long id);
 
