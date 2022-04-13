@@ -27,8 +27,8 @@ public class UserApi {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/registration")
-    public UserResponse save(@RequestBody UserRequest userRequest) {
-        return userService.save(userRequest);
+    public UserResponse registration(@RequestBody UserRequest userRequest) {
+        return userService.registration(userRequest);
     }
 
    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
