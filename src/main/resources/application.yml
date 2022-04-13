@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/bilingual
+    username: postgres
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+server:
+  port: 4040
+  error:
+    include-message: always
+application:
+  jwt:
+    secret-key: HRlELXqpSB
+    token-prefix: Bearer
+    expiration-date-after-days: 30
