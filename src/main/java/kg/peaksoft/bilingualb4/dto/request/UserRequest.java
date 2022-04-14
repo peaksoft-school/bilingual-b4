@@ -18,10 +18,8 @@ public class UserRequest {
     private String userName;
 
     @Email
-    @JsonProperty("email")
     private String email;
 
     @ValidPassword
-    @JsonProperty("password")
     private String password;
 }

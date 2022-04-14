@@ -50,7 +50,7 @@ public class UserApi {
                         
              password (String)
             """)
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @PostMapping("/registration")
     public UserResponse registration(@RequestBody UserRequest userRequest) {
         return userService.registration(userRequest);
@@ -58,7 +58,7 @@ public class UserApi {
 
     @Operation(summary = "Deletes the entity: workshop$User",
             description = "Deletes an endpoint and all its child entities.")
-    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/delete/{deleteId}")
     public void deleteBy(@PathVariable("deleteId") Long id) {
         userService.deleteById(id);
@@ -66,7 +66,7 @@ public class UserApi {
 
     @Operation(summary = "Gets a single entity by identifier: workshop$User",
             description = "For valid response try integer IDs with value >= 1 and:")
-    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/find/{findById}")
     public Optional<User> findById(@PathVariable("findById") Long id) {
         return userService.findById(id);
@@ -83,7 +83,7 @@ public class UserApi {
                         
              password (String)
             """)
-    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PatchMapping("/update/{updateId}")
     public UserResponse update(@PathVariable("updateId") Long id, @RequestBody UserRequest userRequest) {
         return userService.update(id, userRequest);

@@ -11,6 +11,5 @@ public class UserResponse {
     private String id;
     @JsonProperty("user_name")
     private String userName;
-    @JsonProperty("email")
     private String email;
 }
