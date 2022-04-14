@@ -88,6 +88,4 @@ public class UserApi {
     public UserResponse update(@PathVariable("updateId") Long id, @RequestBody UserRequest userRequest) {
         return userService.update(id, userRequest);
     }
-
-
 }
