@@ -24,28 +24,28 @@ public class BilingualB4Application {
         System.out.println("Welcome colleagues, project name is Bilingual!");
     }
 
-    @PostConstruct
-    public void save() {
-        User user = new User();
-        user.setUserName("Muhammed");
-        user.setEmail("muhammed@gmail.com");
-        user.setPassword(passwordEncoder.encode("2003"));
-
-        Role role = new Role();
-        Role role1 = new Role();
-        role.setName("ADMIN");
-
-        AuthInfo authInfo = new AuthInfo();
-        authInfo.setEmail(user.getEmail());
-        authInfo.setPassword(user.getPassword());
-
-        authInfo.setAuthInfo1(role);
-
-        user.setAuthInfo(authInfo);
-        userRepository.save(user);
-        role1.setName("CLIENT");
-        roleRepository.save(role1);
-        authInfo.setAuthInfo1(role1);
-
-    }
+//    @PostConstruct
+//    public void save() {
+//        User user = new User();
+//        user.setUserName("Muhammed");
+//        user.setEmail("muhammed@gmail.com");
+//        user.setPassword(passwordEncoder.encode("2003"));
+//
+//        Role role = new Role();
+//        Role role1 = new Role();
+//        role.setName("ADMIN");
+//
+//        AuthInfo authInfo = new AuthInfo();
+//        authInfo.setEmail(user.getEmail());
+//        authInfo.setPassword(user.getPassword());
+//
+//        authInfo.setAuthInfo1(role);
+//
+//        user.setAuthInfo(authInfo);
+//        userRepository.save(user);
+//        role1.setName("CLIENT");
+//        roleRepository.save(role1);
+//        authInfo.setAuthInfo1(role1);
+//
+//    }
 }
