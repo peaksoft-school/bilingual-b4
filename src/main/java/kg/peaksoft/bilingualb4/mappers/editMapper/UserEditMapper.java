@@ -15,7 +15,6 @@ public class UserEditMapper {
         this.roleRepository = roleRepository;
     }
 
-
     public User create(UserRequest userRequest) {
         if (userRequest == null) {
             return null;
