@@ -50,7 +50,7 @@ public class UserApi {
                         
              password (String)
             """)
-    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/registration")
     public UserResponse registration(@RequestBody UserRequest userRequest) {
         return userService.registration(userRequest);
