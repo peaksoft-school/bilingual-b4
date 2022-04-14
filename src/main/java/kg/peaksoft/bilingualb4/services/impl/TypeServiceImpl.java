@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 
 @Service
@@ -38,6 +39,7 @@ public class TypeServiceImpl implements TypeService {
     public TypeResponse save(TypeRequest typeRequest) {
         String name = typeRequest.getName();
         boolean exists = typeRepository.existsByName(name);
+
         if (exists) {
             throw new BadRequestException(
                     String.format("type with name = %s has already exists", name)
@@ -84,7 +86,7 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public TypeResponse updateById(Long id, TypeRequest typeRequest) {
+    public Type updateById(Long id, TypeRequest typeRequest) {
         Type type = findById(id);
 
         String currentName = type.getName();

@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import kg.peaksoft.bilingualb4.models.Word;
 import kg.peaksoft.bilingualb4.models.enums.QuestionType;
 import kg.peaksoft.bilingualb4.models.enums.SingleAndMultiType;
@@ -16,6 +17,9 @@ public class TypeResponse {
     private String name;
     private SingleAndMultiType singleAndMultiType;
     private List<Word> wordList;
+
+    @JsonProperty(namespace = "type_id")
+    private Long typeId;
     private String audio;
     private int numberOfReplays;
     private String upload;

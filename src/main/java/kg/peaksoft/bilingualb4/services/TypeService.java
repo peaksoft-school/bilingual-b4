@@ -17,6 +17,6 @@ public interface TypeService {
 
     void deleteById(Long id);
 
-    TypeResponse updateById(Long id, TypeRequest typeRequest);
+    Type updateById(Long id, TypeRequest typeRequest);
 
 }

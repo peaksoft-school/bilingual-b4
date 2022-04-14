@@ -7,7 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "types")
@@ -20,9 +23,10 @@ public class Type {
     private Long id;
 
     private String name;
+    @Enumerated(EnumType.STRING)
     private SingleAndMultiType singleAndMultiType;
 
-    @OneToMany(cascade =CascadeType.ALL)
+    @OneToMany(cascade = {MERGE,DETACH,REFRESH,REMOVE,PERSIST}, fetch = FetchType.EAGER, mappedBy = "type")
     private List<Word> wordList;
     private String audio;
     private int numberOfReplays;
@@ -36,5 +40,13 @@ public class Type {
     private String questionToThePassage;
     private String passage;
     private String highlightCorrectAnswer;
+    @Enumerated(EnumType.STRING)
     private QuestionType questionType;
+
+    public void setWord(Word word){
+        if (this.wordList==null){
+            this.wordList = new ArrayList<>();
+        }
+        wordList.add(word);
+    }
 }
