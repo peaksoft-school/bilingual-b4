@@ -73,15 +73,12 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
 
     }
 
-//    @Bean
-//    public PasswordEncoder getPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new MessageDigestPasswordEncoder("MD5");
+        return new BCryptPasswordEncoder();
     }
+
+
 
     @Override
     @Bean

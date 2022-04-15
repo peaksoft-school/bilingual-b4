@@ -1,3 +1,8 @@
+drop table if exists roles;
+drop table if exists auth_info;
+drop table if exists auth_info_roles;
+drop table if exists users;
+
 create table if not exists roles(
     id   bigserial primary key not null,
     name varchar not null
