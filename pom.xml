@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>kg.peaksoft</groupId>
     <artifactId>bilingual-b4</artifactId>
@@ -15,9 +15,6 @@
     <description>bilingual-b4</description>
     <properties>
         <java.version>11</java.version>
-        <flyway.user>databaseUser</flyway.user>
-        <flyway.password>databasePassword</flyway.password>
-        <flyway.schemas>schemaName</flyway.schemas>
     </properties>
     <dependencies>
         <dependency>
@@ -100,18 +97,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>8.0.0</version>
-                <configuration>
-                    <user>databaseUser</user>
-                    <password>databasePassword</password>
-                    <schemas>
-                        <schema>schemaName</schema>
-                    </schemas>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
