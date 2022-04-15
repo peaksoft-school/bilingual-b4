@@ -58,12 +58,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse findById(Long id) {
-//        int counter = id != null ? 1 : 0;
-//        if (counter > 1) {
-//            throw new BadRequestException(
-//                    "You should to choose only one field"
-//            );
-//        }
         if (id != null) {
             User user = getById(id);
             return userViewMapper.view(user);
