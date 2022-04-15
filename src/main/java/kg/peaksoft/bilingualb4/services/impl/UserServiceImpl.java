@@ -57,27 +57,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse findByIdAndName(Long id, String name) {
-        int counter = id != null ? 1 : 0;
-        counter += !isNullOrEmpty(name) ? 1 : 0;
-        if (counter > 1) {
-            throw new BadRequestException(
-                    "You should to choose only one field"
-            );
-        }
+    public UserResponse findById(Long id) {
+//        int counter = id != null ? 1 : 0;
+//        if (counter > 1) {
+//            throw new BadRequestException(
+//                    "You should to choose only one field"
+//            );
+//        }
         if (id != null) {
-            User user = findById(id);
+            User user = getById(id);
             return userViewMapper.view(user);
+        } else {
+            throw new BadRequestException("You should write one of {id, name} to get Type");
         }
-        if (!isNullOrEmpty(name)) {
-            User user = userRepository.findByName(name).orElseThrow(() -> new NotFoundException(
-                    String.format("Type with name = %s does not exists", name)
-            ));
-            return userViewMapper.view(user);
-        }
-        throw new BadRequestException("You should write one of {id, name} to get Type");
     }
-
     @Override
     public void deleteById(Long id) {
         boolean exists = userRepository.existsById(id);
@@ -91,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse update(Long id, UserRequest userRequest) {
-        User user = findById(id);
+        User user = getById(id);
 
         String currentName = user.getUserName();
         String newName = userRequest.getUserName();
@@ -116,7 +109,7 @@ public class UserServiceImpl implements UserService {
         return userViewMapper.view(user);
     }
 
-    private User findById(Long id) {
+    private User getById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("User with id = %s does not exists", id)
         ));
