@@ -57,14 +57,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse findById(Long id) {
-        if (id != null) {
-            User user = getById(id);
-            return userViewMapper.view(user);
-        } else {
-            throw new BadRequestException("You should write one of {id, name} to get Type");
+    public Optional<User> findById(Long id) {
+        boolean exists = userRepository.existsById(id);
+        if (!exists) {
+            throw new BadRequestException("You should write one of {id} to get Type");
         }
+        return userRepository.findById(id);
     }
+
     @Override
     public void deleteById(Long id) {
         boolean exists = userRepository.existsById(id);

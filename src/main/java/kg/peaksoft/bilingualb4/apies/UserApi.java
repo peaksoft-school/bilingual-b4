@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -67,7 +68,7 @@ public class UserApi {
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("getBy/{id}")
-    public UserResponse findById(@PathVariable Long id) {
+    public Optional<User> findById(@PathVariable Long id) {
         return userService.findById(id);
     }
 

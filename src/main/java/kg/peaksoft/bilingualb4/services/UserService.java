@@ -13,7 +13,7 @@ public interface UserService {
 
     UserResponse registration(UserRequest userRequest);
 
-    UserResponse findById(Long id);
+    Optional<User> findById(Long id);
 
     void deleteById(Long id);
 
