@@ -76,7 +76,6 @@ public class UserServiceImpl implements UserService {
             return userViewMapper.view(user);
         }
         throw new BadRequestException("You should write one of {id, name} to get Type");
-        //return userRepository.findById(id);
     }
 
     @Override
