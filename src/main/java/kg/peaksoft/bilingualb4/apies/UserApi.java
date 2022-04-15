@@ -58,7 +58,7 @@ public class UserApi {
     @Operation(summary = "Deletes the entity: workshop$User",
             description = "Deletes an endpoint and all its child entities.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @DeleteMapping("/delete/{deleteId}")
+    @DeleteMapping("/deleteById/{deleteId}")
     public void deleteBy(@PathVariable("deleteId") Long id) {
         userService.deleteById(id);
     }
@@ -66,7 +66,7 @@ public class UserApi {
     @Operation(summary = "Gets a single entity by identifier: workshop$User",
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping("/find")
+    @GetMapping("/findByIdAndUserName")
     public UserResponse findByIdAndName(@RequestParam(required = false) Long id,
                                    @RequestParam(required = false) String name) {
         return userService.findByIdAndName(id,name);
@@ -84,7 +84,7 @@ public class UserApi {
              password (String)
             """)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PatchMapping("/update/{updateId}")
+    @PatchMapping("/updateById/{updateId}")
     public UserResponse update(@PathVariable("updateId") Long id, @RequestBody UserRequest userRequest) {
         return userService.update(id, userRequest);
     }
