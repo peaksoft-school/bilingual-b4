@@ -1,11 +1,10 @@
 package kg.peaksoft.bilingualb4.apies;
 
-import antlr.collections.impl.LList;
 import kg.peaksoft.bilingualb4.dto.request.TypeRequest;
 import kg.peaksoft.bilingualb4.dto.response.TypeResponse;
-import kg.peaksoft.bilingualb4.mappers.editMapper.TypeEditMapper;
 import kg.peaksoft.bilingualb4.mappers.viewMapper.TypeViewMapper;
 import kg.peaksoft.bilingualb4.models.Type;
+import kg.peaksoft.bilingualb4.models.enums.QuestionType;
 import kg.peaksoft.bilingualb4.services.TypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +20,10 @@ public class TypeApi {
     private final TypeViewMapper typeViewMapper;
 
     @GetMapping
-    public List<TypeResponse> findAll(){
-        return typeService.findAll();
+    public List<Type> findAll(@RequestParam QuestionType questionType){
+        return typeService.findAll(questionType);
     }
-    @PostMapping("/save")
+    @PostMapping
     public TypeResponse save(@RequestBody TypeRequest typeRequest){
         return typeService.save(typeRequest);
     }
@@ -35,15 +34,16 @@ public class TypeApi {
         return typeService.findByIdAndName(id,name);
     }
 
-    @DeleteMapping("/delete_by_id/{id}")
-    public List<TypeResponse> deleteById(@PathVariable Long id){
+    @DeleteMapping("{id}")
+    public List<Type> deleteById(@PathVariable Long id, @RequestParam QuestionType questionType){
         typeService.deleteById(id);
-        return typeService.findAll();
+        return typeService.findAll(questionType);
     }
 
-    @PutMapping("/update_by_id/{id}")
+    @PutMapping("{id}")
     public TypeResponse updateById(@PathVariable Long id,
                                    @RequestBody TypeRequest typeRequest){
+        System.out.println(typeRequest.getWordList().toString());
         Type type = typeService.updateById(id, typeRequest);
         return typeViewMapper.view(type);
     }

@@ -19,13 +19,10 @@ public class Word {
 
     private String wordName;
 
-    private boolean correctAnswer;
+    private boolean correctAnswer = false;
 
-    @Transient
-    private Long typeId;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_id")
     private Type type;
 
 }

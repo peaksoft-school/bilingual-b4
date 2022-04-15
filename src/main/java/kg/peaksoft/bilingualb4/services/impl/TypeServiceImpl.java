@@ -8,6 +8,7 @@ import kg.peaksoft.bilingualb4.mappers.editMapper.TypeEditMapper;
 import kg.peaksoft.bilingualb4.mappers.viewMapper.TypeViewMapper;
 import kg.peaksoft.bilingualb4.models.Type;
 import kg.peaksoft.bilingualb4.models.Word;
+import kg.peaksoft.bilingualb4.models.enums.QuestionType;
 import kg.peaksoft.bilingualb4.models.enums.SingleAndMultiType;
 import kg.peaksoft.bilingualb4.repositories.TypeRepository;
 import kg.peaksoft.bilingualb4.services.TypeService;
@@ -21,7 +22,6 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class TypeServiceImpl implements TypeService {
 
@@ -30,9 +30,8 @@ public class TypeServiceImpl implements TypeService {
     private final TypeViewMapper typeViewMapper;
 
     @Override
-    public List<TypeResponse> findAll() {
-        return typeRepository.findAll().stream().map(typeViewMapper::view).toList();
-
+    public List<Type> findAll(QuestionType questionType) {
+        return typeRepository.findAllByQuestionType(questionType);
     }
 
     @Override
@@ -86,7 +85,7 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Type updateById(Long id, TypeRequest typeRequest) {
+    public Type updateById(Long id, TypeRequest  typeRequest) {
         Type type = findById(id);
 
         String currentName = type.getName();
@@ -101,7 +100,7 @@ public class TypeServiceImpl implements TypeService {
         if (!currentSingleAndMultiType.equals(newSingleAndMultiType)){
             type.setSingleAndMultiType(newSingleAndMultiType);
         }
-        Object currentListWord = type.getWordList();
+        List<Word> currentListWord = type.getWordList();
         List<Word> newListWord = typeRequest.getWordList();
 
         if (!currentListWord.equals(newListWord)){

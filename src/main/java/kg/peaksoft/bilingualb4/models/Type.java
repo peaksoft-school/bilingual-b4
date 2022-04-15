@@ -1,6 +1,5 @@
 package kg.peaksoft.bilingualb4.models;
 
-import kg.peaksoft.bilingualb4.models.Word;
 import kg.peaksoft.bilingualb4.models.enums.QuestionType;
 import kg.peaksoft.bilingualb4.models.enums.SingleAndMultiType;
 import lombok.Getter;
@@ -26,13 +25,13 @@ public class Type {
     @Enumerated(EnumType.STRING)
     private SingleAndMultiType singleAndMultiType;
 
-    @OneToMany(cascade = {MERGE,DETACH,REFRESH,REMOVE,PERSIST}, fetch = FetchType.EAGER, mappedBy = "type")
+    @OneToMany(cascade = {MERGE,DETACH,REFRESH,REMOVE,PERSIST}, fetch = FetchType.EAGER)
     private List<Word> wordList;
     private String audio;
     private int numberOfReplays;
     private String upload;
     private String play;
-    private boolean correctAnswer;
+    private boolean correctAnswer = false;
     private String record;
     private String uploadImage;
     private String questionStatement;

@@ -3,13 +3,14 @@ package kg.peaksoft.bilingualb4.services;
 import kg.peaksoft.bilingualb4.dto.request.TypeRequest;
 import kg.peaksoft.bilingualb4.dto.response.TypeResponse;
 import kg.peaksoft.bilingualb4.models.Type;
+import kg.peaksoft.bilingualb4.models.enums.QuestionType;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TypeService {
 
-    List<TypeResponse> findAll();
+    List<Type> findAll(QuestionType questionType);
 
     TypeResponse save(TypeRequest typeRequest);
 

@@ -30,6 +30,7 @@ public class TypeViewMapper {
         typeResponse.setQuestionToThePassage(type.getQuestionToThePassage());
         typeResponse.setPassage(type.getPassage());
         typeResponse.setHighlightCorrectAnswer(type.getHighlightCorrectAnswer());
+        typeResponse.setQuestionType(type.getQuestionType());
         return typeResponse;
     }
 }
