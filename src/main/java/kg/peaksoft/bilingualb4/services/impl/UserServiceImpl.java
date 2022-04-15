@@ -3,6 +3,7 @@ package kg.peaksoft.bilingualb4.services.impl;
 import kg.peaksoft.bilingualb4.dto.request.UserRequest;
 import kg.peaksoft.bilingualb4.dto.response.UserResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
+import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.mappers.editMapper.UserEditMapper;
 import kg.peaksoft.bilingualb4.mappers.viewMapper.UserViewMapper;
 import kg.peaksoft.bilingualb4.models.User;
@@ -39,32 +40,86 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse registration(UserRequest userRequest) {
+        String email = userRequest.getEmail();
+        boolean exists = userRepository.existsByEmail(email);
         log.info("Saving new user {} to the database", userRequest.getUserName());
-        userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        return userViewMapper.view(
-                userRepository.save(
-                        userEditMapper.create(userRequest)));
+        if (exists) {
+            throw new BadRequestException(
+                    String.format("User with email = %s has already exists", email)
+            );
+        }
+        String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
+        userRequest.setPassword(encodedPassword);
+
+        User user = userEditMapper.create(userRequest);
+        User save = userRepository.save(user);
+        return userViewMapper.view(save);
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
-    public User getById(Long id) {
-        return userRepository.getById(id);
+    public UserResponse findByIdAndName(Long id, String name) {
+        int counter = id != null ? 1 : 0;
+        counter += !isNullOrEmpty(name) ? 1 : 0;
+        if (counter > 1) {
+            throw new BadRequestException(
+                    "You should to choose only one field"
+            );
+        }
+        if (id != null) {
+            User user = findById(id);
+            return userViewMapper.view(user);
+        }
+        if (!isNullOrEmpty(name)) {
+            User user = userRepository.findByName(name).orElseThrow(() -> new NotFoundException(
+                    String.format("Type with name = %s does not exists", name)
+            ));
+            return userViewMapper.view(user);
+        }
+        throw new BadRequestException("You should write one of {id, name} to get Type");
+        //return userRepository.findById(id);
     }
 
     @Override
     public void deleteById(Long id) {
+        boolean exists = userRepository.existsById(id);
+        if (!exists) {
+            throw new BadRequestException(
+                    String.format("Type with id = %s does not exists", id)
+            );
+        }
         userRepository.deleteById(id);
     }
 
     @Override
     public UserResponse update(Long id, UserRequest userRequest) {
-        User user = userRepository.findById(id).get();
-        userEditMapper.Update(user, userRequest);
-        return userViewMapper.view(userRepository.save(user));
+        User user = findById(id);
+
+        String currentName = user.getUserName();
+        String newName = userRequest.getUserName();
+
+        if (!currentName.equals(newName)) {
+            user.setUserName(newName);
+        }
+
+        String currentEmail = user.getEmail();
+        String newEmail = userRequest.getEmail();
+
+        if (!currentEmail.equals(newEmail)) {
+            user.setEmail(newEmail);
+        }
+
+        String currentPassword = user.getPassword();
+        String newPassword = userRequest.getPassword();
+
+        if (!passwordEncoder.matches(newPassword, currentPassword)) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+        }
+        return userViewMapper.view(user);
+    }
+
+    private User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                String.format("User with id = %s does not exists", id)
+        ));
     }
 }

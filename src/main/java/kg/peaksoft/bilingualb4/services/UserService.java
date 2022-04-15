@@ -13,9 +13,7 @@ public interface UserService {
 
     UserResponse registration(UserRequest userRequest);
 
-    Optional<User> findById(Long id);
-
-    User getById(Long id);
+    UserResponse findByIdAndName(Long id,String name);
 
     void deleteById(Long id);
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -67,9 +68,10 @@ public class UserApi {
     @Operation(summary = "Gets a single entity by identifier: workshop$User",
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping("/find/{findById}")
-    public Optional<User> findById(@PathVariable("findById") Long id) {
-        return userService.findById(id);
+    @GetMapping("/find")
+    public UserResponse findByIdAndName(@RequestParam(required = false) Long id,
+                                   @RequestParam(required = false) String name) {
+        return userService.findByIdAndName(id,name);
     }
 
     @Operation(summary = "Updates the entity: workshop$User", description = """
