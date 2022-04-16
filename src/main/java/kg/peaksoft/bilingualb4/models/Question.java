@@ -15,7 +15,7 @@ import static javax.persistence.CascadeType.*;
 @Table(name = "types")
 @Getter
 @Setter
-public class Type {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_sequence")
     @SequenceGenerator(name = "type_sequence", sequenceName = "type_seq", allocationSize = 1)

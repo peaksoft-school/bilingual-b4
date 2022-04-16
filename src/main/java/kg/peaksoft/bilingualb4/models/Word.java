@@ -1,7 +1,6 @@
 package kg.peaksoft.bilingualb4.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +22,6 @@ public class Word {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private Type type;
+    private Question question;
 
 }

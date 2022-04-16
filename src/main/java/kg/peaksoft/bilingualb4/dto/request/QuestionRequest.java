@@ -1,4 +1,4 @@
-package kg.peaksoft.bilingualb4.dto.response;
+package kg.peaksoft.bilingualb4.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import kg.peaksoft.bilingualb4.models.Word;
@@ -11,9 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class TypeResponse {
-
-    private String id;
+public class QuestionRequest {
     private String name;
     @JsonProperty("single_and_multi_type")
     private SingleAndMultiType singleAndMultiType;
