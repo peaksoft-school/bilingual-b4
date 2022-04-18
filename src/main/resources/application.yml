@@ -10,7 +10,7 @@ server:
 spring:
     datasource:
         driver-class-name: org.postgresql.Driver
-        password: 12345
+        password: 5996
         url: jdbc:postgresql://localhost:5432/bilingual
         username: postgres
     flyway:

@@ -1,9 +1,9 @@
 package kg.peaksoft.bilingualb4.services;
 
-import kg.peaksoft.bilingualb4.dto.request.QuestionRequest;
-import kg.peaksoft.bilingualb4.dto.response.QuestionResponse;
-import kg.peaksoft.bilingualb4.models.Question;
-import kg.peaksoft.bilingualb4.models.enums.QuestionType;
+import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
+import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
+import kg.peaksoft.bilingualb4.model.entity.Question;
+import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 
 import java.util.List;
 

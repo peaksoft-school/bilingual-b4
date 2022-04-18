@@ -1,14 +1,14 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
-import kg.peaksoft.bilingualb4.dto.request.QuestionRequest;
-import kg.peaksoft.bilingualb4.dto.response.QuestionResponse;
+import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
+import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
-import kg.peaksoft.bilingualb4.mappers.editMapper.QuestionEditMapper;
-import kg.peaksoft.bilingualb4.mappers.viewMapper.QuestionViewMapper;
-import kg.peaksoft.bilingualb4.models.Question;
-import kg.peaksoft.bilingualb4.models.enums.QuestionType;
-import kg.peaksoft.bilingualb4.repositories.QuestionRepository;
+import kg.peaksoft.bilingualb4.model.mappers.editMapper.QuestionEditMapper;
+import kg.peaksoft.bilingualb4.model.mappers.viewMapper.QuestionViewMapper;
+import kg.peaksoft.bilingualb4.model.entity.Question;
+import kg.peaksoft.bilingualb4.model.enums.QuestionType;
+import kg.peaksoft.bilingualb4.repository.QuestionRepository;
 import kg.peaksoft.bilingualb4.services.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
