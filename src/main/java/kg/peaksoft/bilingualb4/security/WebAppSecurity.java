@@ -2,9 +2,9 @@ package kg.peaksoft.bilingualb4.security;
 
 import kg.peaksoft.bilingualb4.config.JwtConfig;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
-import kg.peaksoft.bilingualb4.jwt.JwtTokenVerifier;
-import kg.peaksoft.bilingualb4.jwt.JwtUtils;
-import kg.peaksoft.bilingualb4.repositories.AuthInfoRepository;
+import kg.peaksoft.bilingualb4.config.jwt.JwtTokenVerifier;
+import kg.peaksoft.bilingualb4.config.jwt.JwtUtils;
+import kg.peaksoft.bilingualb4.repository.AuthInfoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -76,6 +76,8 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 
     @Override
     @Bean
