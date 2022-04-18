@@ -1,6 +1,6 @@
 package kg.peaksoft.bilingualb4;
 
-import kg.peaksoft.bilingualb4.models.User;
+import kg.peaksoft.bilingualb4.model.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

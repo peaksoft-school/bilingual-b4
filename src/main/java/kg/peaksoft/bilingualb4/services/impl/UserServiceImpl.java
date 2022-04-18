@@ -1,12 +1,11 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
-import kg.peaksoft.bilingualb4.dto.request.UserRequest;
-import kg.peaksoft.bilingualb4.dto.response.UserResponse;
-import kg.peaksoft.bilingualb4.exception.BadRequestException;
-import kg.peaksoft.bilingualb4.mappers.editMapper.UserEditMapper;
-import kg.peaksoft.bilingualb4.mappers.viewMapper.UserViewMapper;
-import kg.peaksoft.bilingualb4.models.User;
-import kg.peaksoft.bilingualb4.repositories.UserRepository;
+import kg.peaksoft.bilingualb4.api.payload.UserRequest;
+import kg.peaksoft.bilingualb4.api.payload.UserResponse;
+import kg.peaksoft.bilingualb4.model.mappers.editMapper.UserEditMapper;
+import kg.peaksoft.bilingualb4.model.mappers.viewMapper.UserViewMapper;
+import kg.peaksoft.bilingualb4.model.entity.User;
+import kg.peaksoft.bilingualb4.repository.UserRepository;
 import kg.peaksoft.bilingualb4.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 @Service
 @RequiredArgsConstructor

@@ -1,8 +1,8 @@
 package kg.peaksoft.bilingualb4.services;
 
-import kg.peaksoft.bilingualb4.dto.request.UserRequest;
-import kg.peaksoft.bilingualb4.dto.response.UserResponse;
-import kg.peaksoft.bilingualb4.models.User;
+import kg.peaksoft.bilingualb4.api.payload.UserRequest;
+import kg.peaksoft.bilingualb4.api.payload.UserResponse;
+import kg.peaksoft.bilingualb4.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;
