@@ -9,28 +9,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class QuestionEditMapper {
 
-    public Question create(QuestionRequest questionRequest){
-        if(questionRequest == null){
+    public Question create(QuestionRequest questionRequest) {
+        if (questionRequest == null) {
             return null;
         }
-        return getQuestion(questionRequest);
+        Question question = new Question();
+        return mapToEntity(questionRequest, question);
     }
 
-    public Question update(Question question, QuestionRequest questionRequest){
+    public Question update(Question question, QuestionRequest questionRequest) {
         question.setName(questionRequest.getName());
         question.setSingleAndMultiType(questionRequest.getSingleAndMultiType());
 
-        for (Word word: questionRequest.getWordList()){
-            if (word.getId()!= null){
-                for (Word newWord: question.getWordList()){
+        for (Word word : questionRequest.getWordList()) {
+            if (word.getId() != null) {
+                for (Word newWord : question.getWordList()) {
                     newWord.setId(word.getId());
                 }
             }
         }
-        return getQuestion(questionRequest);
+        return mapToEntity(questionRequest, question);
     }
 
-    private Question getQuestion(QuestionRequest questionRequest) {
+
+    private Question mapToEntity(QuestionRequest questionRequest, Question question) {
         return Question.builder()
                 .name(questionRequest.getName())
                 .singleAndMultiType(questionRequest.getSingleAndMultiType())

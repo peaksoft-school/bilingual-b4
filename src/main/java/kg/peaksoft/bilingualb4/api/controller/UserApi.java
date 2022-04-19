@@ -38,18 +38,18 @@ public class UserApi {
         return userService.findAll();
     }
 
-    @Operation(summary = "Creates new entity: workshop$User", description = """
-            The method expects a JSON with entity object in the request body.
-            The entity object may contain references to other entities
-                        
-            The following fields may be provided:
-                        
-            name (String)
-                        
-             email (String)
-                        
-             password (String)
-            """)
+//    @Operation(summary = "Creates new entity: workshop$User", description = """
+//            The method expects a JSON with entity object in the request body.
+//            The entity object may contain references to other entities
+//
+//            The following fields may be provided:
+//
+//            name (String)
+//
+//             email (String)
+//
+//             password (String)
+//            """)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/registration")
     public UserResponse registration(@RequestBody UserRequest userRequest) {
@@ -72,17 +72,17 @@ public class UserApi {
         return userService.findById(id);
     }
 
-    @Operation(summary = "Updates the entity: workshop$User", description = """
-            Updates the details of an endpoint.
-                        
-             You can provide following fields with this request:
-                        
-             name (String)
-                        
-             email (String)
-                        
-             password (String)
-            """)
+//    @Operation(summary = "Updates the entity: workshop$User", description = """
+//            Updates the details of an endpoint.
+//
+//             You can provide following fields with this request:
+//
+//             name (String)
+//
+//             email (String)
+//
+//             password (String)
+//            """)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("{id}")
     public UserResponse update(@PathVariable Long id, @RequestBody UserRequest userRequest) {
