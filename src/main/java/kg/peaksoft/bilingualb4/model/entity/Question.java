@@ -4,6 +4,7 @@ import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ import static javax.persistence.CascadeType.*;
 @Table(name = "questions")
 @Getter
 @Setter
-@Builder
+@NoArgsConstructor
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_sequence")
