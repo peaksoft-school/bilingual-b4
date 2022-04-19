@@ -7,7 +7,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-import static javax.persistence.CascadeType.ALL;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "users")
@@ -29,9 +32,18 @@ public class User {
     @JsonIgnore
     private AuthInfo authInfo;
 
+    @ManyToMany(cascade = {MERGE,REFRESH,PERSIST,DETACH},mappedBy = "userList",fetch = FetchType.EAGER)
+    private List<Test> testList;
+
     public User(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+    }
+    public void setTest1(Test test) {
+        if (testList == null) {
+            testList = new ArrayList<>();
+        }
+        testList.add(test);
     }
 }
