@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bilingual
+    url: jdbc:postgresql://bilingual-b4-db.cpzwjkia7yeu.eu-west-2.rds.amazonaws.com:5432/bilingual_b4_db
     username: postgres
     password: 12345
   jpa:
