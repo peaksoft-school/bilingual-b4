@@ -2,10 +2,7 @@ package kg.peaksoft.bilingualb4.model.entity;
 
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,6 +14,8 @@ import static javax.persistence.CascadeType.*;
 @Table(name = "questions")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Question {
     @Id

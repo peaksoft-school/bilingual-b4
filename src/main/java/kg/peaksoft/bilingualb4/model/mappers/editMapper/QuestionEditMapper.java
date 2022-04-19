@@ -14,7 +14,7 @@ public class QuestionEditMapper {
             return null;
         }
         Question question = new Question();
-        return questionMethod(questionRequest, question);
+        return mapToEntity(questionRequest, question);
     }
 
     public Question update(Question question, QuestionRequest questionRequest) {
@@ -28,26 +28,28 @@ public class QuestionEditMapper {
                 }
             }
         }
-        return questionMethod(questionRequest, question);
+        return mapToEntity(questionRequest, question);
     }
 
 
-    public static Question questionMethod(QuestionRequest questionRequest, Question question) {
-        question.setName(questionRequest.getName());
-        question.setSingleAndMultiType(questionRequest.getSingleAndMultiType());
-        question.setWordList(questionRequest.getWordList());
-        question.setAudio(questionRequest.getAudio());
-        question.setNumberOfReplays(questionRequest.getNumberOfReplays());
-        question.setUpload(questionRequest.getUpload());
-        question.setPlay(questionRequest.getPlay());
-        question.setCorrectAnswer(questionRequest.isCorrectAnswer());
-        question.setRecord(questionRequest.getRecord());
-        question.setUploadImage(questionRequest.getUploadImage());
-        question.setQuestionStatement(questionRequest.getQuestionStatement());
-        question.setWordCounter(questionRequest.getWordCounter());
-        question.setQuestionToThePassage(questionRequest.getQuestionToThePassage());
-        question.setPassage(questionRequest.getPassage());
-        question.setHighlightCorrectAnswer(questionRequest.getHighlightCorrectAnswer());
-        return question;
+    private Question mapToEntity(QuestionRequest questionRequest, Question question) {
+        return Question.builder()
+                .name(questionRequest.getName())
+                .singleAndMultiType(questionRequest.getSingleAndMultiType())
+                .wordList(questionRequest.getWordList())
+                .audio(questionRequest.getAudio())
+                .numberOfReplays(questionRequest.getNumberOfReplays())
+                .upload(questionRequest.getUpload())
+                .play(questionRequest.getPlay())
+                .correctAnswer(questionRequest.isCorrectAnswer())
+                .record(questionRequest.getRecord())
+                .uploadImage(questionRequest.getUploadImage())
+                .questionStatement(questionRequest.getQuestionStatement())
+                .wordCounter(questionRequest.getWordCounter())
+                .questionToThePassage(questionRequest.getQuestionToThePassage())
+                .passage(questionRequest.getPassage())
+                .highlightCorrectAnswer(questionRequest.getHighlightCorrectAnswer())
+                .questionType(questionRequest.getQuestionType())
+                .build();
     }
 }
