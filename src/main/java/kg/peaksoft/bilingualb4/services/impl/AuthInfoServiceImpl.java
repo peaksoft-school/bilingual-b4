@@ -1,8 +1,8 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
-import kg.peaksoft.bilingualb4.dto.request.AuthInfoRequest;
-import kg.peaksoft.bilingualb4.dto.response.AuthInfoResponse;
-import kg.peaksoft.bilingualb4.jwt.JwtUtils;
+import kg.peaksoft.bilingualb4.api.payload.AuthInfoRequest;
+import kg.peaksoft.bilingualb4.api.payload.AuthInfoResponse;
+import kg.peaksoft.bilingualb4.config.jwt.JwtUtils;
 import kg.peaksoft.bilingualb4.services.AuthInfoService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
