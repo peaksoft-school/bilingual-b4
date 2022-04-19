@@ -13,5 +13,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/bilingual-b4.jar
+    - target/bilingual-batch4.jar
   discard-paths: yes
