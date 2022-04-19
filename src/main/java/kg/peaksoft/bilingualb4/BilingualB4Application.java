@@ -24,7 +24,7 @@ public class BilingualB4Application {
     @PostConstruct
     public void initMethod(){
         User user=new User();
-        user.setPassword(passwordEncoder.encode("123"));
+        user.setPassword(passwordEncoder.encode("admin"));
     }
 
 }
