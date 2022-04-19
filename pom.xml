@@ -101,7 +101,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>bilingual-batch4</finalName>
+        <finalName>bilingual-b4-app</finalName>
     </build>
 
 </project>
