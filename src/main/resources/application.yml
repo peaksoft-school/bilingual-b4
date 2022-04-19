@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bilingual
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: postgres
+    password: 12345
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate:
@@ -19,3 +19,4 @@ application:
     secret-key: HRlELXqpSB
     token-prefix: Bearer
     expiration-date-after-days: 30
+

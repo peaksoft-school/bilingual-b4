@@ -29,7 +29,6 @@ public class UserEditMapper {
         authInfo.setEmail(userRequest.getEmail());
         authInfo.setPassword(user.getPassword());
         authInfo.setAuthInfo1(roleRepository.getByName("CLIENT"));
-
         user.setAuthInfo(authInfo);
         return user;
     }

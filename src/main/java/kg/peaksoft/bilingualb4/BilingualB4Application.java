@@ -14,17 +14,17 @@ import javax.annotation.PostConstruct;
 
 public class BilingualB4Application {
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(BilingualB4Application.class, args);
         System.out.println("Welcome colleagues, project name is Bilingual!");
     }
 
-    @PostConstruct
-    public void initMethod(){
-        User user=new User();
-        user.setPassword(passwordEncoder.encode("admin"));
-    }
+//    @PostConstruct
+//    public void initMethod(){
+//        User user=new User();
+//        user.setPassword(passwordEncoder.encode("admin"));
+//    }
 
 }

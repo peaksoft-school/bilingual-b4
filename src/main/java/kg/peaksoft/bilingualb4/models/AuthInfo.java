@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnTransformer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,14 +25,18 @@ import static javax.persistence.CascadeType.ALL;
 public class AuthInfo implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authInfo_sequence")
-    @SequenceGenerator(name = "authInfo_sequence", sequenceName = "authInfo_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "auth_info_id_seq")
+    @SequenceGenerator(name = "auth_info_id_seq", sequenceName = "auth_info_id_seq", allocationSize = 1)
     Long id;
     private String email;
     private String password;
+    @Column(name="is_account_non_expired")
     private boolean isAccountNonExpired = true;
+    @Column(name="is_account_non_locked")
     private boolean isAccountNonLocked = true;
+    @Column(name=" is_credentials_non_expired")
     private boolean isCredentialsNonExpired = true;
+    @Column(name="is_enabled")
     private boolean isEnabled = true;
 
     @ManyToMany(cascade = {PERSIST,REMOVE},fetch = FetchType.EAGER)

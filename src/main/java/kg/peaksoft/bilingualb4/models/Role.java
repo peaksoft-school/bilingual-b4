@@ -18,8 +18,8 @@ import static javax.persistence.CascadeType.REFRESH;
 @NoArgsConstructor
 public class Role implements GrantedAuthority {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_sequence")
-    @SequenceGenerator(name = "role_sequence", sequenceName = "role_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_id_seq")
+    @SequenceGenerator(name = "roles_id_seq", sequenceName = "roles_id_seq", allocationSize = 1)
     private Long id;
     private String name;
 
