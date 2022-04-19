@@ -40,68 +40,68 @@ public class QuestionApi {
         return questionService.findAll(questionType);
     }
 
-    @Operation(
-            summary = "Creates new entity: workshop$Question",
-            description = """
-                    The method expects a JSON with entity object in the request body.
-                    The entity object may contain references to other entities.
-                                        
-                                        
-                    If you want to create new entity with type {SELECT_REAL_ENGLISH_WORD}
-                    you should fill in the following fields:
-                        "name":(String)
-                        "single_and_multi_type":(enum(SINGLE,MULTI))
-                        "word_list":[
-                            "wordName":(String)
-                            "correctAnswer":boolean(default:false)
-                             ]
-                             
-                    If you want to create new entity with type {LISTEN_AND_SELECT_WORD}
-                    you should fill in the following fields:
-                        "audio":(String)
-                        "single_and_multi_type":(enum(SINGLE,MULTI))
-                                      
-                    If you want to create new entity with type {TYPE_WHAT_YOU_HEAR}
-                    you should fill in the following fields:
-                        "name":(String)
-                        "number_of_replays": (int)
-                        "upload":(String)
-                        "play":(String)
-                        "correct_answer": boolean(default:false)
-                        
-                    If you want to create new entity with type {RECORD_SAYING_STATEMENT}
-                    you should fill in the following fields:
-                        "name":(String)
-                        "record":(String)
-                        
-                    If you want to create new entity with type {DESCRIBE_IMAGE}
-                    you should fill in the following fields:
-                        "name":(String)
-                        "upload_image":(String)
-                        "correct_answer":boolean(default:false)
-                        
-                    If you want to create new entity with type {RESPOND_IN_AT_LEAST_N_WORDS}
-                    you should fill in the following fields:
-                        "name": (String)
-                        "question_statement": (String)
-                        "word_counter": (int)
-                      
-                    If you want to create new entity with type {HIGHLIGHT_THE_ANSWER}
-                    you should fill in the following fields:
-                        "question_to_the_passage": (String)
-                        "passage": (String)
-                        "highlight_correct_answer": (String)
-                       
-                    If you want to create new entity with type {SELECT_MAIN_IDEA}
-                    you should fill in the following fields:
-                        "name": (String)
-                        "passage":(String)
-                        "single_and_multi_type":(enum(SINGLE,MULTI))
-                        "word_list":[
-                            "wordName":(String)
-                            "correctAnswer":boolean(default:false)
-                            ]
-                    """)
+//    @Operation(
+//            summary = "Creates new entity: workshop$Question",
+//            description = """
+//                    The method expects a JSON with entity object in the request body.
+//                    The entity object may contain references to other entities.
+//
+//
+//                    If you want to create new entity with type {SELECT_REAL_ENGLISH_WORD}
+//                    you should fill in the following fields:
+//                        "name":(String)
+//                        "single_and_multi_type":(enum(SINGLE,MULTI))
+//                        "word_list":[
+//                            "wordName":(String)
+//                            "correctAnswer":boolean(default:false)
+//                             ]
+//
+//                    If you want to create new entity with type {LISTEN_AND_SELECT_WORD}
+//                    you should fill in the following fields:
+//                        "audio":(String)
+//                        "single_and_multi_type":(enum(SINGLE,MULTI))
+//
+//                    If you want to create new entity with type {TYPE_WHAT_YOU_HEAR}
+//                    you should fill in the following fields:
+//                        "name":(String)
+//                        "number_of_replays": (int)
+//                        "upload":(String)
+//                        "play":(String)
+//                        "correct_answer": boolean(default:false)
+//
+//                    If you want to create new entity with type {RECORD_SAYING_STATEMENT}
+//                    you should fill in the following fields:
+//                        "name":(String)
+//                        "record":(String)
+//
+//                    If you want to create new entity with type {DESCRIBE_IMAGE}
+//                    you should fill in the following fields:
+//                        "name":(String)
+//                        "upload_image":(String)
+//                        "correct_answer":boolean(default:false)
+//
+//                    If you want to create new entity with type {RESPOND_IN_AT_LEAST_N_WORDS}
+//                    you should fill in the following fields:
+//                        "name": (String)
+//                        "question_statement": (String)
+//                        "word_counter": (int)
+//
+//                    If you want to create new entity with type {HIGHLIGHT_THE_ANSWER}
+//                    you should fill in the following fields:
+//                        "question_to_the_passage": (String)
+//                        "passage": (String)
+//                        "highlight_correct_answer": (String)
+//
+//                    If you want to create new entity with type {SELECT_MAIN_IDEA}
+//                    you should fill in the following fields:
+//                        "name": (String)
+//                        "passage":(String)
+//                        "single_and_multi_type":(enum(SINGLE,MULTI))
+//                        "word_list":[
+//                            "wordName":(String)
+//                            "correctAnswer":boolean(default:false)
+//                            ]
+//                    """)
     @PostMapping
     public QuestionResponse save(@RequestBody QuestionRequest questionRequest) {
         return questionService.save(questionRequest);
@@ -125,68 +125,68 @@ public class QuestionApi {
         return questionService.findAll(questionType);
     }
 
-    @Operation(
-            summary = "Updates the entity: workshop$Question",
-            description = """
-                    The method expects a JSON with entity object in the request body.
-                    The entity object may contain references to other entities.
-                                        
-                                        
-                    If you want to update the entity with type {SELECT_REAL_ENGLISH_WORD}
-                    you should fill in the following fields:
-                        "name":(String)
-                        "single_and_multi_type":(enum(SINGLE,MULTI))
-                        "word_list":[
-                            "wordName":(String)
-                            "correctAnswer":boolean(default:false)
-                             ]
-                             
-                    If you want to update the entity with type {LISTEN_AND_SELECT_WORD}
-                    you should fill in the following fields:
-                        "audio":(String)
-                        "single_and_multi_type":(enum(SINGLE,MULTI))
-                                      
-                    If you want to update the entity with type {TYPE_WHAT_YOU_HEAR}
-                    you should fill in the following fields:
-                        "name":(String)
-                        "number_of_replays": (int)
-                        "upload":(String)
-                        "play":(String)
-                        "correct_answer": boolean(default:false)
-                        
-                    If you want to update the entity with type {RECORD_SAYING_STATEMENT}
-                    you should fill in the following fields:
-                        "name":(String)
-                        "record":(String)
-                        
-                    If you want to update the entity with type {DESCRIBE_IMAGE}
-                    you should fill in the following fields:
-                        "name":(String)
-                        "upload_image":(String)
-                        "correct_answer":boolean(default:false)
-                        
-                    If you want to update the entity with type {RESPOND_IN_AT_LEAST_N_WORDS}
-                    you should fill in the following fields:
-                        "name": (String)
-                        "question_statement": (String)
-                        "word_counter": (int)
-                      
-                    If you want to update the entity with type {HIGHLIGHT_THE_ANSWER}
-                    you should fill in the following fields:
-                        "question_to_the_passage": (String)
-                        "passage": (String)
-                        "highlight_correct_answer": (String)
-                       
-                    If you want to update the entity with type {SELECT_MAIN_IDEA}
-                    you should fill in the following fields:
-                        "name": (String)
-                        "passage":(String)
-                        "single_and_multi_type":(enum(SINGLE,MULTI))
-                        "word_list":[
-                            "wordName":(String)
-                            "correctAnswer":boolean(default:false)
-                            ]
-                    """)
+//    @Operation(
+//            summary = "Updates the entity: workshop$Question",
+//            description = """
+//                    The method expects a JSON with entity object in the request body.
+//                    The entity object may contain references to other entities.
+//
+//
+//                    If you want to update the entity with type {SELECT_REAL_ENGLISH_WORD}
+//                    you should fill in the following fields:
+//                        "name":(String)
+//                        "single_and_multi_type":(enum(SINGLE,MULTI))
+//                        "word_list":[
+//                            "wordName":(String)
+//                            "correctAnswer":boolean(default:false)
+//                             ]
+//
+//                    If you want to update the entity with type {LISTEN_AND_SELECT_WORD}
+//                    you should fill in the following fields:
+//                        "audio":(String)
+//                        "single_and_multi_type":(enum(SINGLE,MULTI))
+//
+//                    If you want to update the entity with type {TYPE_WHAT_YOU_HEAR}
+//                    you should fill in the following fields:
+//                        "name":(String)
+//                        "number_of_replays": (int)
+//                        "upload":(String)
+//                        "play":(String)
+//                        "correct_answer": boolean(default:false)
+//
+//                    If you want to update the entity with type {RECORD_SAYING_STATEMENT}
+//                    you should fill in the following fields:
+//                        "name":(String)
+//                        "record":(String)
+//
+//                    If you want to update the entity with type {DESCRIBE_IMAGE}
+//                    you should fill in the following fields:
+//                        "name":(String)
+//                        "upload_image":(String)
+//                        "correct_answer":boolean(default:false)
+//
+//                    If you want to update the entity with type {RESPOND_IN_AT_LEAST_N_WORDS}
+//                    you should fill in the following fields:
+//                        "name": (String)
+//                        "question_statement": (String)
+//                        "word_counter": (int)
+//
+//                    If you want to update the entity with type {HIGHLIGHT_THE_ANSWER}
+//                    you should fill in the following fields:
+//                        "question_to_the_passage": (String)
+//                        "passage": (String)
+//                        "highlight_correct_answer": (String)
+//
+//                    If you want to update the entity with type {SELECT_MAIN_IDEA}
+//                    you should fill in the following fields:
+//                        "name": (String)
+//                        "passage":(String)
+//                        "single_and_multi_type":(enum(SINGLE,MULTI))
+//                        "word_list":[
+//                            "wordName":(String)
+//                            "correctAnswer":boolean(default:false)
+//                            ]
+//                    """)
     @PutMapping("{id}")
     public QuestionResponse updateById(@PathVariable Long id,
                                        @RequestBody QuestionRequest questionRequest) {
