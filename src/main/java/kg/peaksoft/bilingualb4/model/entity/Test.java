@@ -1,13 +1,10 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -27,21 +24,18 @@ public class Test {
     private String title;
     private String shortDescription;
 
-    @ManyToMany(cascade = {REFRESH,DETACH,PERSIST,MERGE},fetch = FetchType.EAGER)
-    @JoinTable(name = "test_users",
-            joinColumns = @JoinColumn(name = "test_id"),
-            inverseJoinColumns = @JoinColumn(name = "users_id"))
+    @ManyToMany(cascade = {REFRESH,DETACH,PERSIST,MERGE},mappedBy = "testList")
     private List<User> userList;
 
-    @OneToMany(cascade = ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = ALL)
     private List<Question> questionList;
 
-    @JsonIgnore
-    public void setUser1(User user) {
-        if (userList == null) {
-            userList = new ArrayList<>();
-        }
-        userList.add(user);
-        user.setTest1(this);
-    }
+//    @JsonIgnore
+//    public void setUser1(User user) {
+//        if (userList == null) {
+//            userList = new ArrayList<>();
+//        }
+//        userList.add(user);
+//        user.setTest1(this);
+//    }
 }
