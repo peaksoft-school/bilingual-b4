@@ -27,7 +27,7 @@ public class Test {
     @ManyToMany(cascade = {REFRESH,DETACH,PERSIST,MERGE},mappedBy = "testList")
     private List<User> userList;
 
-    @OneToMany(cascade = ALL)
+    @OneToMany(cascade = ALL,mappedBy = "test")
     private List<Question> questionList;
 
 //    @JsonIgnore

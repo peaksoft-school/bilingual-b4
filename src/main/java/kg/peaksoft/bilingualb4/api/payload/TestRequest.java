@@ -1,9 +1,10 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import kg.peaksoft.bilingualb4.model.entity.User;
+import kg.peaksoft.bilingualb4.model.entity.Question;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,6 +12,7 @@ public class TestRequest {
 
     private String title;
     private String shortDescription;
+    private List<Question>questionList;
 
 
 }

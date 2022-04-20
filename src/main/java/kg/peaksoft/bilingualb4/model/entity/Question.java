@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import lombok.*;
@@ -43,6 +44,11 @@ public class Question {
     private String highlightCorrectAnswer;
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
+
+    @ManyToOne(cascade = {MERGE,DETACH,REFRESH,PERSIST})
+    @JoinColumn(name = "test_id")
+    @JsonIgnore
+    private Test test;
 
     public void setWord(Word word){
         if (this.wordList==null){
