@@ -46,9 +46,9 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Test test;
+//    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+//    @JsonIgnore
+//    private Test test;
 
 //    public void setWord(Word word){
 //        if (this.wordList==null){

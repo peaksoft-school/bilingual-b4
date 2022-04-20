@@ -20,8 +20,8 @@ public class Word {
 
     private boolean correctAnswer = false;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private Question question;
+//    @JsonIgnore
+//    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+//    private Question question;
 
 }

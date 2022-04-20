@@ -29,17 +29,17 @@ public class TestApi {
         return testService.findAll();
     }
 
-        @Operation(summary = "Creates new entity: workshop$Test", description = """
-            The method expects a JSON with entity object in the request body.
-            The entity object may contain references to other entities
-
-            The following fields may be provided:
-
-            title (String)
-
-             short_description (String)
-
-            """)
+//        @Operation(summary = "Creates new entity: workshop$Test", description = """
+//            The method expects a JSON with entity object in the request body.
+//            The entity object may contain references to other entities
+//
+//            The following fields may be provided:
+//
+//            title (String)
+//
+//             short_description (String)
+//
+//            """)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/save")
     public TestResponse save(@RequestBody TestRequest testRequest) {
@@ -62,16 +62,16 @@ public class TestApi {
         return testService.findById(id);
     }
 
-        @Operation(summary = "Updates the entity: workshop$Test", description = """
-            Updates the details of an endpoint.
-
-             You can provide following fields with this request:
-
-             title (String)
-
-             short_description (String)
-
-            """)
+//        @Operation(summary = "Updates the entity: workshop$Test", description = """
+//            Updates the details of an endpoint.
+//
+//             You can provide following fields with this request:
+//
+//             title (String)
+//
+//             short_description (String)
+//
+//            """)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("{id}")
     public TestResponse update(@PathVariable Long id, @RequestBody TestRequest testRequest) {

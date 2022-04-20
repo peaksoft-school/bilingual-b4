@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @AllArgsConstructor
@@ -19,6 +21,10 @@ public class BilingualB4Application {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    @GetMapping
+    public String checkHealth(){
+        return "hello bilingual";
+    }
     public static void main(String[] args) {
         SpringApplication.run(BilingualB4Application.class, args);
         System.out.println("Welcome colleagues, project name is Bilingual!");
