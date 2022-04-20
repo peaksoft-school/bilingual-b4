@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://bilingual-b4-db.cpzwjkia7yeu.eu-west-2.rds.amazonaws.com:5432/bilingual_b4_db
     username: postgres
-    password: root
+    password: postgres
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate:
