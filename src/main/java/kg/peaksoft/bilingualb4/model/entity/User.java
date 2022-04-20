@@ -36,6 +36,7 @@ public class User {
     @JoinTable(name = "users_test",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "test_id"))
+    @JsonIgnore
     private List<Test> testList;
 
     public User(String userName, String email, String password) {

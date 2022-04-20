@@ -21,6 +21,7 @@ public class TestEditMapper {
         Test test = new Test();
         test.setTitle(testRequest.getTitle());
         test.setShortDescription(testRequest.getShortDescription());
+        test.setQuestionList(testRequest.getQuestionList());
 //        test.setUser1(userRepository.getById(id));
      return test;
     }

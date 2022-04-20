@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -45,15 +46,14 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
 
-    @ManyToOne(cascade = {MERGE,DETACH,REFRESH,PERSIST})
-    @JoinColumn(name = "test_id")
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JsonIgnore
     private Test test;
 
-    public void setWord(Word word){
-        if (this.wordList==null){
-            this.wordList = new ArrayList<>();
-        }
-        wordList.add(word);
-    }
+//    public void setWord(Word word){
+//        if (this.wordList==null){
+//            this.wordList = new ArrayList<>();
+//        }
+//        wordList.add(word);
+//    }
 }
