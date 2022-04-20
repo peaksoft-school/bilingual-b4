@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BilingualB4Application {
     @GetMapping
     public String checkHealth(){
-        return "ok";
+        return "hello bilingual";
     }
     public static void main(String[] args) {
         SpringApplication.run(BilingualB4Application.class, args);
