@@ -22,7 +22,7 @@ class UserServiceImplTest {
     private UserService userService;
 
     UserRequest userRequest = new UserRequest();
-
+//
     public void newUser() {
         userRequest.setUserName("Akylbek");
         userRequest.setEmail("akylbeknurbekov01@gmail.com");
