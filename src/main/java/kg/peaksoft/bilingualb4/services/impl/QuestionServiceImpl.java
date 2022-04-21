@@ -4,11 +4,13 @@ import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
+import kg.peaksoft.bilingualb4.model.entity.Test;
 import kg.peaksoft.bilingualb4.model.mappers.editMapper.QuestionEditMapper;
 import kg.peaksoft.bilingualb4.model.mappers.viewMapper.QuestionViewMapper;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.repository.QuestionRepository;
+import kg.peaksoft.bilingualb4.repository.TestRepository;
 import kg.peaksoft.bilingualb4.services.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,16 +34,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public QuestionResponse save(QuestionRequest questionRequest) {
-        String name = questionRequest.getName();
-        boolean exists = questionRepository.existsByName(name);
-
-        if (exists) {
-            throw new BadRequestException(
-                    String.format("type with name = %s has already exists", name)
-            );
-        }
-        Question question = questionEditMapper.create(questionRequest);
+    public QuestionResponse save(Long id, QuestionRequest questionRequest) {
+        Question question = questionEditMapper.create(id, questionRequest);
         Question save = questionRepository.save(question);
         return questionViewMapper.view(save);
     }
@@ -87,11 +81,11 @@ public class QuestionServiceImpl implements QuestionService {
 
         boolean exists = questionRepository.existsById(id);
 
-        if (exists){
+        if (exists) {
             throw new BadRequestException(
-                    String.format("question with %d is already exists",id)
+                    String.format("question with %d is already exists", id)
             );
-        }else {
+        } else {
             question.setName(questionRequest.getName());
             question.setSingleAndMultiType(questionRequest.getSingleAndMultiType());
             question.setWordList(questionRequest.getWordList());
@@ -111,9 +105,10 @@ public class QuestionServiceImpl implements QuestionService {
         }
         return question;
     }
-    private Question findById(Long id){
-        return questionRepository.findById(id).orElseThrow(()-> new NotFoundException(
-                String.format("Type with id = %s does not exists",id)
+
+    private Question findById(Long id) {
+        return questionRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                String.format("Type with id = %s does not exists", id)
         ));
     }
 }

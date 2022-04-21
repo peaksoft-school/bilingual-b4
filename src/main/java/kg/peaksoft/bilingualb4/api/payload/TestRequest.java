@@ -1,18 +1,15 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
-import kg.peaksoft.bilingualb4.model.entity.Question;
-import kg.peaksoft.bilingualb4.model.entity.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
 public class TestRequest {
 
     private String title;
+    @JsonProperty("short_description")
     private String shortDescription;
-    private List<Question>questionList;
 
 }

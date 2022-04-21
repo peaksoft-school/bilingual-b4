@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 @Tag(name = "Test:", description = "Quote CRUD operations")
 public class TestApi {
 
@@ -29,7 +29,7 @@ public class TestApi {
         return testService.findAll();
     }
 
-//        @Operation(summary = "Creates new entity: workshop$Test", description = """
+    //        @Operation(summary = "Creates new entity: workshop$Test", description = """
 //            The method expects a JSON with entity object in the request body.
 //            The entity object may contain references to other entities
 //
@@ -41,7 +41,7 @@ public class TestApi {
 //
 //            """)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/save")
+    @PostMapping
     public TestResponse save(@RequestBody TestRequest testRequest) {
         return testService.save(testRequest);
     }
@@ -57,12 +57,12 @@ public class TestApi {
     @Operation(summary = "Gets a single entity by identifier: workshop$Test",
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping("getBy/{id}")
+    @GetMapping("{id}")
     public Optional<Test> findById(@PathVariable Long id) {
         return testService.findById(id);
     }
 
-//        @Operation(summary = "Updates the entity: workshop$Test", description = """
+    //        @Operation(summary = "Updates the entity: workshop$Test", description = """
 //            Updates the details of an endpoint.
 //
 //             You can provide following fields with this request:

@@ -1,6 +1,5 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +18,4 @@ public class Word {
     private String wordName;
 
     private boolean correctAnswer = false;
-
-//    @JsonIgnore
-//    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-//    private Question question;
-
 }

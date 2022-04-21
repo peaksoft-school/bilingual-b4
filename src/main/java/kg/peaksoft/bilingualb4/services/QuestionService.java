@@ -11,7 +11,7 @@ public interface QuestionService {
 
     List<Question> findAll(QuestionType questionType);
 
-    QuestionResponse save(QuestionRequest questionRequest);
+    QuestionResponse save(Long id,QuestionRequest questionRequest);
 
     QuestionResponse findByIdAndName(Long id, String name);
 

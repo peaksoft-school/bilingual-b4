@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -23,7 +21,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
     @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
     private Long id;
-    @Column(name="user_name")
+    @Column(name = "user_name")
     private String userName;
     private String email;
     private String password;
@@ -32,7 +30,7 @@ public class User {
     @JsonIgnore
     private AuthInfo authInfo;
 
-    @ManyToMany(cascade = {MERGE,REFRESH,PERSIST,DETACH},fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {MERGE, REFRESH, PERSIST, DETACH}, fetch = FetchType.LAZY)
     @JoinTable(name = "users_test",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "test_id"))
@@ -44,10 +42,4 @@ public class User {
         this.email = email;
         this.password = password;
     }
-//    public void setTest1(Test test) {
-//        if (testList == null) {
-//            testList = new ArrayList<>();
-//        }
-//        testList.add(test);
-//    }
 }

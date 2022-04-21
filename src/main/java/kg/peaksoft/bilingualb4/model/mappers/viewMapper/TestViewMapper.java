@@ -23,13 +23,4 @@ public class TestViewMapper {
         return testResponse;
 
     }
-
-    public List<TestResponse> view(List<Test> tests) {
-        List<TestResponse> testResponses = new ArrayList<>();
-        for (Test c : tests
-        ) {
-            testResponses.add(view(c));
-        }
-        return testResponses;
-    }
 }

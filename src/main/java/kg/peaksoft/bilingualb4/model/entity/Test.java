@@ -24,18 +24,10 @@ public class Test {
     private String title;
     private String shortDescription;
 
-    @ManyToMany(cascade = {REFRESH,DETACH,PERSIST,MERGE},mappedBy = "testList")
+    @ManyToMany(cascade = {REFRESH, DETACH, PERSIST, MERGE}, mappedBy = "testList")
     private List<User> userList;
 
-    @OneToMany(cascade = {MERGE,DETACH,REFRESH,REMOVE,PERSIST}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, mappedBy = "test", fetch = FetchType.EAGER)
     private List<Question> questionList;
 
-//    @JsonIgnore
-//    public void setUser1(User user) {
-//        if (userList == null) {
-//            userList = new ArrayList<>();
-//        }
-//        userList.add(user);
-//        user.setTest1(this);
-//    }
 }

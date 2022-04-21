@@ -6,8 +6,6 @@ import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -29,7 +27,7 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private SingleAndMultiType singleAndMultiType;
 
-    @OneToMany(cascade = {MERGE,DETACH,REFRESH,REMOVE,PERSIST}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, fetch = FetchType.EAGER)
     private List<Word> wordList;
     private String audio;
     private int numberOfReplays;
@@ -46,14 +44,9 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
 
-//    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-//    @JsonIgnore
-//    private Test test;
+    @ManyToOne(cascade = {REFRESH, DETACH, MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "test_id")
+    @JsonIgnore
+    private Test test;
 
-//    public void setWord(Word word){
-//        if (this.wordList==null){
-//            this.wordList = new ArrayList<>();
-//        }
-//        wordList.add(word);
-//    }
 }
