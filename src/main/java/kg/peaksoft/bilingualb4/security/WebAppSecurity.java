@@ -78,8 +78,6 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-
     @Override
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {

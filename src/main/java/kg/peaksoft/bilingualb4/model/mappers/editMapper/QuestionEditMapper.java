@@ -1,38 +1,27 @@
 package kg.peaksoft.bilingualb4.model.mappers.editMapper;
 
 import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
-import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.entity.Word;
+import kg.peaksoft.bilingualb4.repository.TestRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class QuestionEditMapper {
 
-    public Question create(QuestionRequest questionRequest) {
+    private final TestRepository testRepository;
+
+    public Question create(Long id, QuestionRequest questionRequest) {
         if (questionRequest == null) {
             return null;
         }
         Question question = new Question();
-        return mapToEntity(questionRequest, question);
+        return mapToEntity(id, questionRequest, question);
     }
 
-    public Question update(Question question, QuestionRequest questionRequest) {
-        question.setName(questionRequest.getName());
-        question.setSingleAndMultiType(questionRequest.getSingleAndMultiType());
-
-        for (Word word : questionRequest.getWordList()) {
-            if (word.getId() != null) {
-                for (Word newWord : question.getWordList()) {
-                    newWord.setId(word.getId());
-                }
-            }
-        }
-        return mapToEntity(questionRequest, question);
-    }
-
-
-    private Question mapToEntity(QuestionRequest questionRequest, Question question) {
+    private Question mapToEntity(Long id, QuestionRequest questionRequest, Question question) {
         return Question.builder()
                 .name(questionRequest.getName())
                 .singleAndMultiType(questionRequest.getSingleAndMultiType())
@@ -50,6 +39,7 @@ public class QuestionEditMapper {
                 .passage(questionRequest.getPassage())
                 .highlightCorrectAnswer(questionRequest.getHighlightCorrectAnswer())
                 .questionType(questionRequest.getQuestionType())
+                .test(testRepository.findById(id).get())
                 .build();
     }
 }

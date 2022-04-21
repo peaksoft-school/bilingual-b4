@@ -31,10 +31,4 @@ public class UserEditMapper {
         user.setAuthInfo(authInfo);
         return user;
     }
-
-    public void Update(User user, UserRequest userRequest) {
-        user.setUserName(userRequest.getUserName());
-        user.setEmail(userRequest.getEmail());
-    }
-
 }

@@ -14,6 +14,7 @@ import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.services.QuestionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Question: ", description = "Quote CRUD operations")
-@RequestMapping("/api/type")
+@RequestMapping("/api/question")
 public class QuestionApi {
 
     private final QuestionService questionService;
@@ -35,12 +36,13 @@ public class QuestionApi {
     @Operation(
             summary = "Get a list of entity: workshop Question",
             description = "Returns a map of status codes to quantities:")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public List<Question> findAll(@RequestParam QuestionType questionType) {
         return questionService.findAll(questionType);
     }
 
-//    @Operation(
+    //    @Operation(
 //            summary = "Creates new entity: workshop$Question",
 //            description = """
 //                    The method expects a JSON with entity object in the request body.
@@ -102,14 +104,16 @@ public class QuestionApi {
 //                            "correctAnswer":boolean(default:false)
 //                            ]
 //                    """)
-    @PostMapping
-    public QuestionResponse save(@RequestBody QuestionRequest questionRequest) {
-        return questionService.save(questionRequest);
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PostMapping("/{id}")
+    public QuestionResponse save(@RequestBody QuestionRequest questionRequest, @PathVariable("id") Long id) {
+        return questionService.save(id, questionRequest);
     }
 
     @Operation(
             summary = "Gets a single entity by identifier: workshop$Question",
             description = "For valid response try integer IDs with value >= 1 and:")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/find_by_id_or_name")
     public QuestionResponse findByIdAndName(@RequestParam(required = false) Long id,
                                             @RequestParam(required = false) String name) {
@@ -119,13 +123,13 @@ public class QuestionApi {
     @Operation(
             summary = "Deletes the entity: workshop$Question",
             description = "Deletes an endpoint and all its child entities.")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("{id}")
-    public List<Question> deleteById(@PathVariable Long id, @RequestParam QuestionType questionType) {
+    public void deleteById(@PathVariable Long id) {
         questionService.deleteById(id);
-        return questionService.findAll(questionType);
     }
 
-//    @Operation(
+    //    @Operation(
 //            summary = "Updates the entity: workshop$Question",
 //            description = """
 //                    The method expects a JSON with entity object in the request body.
@@ -187,6 +191,7 @@ public class QuestionApi {
 //                            "correctAnswer":boolean(default:false)
 //                            ]
 //                    """)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("{id}")
     public QuestionResponse updateById(@PathVariable Long id,
                                        @RequestBody QuestionRequest questionRequest) {
