@@ -7,6 +7,7 @@ import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.entity.Test;
 import kg.peaksoft.bilingualb4.model.entity.User;
+import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.model.mappers.editMapper.TestEditMapper;
 import kg.peaksoft.bilingualb4.model.mappers.viewMapper.TestViewMapper;
 import kg.peaksoft.bilingualb4.repository.TestRepository;

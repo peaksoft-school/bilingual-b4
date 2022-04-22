@@ -195,7 +195,6 @@ public class QuestionApi {
     @PutMapping("{id}")
     public QuestionResponse updateById(@PathVariable Long id,
                                        @RequestBody QuestionRequest questionRequest) {
-        System.out.println(questionRequest.getWordList().toString());
         Question question = questionService.updateById(id, questionRequest);
         return questionViewMapper.view(question);
     }

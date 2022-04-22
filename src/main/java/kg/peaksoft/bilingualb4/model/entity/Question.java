@@ -7,6 +7,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static javax.persistence.CascadeType.*;
 
@@ -29,6 +31,7 @@ public class Question {
 
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, fetch = FetchType.EAGER)
     private List<Word> wordList;
+    private int duration;
     private String audio;
     private int numberOfReplays;
     private String upload;
@@ -49,4 +52,24 @@ public class Question {
     @JsonIgnore
     private Test test;
 
+    public void getDuration(){
+        getTimer(duration);
+    }
+
+    public static void getTimer(int minute) {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            int seconds = minute * 60;
+            @Override
+            public void run() {
+                if (seconds != 1) {
+                    System.out.println("it's working " + (--seconds));
+                } else {
+                    System.out.println("it's done");
+                    timer.cancel();
+                }
+            }
+        };
+        timer.schedule(task, 0, 1000);
+    }
 }

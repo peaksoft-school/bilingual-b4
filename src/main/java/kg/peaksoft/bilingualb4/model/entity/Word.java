@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,4 +19,10 @@ public class Word {
     private String wordName;
 
     private boolean correctAnswer = false;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "question_id")
+    private Question question;
+
 }
