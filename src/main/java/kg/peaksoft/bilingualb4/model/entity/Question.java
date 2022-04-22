@@ -49,4 +49,7 @@ public class Question {
     @JsonIgnore
     private Test test;
 
+    @OneToMany(cascade = {MERGE,DETACH,REFRESH},mappedBy = "question")
+    private List<UsersAnswer> usersAnswerList;
+
 }

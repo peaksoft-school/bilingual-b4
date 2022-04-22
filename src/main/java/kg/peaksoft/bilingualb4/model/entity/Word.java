@@ -1,9 +1,12 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "words")
@@ -18,4 +21,8 @@ public class Word {
     private String wordName;
 
     private boolean correctAnswer = false;
+
+    @ManyToOne(cascade = {REFRESH,MERGE,DETACH},fetch = FetchType.EAGER)
+    @JsonIgnore
+    public UsersAnswer usersAnswer;
 }

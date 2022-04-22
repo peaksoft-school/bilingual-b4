@@ -2,7 +2,6 @@ package kg.peaksoft.bilingualb4.model.mappers.editMapper;
 
 import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.model.entity.Question;
-import kg.peaksoft.bilingualb4.model.entity.Word;
 import kg.peaksoft.bilingualb4.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
