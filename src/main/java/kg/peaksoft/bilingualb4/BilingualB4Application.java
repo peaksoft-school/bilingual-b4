@@ -16,14 +16,15 @@ import javax.annotation.PostConstruct;
 
 @AllArgsConstructor
 @SpringBootApplication
+@RestController
 public class BilingualB4Application {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-
-    @GetMapping
+  
+    @GetMapping("/")
     public String checkHealth(){
-        return "hello bilingual";
+        return "<h1>Welcome to Bilingual application!!!<h1/>";
     }
     public static void main(String[] args) {
         SpringApplication.run(BilingualB4Application.class, args);
