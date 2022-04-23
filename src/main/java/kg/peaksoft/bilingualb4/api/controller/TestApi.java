@@ -21,12 +21,26 @@ public class TestApi {
 
     private final TestService testService;
 
-    @Operation(summary = "Gets a list of test: workshop$User",
+    @Operation(summary = "Gets a list of test: workshop$Test",
             description = "Returns a map of status codes to quantities:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public List<Test> findAll() {
         return testService.findAll();
+    }
+    @Operation(summary = "Gets a list of test: workshop$Test",
+                description = "Client gets list of tests by 'client role'")
+    @PreAuthorize("hasAuthority('CLIENT')")
+    @GetMapping("/tests")
+    public List<Test> tests() {
+        return testService.findAll();
+    }
+    @Operation(summary = "Gets a list of test: workshop$Test",
+            description = "Client gets test by id 'client role'")
+    @PreAuthorize("hasAuthority('CLIENT')")
+    @GetMapping("/try_test/{id}")
+    public Optional<Test> test (@PathVariable Long id) {
+        return testService.findById(id);
     }
 
     //        @Operation(summary = "Creates new entity: workshop$Test", description = """
