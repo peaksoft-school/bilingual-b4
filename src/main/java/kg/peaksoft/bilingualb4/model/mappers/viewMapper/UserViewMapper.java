@@ -23,13 +23,4 @@ public class UserViewMapper {
         return userResponse;
 
     }
-
-    public List<UserResponse> view(List<User> users) {
-        List<UserResponse> userResponses = new ArrayList<>();
-        for (User c : users
-        ) {
-            userResponses.add(view(c));
-        }
-        return userResponses;
-    }
 }

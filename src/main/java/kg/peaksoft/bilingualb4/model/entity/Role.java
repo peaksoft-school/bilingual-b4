@@ -13,7 +13,8 @@ import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.REFRESH;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @Table(name = "roles")
 @NoArgsConstructor
 public class Role implements GrantedAuthority {
@@ -23,13 +24,8 @@ public class Role implements GrantedAuthority {
     private Long id;
     private String name;
 
-    public Role(String name) {
-        this.name = name;
-    }
-
-    @ManyToMany(cascade = {MERGE,DETACH,PERSIST,REFRESH},mappedBy = "roles",fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {MERGE, DETACH, PERSIST, REFRESH}, mappedBy = "roles", fetch = FetchType.EAGER)
     private List<AuthInfo> authInfo;
-
 
     public void setAuthInfo1(AuthInfo authInfos) {
         if (authInfo == null) {

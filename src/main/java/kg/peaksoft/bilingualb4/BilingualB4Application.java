@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.annotation.PostConstruct;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +27,7 @@ public class BilingualB4Application {
     private final PasswordEncoder passwordEncoder;
     @GetMapping
     public String checkHealth(){
-        return "ok";
+        return "<h1>Welcome to Bilingual application!!!<h1/>";
     }
     public static void main(String[] args) {
         SpringApplication.run(BilingualB4Application.class, args);
@@ -32,7 +35,6 @@ public class BilingualB4Application {
     }
     @PostConstruct
     public void save() {
-
         User user = new User();
         user.setUserName("Muhammed");
         user.setEmail("muhammed@gmail.com");

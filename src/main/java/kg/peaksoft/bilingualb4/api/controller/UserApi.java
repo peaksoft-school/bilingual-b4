@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/registration")
 @Tag(name = "User:", description = "Quote CRUD operations")
 public class UserApi {
 
@@ -38,7 +38,7 @@ public class UserApi {
         return userService.findAll();
     }
 
-//    @Operation(summary = "Creates new entity: workshop$User", description = """
+    //    @Operation(summary = "Creates new entity: workshop$User", description = """
 //            The method expects a JSON with entity object in the request body.
 //            The entity object may contain references to other entities
 //
@@ -51,7 +51,7 @@ public class UserApi {
 //             password (String)
 //            """)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/registration")
+    @PostMapping
     public UserResponse registration(@RequestBody UserRequest userRequest) {
         return userService.registration(userRequest);
     }
@@ -67,12 +67,12 @@ public class UserApi {
     @Operation(summary = "Gets a single entity by identifier: workshop$User",
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping("getBy/{id}")
+    @GetMapping("{id}")
     public Optional<User> findById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
-//    @Operation(summary = "Updates the entity: workshop$User", description = """
+    //    @Operation(summary = "Updates the entity: workshop$User", description = """
 //            Updates the details of an endpoint.
 //
 //             You can provide following fields with this request:

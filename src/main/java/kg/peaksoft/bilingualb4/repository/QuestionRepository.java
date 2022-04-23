@@ -12,9 +12,6 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-    @Query("select case when count(c) > 0 then true else false end from Question c where c.name =?1")
-    boolean existsByName(String name);
-
     @Query("select c from Question c where c.name =?1")
     Optional<Question> findByName(String name);
 

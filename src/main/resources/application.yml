@@ -7,14 +7,13 @@
 #  jpa:
 #    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
 #    hibernate:
-#      ddl-auto: none
+#      ddl-auto: create
 #    show-sql: true
 #
 #
 #server:
 #    port: 5000
-#    error:
-#        include-message: always
+#
 #application:
 #  jwt:
 #    secret-key: HRlELXqpSB

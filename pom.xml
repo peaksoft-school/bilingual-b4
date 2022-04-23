@@ -154,7 +154,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>bilingual-batch4</finalName>
+        <finalName>bilingual-b4</finalName>
     </build>
 
 </project>
