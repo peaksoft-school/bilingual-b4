@@ -63,7 +63,7 @@ class UserServiceImplTest {
             userRequest.setUserName("Talgarbek");
             userRequest.setEmail("talgarbek00@gmail.com");
             userRequest.setPassword("talgarbek00");
-            userService.update(2L, userRequest);
+            userService.update(1L, userRequest);
 
         } catch (Exception e) {
             Assertions.fail("An error occurred while updating the client by id: " + e.getMessage());

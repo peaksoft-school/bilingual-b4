@@ -1,23 +1,23 @@
-#spring:
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://bilingual-b4-db.cpzwjkia7yeu.eu-west-2.rds.amazonaws.com:5432/bilingual_b4_db
-#    username: postgres
-#    password: postgres
-#  jpa:
-#    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-#    hibernate:
-#      ddl-auto: none
-#    show-sql: true
-#
-#
-#server:
-#    port: 5000
-#    error:
-#        include-message: always
-#application:
-#  jwt:
-#    secret-key: HRlELXqpSB
-#    token-prefix: Bearer
-#    expiration-date-after-days: 30
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+
+server:
+    port: 5000
+    error:
+        include-message: always
+application:
+  jwt:
+    secret-key: HRlELXqpSB
+    token-prefix: Bearer
+    expiration-date-after-days: 30
 
