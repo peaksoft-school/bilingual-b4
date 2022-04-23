@@ -4,13 +4,11 @@ import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
-import kg.peaksoft.bilingualb4.model.entity.Test;
 import kg.peaksoft.bilingualb4.model.mappers.editMapper.QuestionEditMapper;
 import kg.peaksoft.bilingualb4.model.mappers.viewMapper.QuestionViewMapper;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.repository.QuestionRepository;
-import kg.peaksoft.bilingualb4.repository.TestRepository;
 import kg.peaksoft.bilingualb4.services.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -88,7 +86,7 @@ public class QuestionServiceImpl implements QuestionService {
         } else {
             question.setName(questionRequest.getName());
             question.setSingleAndMultiType(questionRequest.getSingleAndMultiType());
-            question.setWordList(questionRequest.getWordList());
+            question.setOptionList(questionRequest.getOptionList());
             question.setAudio(questionRequest.getAudio());
             question.setNumberOfReplays(questionRequest.getNumberOfReplays());
             question.setUpload(questionRequest.getUpload());

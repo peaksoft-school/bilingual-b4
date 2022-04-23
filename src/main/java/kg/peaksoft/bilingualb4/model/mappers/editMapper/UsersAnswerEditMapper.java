@@ -1,8 +1,6 @@
 package kg.peaksoft.bilingualb4.model.mappers.editMapper;
 
-import kg.peaksoft.bilingualb4.api.payload.TestRequest;
 import kg.peaksoft.bilingualb4.api.payload.UsersAnswerRequest;
-import kg.peaksoft.bilingualb4.model.entity.Test;
 import kg.peaksoft.bilingualb4.model.entity.UsersAnswer;
 import kg.peaksoft.bilingualb4.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +18,7 @@ public class UsersAnswerEditMapper {
         }
         UsersAnswer usersAnswer = new UsersAnswer();
         usersAnswer.setSingleAndMultiType(usersAnswerRequest.getSingleAndMultiType());
+        usersAnswer.setOptionList(usersAnswerRequest.getOptionList());
         usersAnswer.setPlayButtonOfAudio(usersAnswerRequest.getPlayButtonOfAudio());
         usersAnswer.setSomeText(usersAnswerRequest.getSomeText());
         usersAnswer.setNumberOfReplays(usersAnswerRequest.getNumberOfReplays());

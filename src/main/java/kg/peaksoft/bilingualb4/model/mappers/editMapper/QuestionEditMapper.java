@@ -24,7 +24,7 @@ public class QuestionEditMapper {
         return Question.builder()
                 .name(questionRequest.getName())
                 .singleAndMultiType(questionRequest.getSingleAndMultiType())
-                .wordList(questionRequest.getWordList())
+                .optionList(questionRequest.getOptionList())
                 .audio(questionRequest.getAudio())
                 .numberOfReplays(questionRequest.getNumberOfReplays())
                 .upload(questionRequest.getUpload())

@@ -17,7 +17,7 @@ public class UsersAnswerViewMapper {
         }
 
         usersAnswerResponse.setSingleAndMultiType(usersAnswer.getSingleAndMultiType());
-        usersAnswerResponse.setWordList(usersAnswer.getWordList());
+        usersAnswerResponse.setOptionList(usersAnswer.getOptionList());
         usersAnswerResponse.setPlayButtonOfAudio(usersAnswer.getPlayButtonOfAudio());
         usersAnswerResponse.setSomeText(usersAnswer.getSomeText());
         usersAnswerResponse.setNumberOfReplays(usersAnswer.getNumberOfReplays());

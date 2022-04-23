@@ -15,7 +15,7 @@ public class QuestionViewMapper {
                 .id(String.valueOf(question.getId()))
                 .name(question.getName())
                 .singleAndMultiType(question.getSingleAndMultiType())
-                .wordList(question.getWordList())
+                .optionList(question.getOptionList())
                 .audio(question.getAudio())
                 .numberOfReplays(question.getNumberOfReplays())
                 .upload(question.getUpload())

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -25,10 +24,7 @@ public class UsersAnswer {
     private SingleAndMultiType singleAndMultiType;
 
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST},fetch = FetchType.EAGER)
-    private List<Word> wordList;
-
-//    @ElementCollection
-//    private  List<String>audioList=new ArrayList<>();
+    private List<Option> optionList;
     private String playButtonOfAudio;
     private String someText;
     private int numberOfReplays;
@@ -40,8 +36,5 @@ public class UsersAnswer {
     @ManyToOne(cascade = {DETACH,MERGE,REFRESH},fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
-
-
-
 
 }

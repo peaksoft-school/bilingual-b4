@@ -10,7 +10,7 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 
 @Entity
-@Table(name = "test")
+@Table(name = "tests")
 @Getter
 @Setter
 @NoArgsConstructor

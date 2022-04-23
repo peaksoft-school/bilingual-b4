@@ -19,8 +19,8 @@ import static javax.persistence.CascadeType.*;
 @NoArgsConstructor
 public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_sequence")
-    @SequenceGenerator(name = "type_sequence", sequenceName = "type_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_sequence")
+    @SequenceGenerator(name = "question_sequence", sequenceName = "question_seq", allocationSize = 1)
     private Long id;
 
     private String name;
@@ -28,7 +28,7 @@ public class Question {
     private SingleAndMultiType singleAndMultiType;
 
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, fetch = FetchType.EAGER)
-    private List<Word> wordList;
+    private List<Option> optionList;
     private String audio;
     private int numberOfReplays;
     private String upload;
