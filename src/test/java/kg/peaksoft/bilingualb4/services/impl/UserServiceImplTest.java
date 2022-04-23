@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +23,7 @@ class UserServiceImplTest {
     private UserService userService;
 
     UserRequest userRequest = new UserRequest();
-//
+
     public void newUser() {
         userRequest.setUserName("Akylbek");
         userRequest.setEmail("akylbeknurbekov01@gmail.com");
@@ -32,6 +33,7 @@ class UserServiceImplTest {
 
     @Test
     @Order(1)
+    @Rollback(value = false)
     void registration() {
         try {
             newUser();
@@ -90,8 +92,4 @@ class UserServiceImplTest {
             Assertions.fail("An error occurred while deleting clients by id: " + e.getMessage());
         }
     }
-
-
-
-
 }
