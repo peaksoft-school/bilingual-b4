@@ -4,11 +4,8 @@ import kg.peaksoft.bilingualb4.api.payload.TestRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
-import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.entity.Test;
-import kg.peaksoft.bilingualb4.model.entity.User;
-import kg.peaksoft.bilingualb4.model.mappers.editMapper.TestEditMapper;
-import kg.peaksoft.bilingualb4.model.mappers.viewMapper.TestViewMapper;
+import kg.peaksoft.bilingualb4.model.mappers.TestMapper;
 import kg.peaksoft.bilingualb4.repository.TestRepository;
 import kg.peaksoft.bilingualb4.services.TestService;
 import lombok.RequiredArgsConstructor;
@@ -19,20 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
-@Slf4j
 public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
-    private final TestEditMapper testEditMapper;
-    private final TestViewMapper testViewMapper;
+    private final TestMapper testMapper;
 
     @Override
-    public List<Test> findAll() {
+    public List<TestResponse> findAll() {
         log.info("Fetching all test");
-        return testRepository.findAll();
+        return testMapper.mapToResponse(testRepository.findAll());
     }
 
     @Override
@@ -45,9 +41,9 @@ public class TestServiceImpl implements TestService {
                     String.format("type with title = %s has already exists", title)
             );
         }
-        Test test = testEditMapper.create(testRequest);
+        Test test = testMapper.mapToEntity(null, testRequest);
         Test save = testRepository.save(test);
-        return testViewMapper.view(save);
+        return testMapper.mapToResponse(save);
     }
 
     @Override
@@ -60,39 +56,37 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public TestResponse deleteById(Long id) {
+        TestResponse testResponse = getById(id);
         boolean exists = testRepository.existsById(id);
         if (!exists) {
             throw new BadRequestException(
                     String.format("Type with id %s does not exists", id));
         }
         testRepository.deleteById(id);
+        return testResponse;
     }
 
     @Override
     public TestResponse updateById(Long id, TestRequest testRequest) {
-        Test test = getById(id);
-
-        String currentName = test.getTitle();
-        String newName = testRequest.getTitle();
-
-        if (!currentName.equals(newName)) {
-            test.setTitle(newName);
+        TestResponse test = getById(id);
+        boolean exists = testRepository.existsById(id);
+        Test response;
+        if (!exists) {
+            throw new BadRequestException(
+                    String.format("question with %d is already exists", id)
+            );
+        } else {
+            response = testMapper.mapToEntity(id, testRequest);
+            testRepository.save(response);
         }
-
-        String currentEmail = test.getShortDescription();
-        String newEmail = testRequest.getShortDescription();
-
-        if (!currentEmail.equals(newEmail)) {
-            test.setShortDescription(newEmail);
-        }
-        return testViewMapper.view(test);
+        return testMapper.mapToResponse(response);
     }
 
-    private Test getById(Long id) {
-        return testRepository.findById(id).orElseThrow(() -> new NotFoundException(
+    private TestResponse getById(Long id) {
+        return testMapper.mapToResponse(testRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("User with id = %s does not exists", id)
-        ));
+        )));
     }
 }
 

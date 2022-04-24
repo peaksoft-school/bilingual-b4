@@ -2,6 +2,7 @@ package kg.peaksoft.bilingualb4.api.payload;
 
 import kg.peaksoft.bilingualb4.model.entity.Option;
 import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 public class UsersAnswerResponse {
 
     private String id;

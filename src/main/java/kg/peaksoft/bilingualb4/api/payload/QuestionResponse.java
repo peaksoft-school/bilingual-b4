@@ -27,7 +27,7 @@ public class QuestionResponse {
     private String upload;
     private String play;
     @JsonProperty("correct_answer")
-    private boolean correctAnswer;
+    private String correctAnswer;
     private String record;
     @JsonProperty("upload_image")
     private String uploadImage;

@@ -33,7 +33,7 @@ public class Question {
     private int numberOfReplays;
     private String upload;
     private String play;
-    private boolean correctAnswer = false;
+    private String correctAnswer;
     private String record;
     private String uploadImage;
     private String questionStatement;

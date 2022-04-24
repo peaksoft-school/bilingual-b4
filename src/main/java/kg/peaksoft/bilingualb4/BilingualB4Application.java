@@ -34,9 +34,9 @@ public class BilingualB4Application {
     @PostConstruct
     public void save() {
         User user = new User();
-        user.setUserName("Muhammed");
-        user.setEmail("muhammed@gmail.com");
-        user.setPassword(passwordEncoder.encode("2003"));
+        user.setUserName("admin");
+        user.setEmail("admin@gmail.com");
+        user.setPassword(passwordEncoder.encode("admin"));
 
         Role role = new Role();
         Role role1 = new Role();
