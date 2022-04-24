@@ -24,7 +24,7 @@ public class BilingualB4Application {
     private final PasswordEncoder passwordEncoder;
     @GetMapping("/")
     public String checkHealth(){
-        return "<h1>Welcome to Bilingual application  !!!<h1/>";
+        return "<h1>Welcome to Bilingual application!!!<h1/>";
     }
     public static void main(String[] args) {
         SpringApplication.run(BilingualB4Application.class, args);
