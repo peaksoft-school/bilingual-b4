@@ -1,4 +1,4 @@
-package kg.peaksoft.bilingualab4;
+package kg.peaksoft.bilingualb4;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
