@@ -3,7 +3,7 @@
 #    driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://localhost:5432/bilingual
 #    username: postgres
-#    password: 1234
+#    password: root
 #  jpa:
 #    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
 #    hibernate:
