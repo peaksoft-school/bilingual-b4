@@ -44,8 +44,8 @@ public class QuestionApi {
                 description = "The method expects a JSON with entity object in the request body." +
                         "The entity object may contain references to other entities")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/{id}")
-    public QuestionResponse save(@RequestBody QuestionRequest questionRequest, @PathVariable("id") Long id) {
+    @PostMapping("/{testId}")
+    public QuestionResponse save(@RequestBody QuestionRequest questionRequest, @PathVariable("testId") Long id) {
         return questionService.save(id, questionRequest);
     }
 

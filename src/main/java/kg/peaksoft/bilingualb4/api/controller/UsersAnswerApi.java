@@ -28,7 +28,7 @@ public class UsersAnswerApi {
     }
 
     @Operation(summary = "Detach results of user, if client will press the button 'cancel'")
-    @PreAuthorize("hasAnyAuthority('CLIETN')")
+    @PreAuthorize("hasAnyAuthority('CLIENT')")
     @DeleteMapping("/cancel/{testId}")
     public void toCancel(@PathVariable Long testId) {
         usersAnswerService.toCancel(testId);

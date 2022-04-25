@@ -29,7 +29,7 @@ public class Question {
     private SingleAndMultiType singleAndMultiType;
 
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, fetch = FetchType.EAGER)
-    private List<Option> optionList;
+    private List<Options> optionsList;
     private String audio;
     private int numberOfReplays;
     private String upload;

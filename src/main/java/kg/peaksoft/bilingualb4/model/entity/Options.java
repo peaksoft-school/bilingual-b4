@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "options")
 @Getter
 @Setter
-public class Option {
+public class Options {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "option_sequence")
     @SequenceGenerator(name = "option_sequence", sequenceName = "option_seq", allocationSize = 1)

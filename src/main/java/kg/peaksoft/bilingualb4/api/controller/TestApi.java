@@ -23,7 +23,7 @@ public class TestApi {
 
     @Operation(summary = "Gets a list of test: workshop$User",
             description = "Returns a map of status codes to quantities:")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping
     public List<TestResponse> findAll() {
         return testService.findAll();
@@ -34,7 +34,7 @@ public class TestApi {
                     "The method expects a JSON with entity object in the request body." +
                             "The entity object may contain references to other entities")
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
     public TestResponse save(@RequestBody TestRequest testRequest) {
         return testService.save(testRequest);
