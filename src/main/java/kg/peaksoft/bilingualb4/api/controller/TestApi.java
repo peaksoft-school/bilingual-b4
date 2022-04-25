@@ -15,19 +15,20 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/test")
+@RequestMapping("/bilingual/api/test")
 @Tag(name = "Test:", description = "Quote CRUD operations")
 public class TestApi {
 
     private final TestService testService;
 
-    @Operation(summary = "Gets a list of test: workshop$User",
+    @Operation(summary = "Gets a list of test: workshop$Test",
             description = "Returns a map of status codes to quantities:")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     @GetMapping
     public List<Test> findAll() {
         return testService.findAll();
     }
+
 
     //        @Operation(summary = "Creates new entity: workshop$Test", description = """
 //            The method expects a JSON with entity object in the request body.
@@ -56,7 +57,7 @@ public class TestApi {
 
     @Operation(summary = "Gets a single entity by identifier: workshop$Test",
             description = "For valid response try integer IDs with value >= 1 and:")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping("{id}")
     public Optional<Test> findById(@PathVariable Long id) {
         return testService.findById(id);

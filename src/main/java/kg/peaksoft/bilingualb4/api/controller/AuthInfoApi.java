@@ -15,7 +15,7 @@ import javax.annotation.security.PermitAll;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/login")
+@RequestMapping("/bilingual/api")
 @Tag(name = "Authentication:",description = "User authentication")
 public class AuthInfoApi {
 
@@ -23,7 +23,7 @@ public class AuthInfoApi {
 
     @Operation(summary = "Retrieve Authentication Token",
             description = "This entrypoint returns a JWT auth_token for authenticating further requests to the API.")
-    @PostMapping
+    @PostMapping("/login")
     @PermitAll
     public AuthInfoResponse save(@RequestBody AuthInfoRequest authInfoRequest) {
         return authInfoService.returnToken(authInfoRequest);
