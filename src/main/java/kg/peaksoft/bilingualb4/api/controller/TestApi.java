@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/test")
+@RequestMapping("/bilingual/api/test")
 @Tag(name = "Test:", description = "Quote CRUD operations")
 public class TestApi {
 
@@ -34,7 +34,7 @@ public class TestApi {
                     "The method expects a JSON with entity object in the request body." +
                             "The entity object may contain references to other entities")
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @PostMapping
     public TestResponse save(@RequestBody TestRequest testRequest) {
         return testService.save(testRequest);
@@ -50,7 +50,7 @@ public class TestApi {
 
     @Operation(summary = "Gets a single entity by identifier: workshop$Test",
             description = "For valid response try integer IDs with value >= 1 and:")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping("{id}")
     public Optional<Test> findById(@PathVariable Long id) {
         return testService.findById(id);

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BilingualB4Application {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     @GetMapping("/")
     public String checkHealth(){
@@ -32,7 +31,7 @@ public class BilingualB4Application {
     }
 
     @PostConstruct
-    public void save() {
+    public void init() {
         User user = new User();
         user.setUserName("Admin");
         user.setEmail("admin@gmail.com");

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "UserAnswer:", description = "Makes it possible to keep the user result")
-@RequestMapping("bilingual/api/answer")
+@RequestMapping("/bilingual/api/answer")
 public class UsersAnswerApi {
 
     private final UsersAnswerService usersAnswerService;
