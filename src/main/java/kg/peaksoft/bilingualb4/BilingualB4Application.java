@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 @AllArgsConstructor
 public class BilingualB4Application {
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
