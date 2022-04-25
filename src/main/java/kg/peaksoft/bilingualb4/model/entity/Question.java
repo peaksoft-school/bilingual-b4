@@ -6,6 +6,7 @@ import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -19,8 +20,8 @@ import static javax.persistence.CascadeType.*;
 @NoArgsConstructor
 public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_sequence")
-    @SequenceGenerator(name = "type_sequence", sequenceName = "type_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_sequence")
+    @SequenceGenerator(name = "question_sequence", sequenceName = "question_seq", allocationSize = 1)
     private Long id;
 
     private String name;
@@ -28,12 +29,12 @@ public class Question {
     private SingleAndMultiType singleAndMultiType;
 
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, fetch = FetchType.EAGER)
-    private List<Word> wordList;
+    private List<Options> optionsList;
     private String audio;
     private int numberOfReplays;
     private String upload;
     private String play;
-    private boolean correctAnswer = false;
+    private String correctAnswer;
     private String record;
     private String uploadImage;
     private String questionStatement;
@@ -43,10 +44,14 @@ public class Question {
     private String highlightCorrectAnswer;
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
+    private LocalDateTime duration;
 
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")
     @JsonIgnore
     private Test test;
+
+    @OneToMany(cascade = {MERGE,DETACH,REFRESH},mappedBy = "question")
+    private List<UsersAnswer> usersAnswerList;
 
 }

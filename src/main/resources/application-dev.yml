@@ -3,7 +3,7 @@
 #    driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://localhost:5432/bilingual
 #    username: postgres
-#    password: Bilet2022
+#    password: 1234
 #  jpa:
 #    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
 #    hibernate:
@@ -20,4 +20,3 @@
 #    secret-key: HRlELXqpSB
 #    token-prefix: Bearer
 #    expiration-date-after-days: 30
-

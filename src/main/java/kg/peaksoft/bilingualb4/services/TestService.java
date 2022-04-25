@@ -9,13 +9,13 @@ import java.util.Optional;
 
 public interface TestService {
 
-    List<Test> findAll();
+    List<TestResponse> findAll();
 
     TestResponse save(TestRequest testRequest);
 
     Optional<Test> findById(Long id);
 
-    void deleteById(Long id);
+    TestResponse deleteById(Long id);
 
     TestResponse updateById(Long id, TestRequest testRequest);
 }

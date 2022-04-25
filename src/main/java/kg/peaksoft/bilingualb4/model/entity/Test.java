@@ -1,8 +1,6 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,9 +8,11 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 
 @Entity
-@Table(name = "test")
+@Table(name = "tests")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Test {
 
