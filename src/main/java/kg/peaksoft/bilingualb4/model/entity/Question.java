@@ -6,6 +6,7 @@ import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -43,6 +44,7 @@ public class Question {
     private String highlightCorrectAnswer;
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
+    private LocalDateTime duration;
 
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")

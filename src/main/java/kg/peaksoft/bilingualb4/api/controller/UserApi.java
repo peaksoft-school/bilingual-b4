@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/registration")
+@RequestMapping("/bilingual/api/registration")
 @Tag(name = "User:", description = "Quote CRUD operations")
 public class UserApi {
 
@@ -28,11 +28,11 @@ public class UserApi {
 
     @Operation(summary = "Gets a list of users: workshop$User",
             description = "Returns a map of status codes to quantities:")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the users", content =
                     {@Content(mediaType = "application/json", array = @ArraySchema(schema =
                     @Schema(implementation = UserApi.class)))})})
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public List<UserResponse> findAll() {
         return userService.findAll();

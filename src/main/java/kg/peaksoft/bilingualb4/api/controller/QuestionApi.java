@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Question: ", description = "Quote CRUD operations")
-@RequestMapping("/api/question")
+@RequestMapping("/bilingual/api/question")
 public class QuestionApi {
 
     private final QuestionService questionService;

@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -42,4 +43,5 @@ public class QuestionResponse {
     private String highlightCorrectAnswer;
     @JsonProperty("question_type")
     private QuestionType questionType;
+    private LocalDateTime duration;
 }

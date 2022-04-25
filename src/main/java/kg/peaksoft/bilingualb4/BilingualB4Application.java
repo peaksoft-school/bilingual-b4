@@ -34,26 +34,35 @@ public class BilingualB4Application {
     @PostConstruct
     public void save() {
         User user = new User();
-        user.setUserName("admin");
+        user.setUserName("Admin");
         user.setEmail("admin@gmail.com");
         user.setPassword(passwordEncoder.encode("admin"));
+
+        User user1 = new User();
+        user1.setUserName("User");
+        user1.setEmail("user@gmail.com");
+        user1.setPassword(passwordEncoder.encode("user"));
 
         Role role = new Role();
         Role role1 = new Role();
         role.setName("ADMIN");
+        role1.setName("CLIENT");
 
         AuthInfo authInfo = new AuthInfo();
         authInfo.setEmail(user.getEmail());
         authInfo.setPassword(user.getPassword());
 
+        AuthInfo authInfo1 = new AuthInfo();
+        authInfo1.setEmail(user1.getEmail());
+        authInfo1.setPassword(user1.getPassword());
+
         authInfo.setAuthInfo1(role);
+        authInfo1.setAuthInfo1(role1);
 
         user.setAuthInfo(authInfo);
+        user1.setAuthInfo(authInfo1);
         userRepository.save(user);
-        role1.setName("CLIENT");
-        roleRepository.save(role1);
-        authInfo.setAuthInfo1(role1);
-
+        userRepository.save(user1);
     }
 
 }

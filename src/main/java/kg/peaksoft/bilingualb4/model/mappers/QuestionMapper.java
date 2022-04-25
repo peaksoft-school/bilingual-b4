@@ -43,6 +43,7 @@ public class QuestionMapper {
                 .passage(questionRequest.getPassage())
                 .highlightCorrectAnswer(questionRequest.getHighlightCorrectAnswer())
                 .questionType(questionRequest.getQuestionType())
+                .duration(questionRequest.getDuration())
                 .test(testRepository.findById(tesId).get())
                 .build();
     }
@@ -68,6 +69,7 @@ public class QuestionMapper {
                 .passage(question.getPassage())
                 .highlightCorrectAnswer(question.getHighlightCorrectAnswer())
                 .questionType(question.getQuestionType())
+                .duration(question.getDuration())
                 .build();
     }
 }
