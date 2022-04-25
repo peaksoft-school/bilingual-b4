@@ -20,13 +20,13 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bilingual/api/registration")
-@Tag(name = "User:", description = "Quote CRUD operations")
+@RequestMapping("/bilingual/api/client")
+@Tag(name = "Client:", description = "Quote CRUD operations")
 public class UserApi {
 
     private final UserService userService;
 
-    @Operation(summary = "Gets a list of users: workshop$User",
+    @Operation(summary = "Gets a list of users: workshop$Client",
             description = "Returns a map of status codes to quantities:")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the users", content =
@@ -38,18 +38,7 @@ public class UserApi {
         return userService.findAll();
     }
 
-    @Operation(summary = "Creates new entity: workshop$User",
-            description =
-                    "The method expects a JSON with entity object in the request body." +
-                            "The entity object may contain references to other entities.")
-
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping
-    public UserResponse registration(@RequestBody UserRequest userRequest) {
-        return userService.registration(userRequest);
-    }
-
-    @Operation(summary = "Deletes the entity: workshop$User",
+    @Operation(summary = "Deletes the entity: workshop$Client",
             description = "Deletes an endpoint and all its child entities.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("{id}")
@@ -57,7 +46,7 @@ public class UserApi {
         userService.deleteById(id);
     }
 
-    @Operation(summary = "Gets a single entity by identifier: workshop$User",
+    @Operation(summary = "Gets a single entity by identifier: workshop$Client",
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("{id}")
@@ -65,7 +54,7 @@ public class UserApi {
         return userService.findById(id);
     }
 
-    @Operation(summary = "Updates the entity: workshop$User",
+    @Operation(summary = "Updates the entity: workshop$Client",
             description =
                     "Updates the details of an endpoint.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")

@@ -21,7 +21,7 @@ public class TestApi {
 
     private final TestService testService;
 
-    @Operation(summary = "Gets a list of test: workshop$User",
+    @Operation(summary = "Gets a list of test: workshop$Test",
             description = "Returns a map of status codes to quantities:")
     @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping
