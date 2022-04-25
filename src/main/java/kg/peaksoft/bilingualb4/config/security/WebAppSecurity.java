@@ -1,4 +1,4 @@
-package kg.peaksoft.bilingualb4.security;
+package kg.peaksoft.bilingualb4.config.security;
 
 import kg.peaksoft.bilingualb4.config.JwtConfig;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;

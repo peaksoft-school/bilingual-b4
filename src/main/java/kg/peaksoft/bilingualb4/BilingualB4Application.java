@@ -9,21 +9,20 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 
-@AllArgsConstructor
-@SpringBootApplication
 @RestController
+@SpringBootApplication
+@AllArgsConstructor
 public class BilingualB4Application {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     @GetMapping("/")
-    public String checkHealth(){
+    public String greetingPage(){
         return "<h1>Welcome to Bilingual application!!!<h1/>";
     }
     public static void main(String[] args) {
@@ -32,11 +31,11 @@ public class BilingualB4Application {
     }
 
     @PostConstruct
-    public void save() {
+    public void init() {
         User user = new User();
-        user.setUserName("Muhammed");
-        user.setEmail("muhammed@gmail.com");
-        user.setPassword(passwordEncoder.encode("2003"));
+        user.setUserName("Admin");
+        user.setEmail("admin@gmail.com");
+        user.setPassword(passwordEncoder.encode("admin"));
 
         Role role = new Role();
         Role role1 = new Role();
