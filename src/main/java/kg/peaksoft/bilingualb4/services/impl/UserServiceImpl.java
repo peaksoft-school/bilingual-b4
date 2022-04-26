@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponse> findAll() {
-        log.info("Fetching all users");
+        log.info("Fetching all clients");
         return userMapper.mapToResponse(userRepository.findAll());
     }
 
@@ -38,10 +38,10 @@ public class UserServiceImpl implements UserService {
     public UserResponse registration(UserRequest userRequest) {
         String email = userRequest.getEmail();
         boolean exists = userRepository.existsByEmail(email);
-        log.info("Saving new user {} to the database", userRequest.getUserName());
+        log.info("Saving new client {} to the database", userRequest.getUserName());
         if (exists) {
             throw new BadRequestException(
-                    String.format("User with email = %s has already exists", email)
+                    String.format("Client with email = %s has already exists", email)
             );
         }
         String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
         User response;
         if (!exists) {
             throw new BadRequestException(
-                    String.format("question with %d is already exists", id)
+                    String.format("Client with %d is already exists", id)
             );
         } else {
             response = userMapper.mapToEntity(userRequest);
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
 
     private UserResponse getById(Long id) {
         return userMapper.mapToResponse(userRepository.findById(id).orElseThrow(() -> new NotFoundException(
-                String.format("User with id = %s does not exists", id)
+                String.format("Client with id = %s does not exists", id)
         )));
     }
 }

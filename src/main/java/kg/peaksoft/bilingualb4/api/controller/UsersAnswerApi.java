@@ -17,7 +17,7 @@ public class UsersAnswerApi {
 
     private final UsersAnswerService usersAnswerService;
 
-    @Operation(summary = "Create the new entity: workshop UsersAnswer, Role 'CLIENT'",
+    @Operation(summary = "Create the new entity: workshop ClientsAnswer, Role 'CLIENT'",
             description =
                     "The method expects a JSON with entity object in the request body." +
                             "The entity object may contain references to other entities.")
