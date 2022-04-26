@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
-import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.services.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,9 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("api/question")
+@CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
 @Tag(name = "Question: ", description = "Quote CRUD operations")
-@RequestMapping("/bilingual/api/question")
 public class QuestionApi {
 
     private final QuestionService questionService;
@@ -41,8 +41,8 @@ public class QuestionApi {
     }
 
     @Operation(summary = "Creates the new entity: workshop Question",
-                description = "The method expects a JSON with entity object in the request body." +
-                        "The entity object may contain references to other entities")
+            description = "The method expects a JSON with entity object in the request body." +
+                    "The entity object may contain references to other entities")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/{testId}")
     public QuestionResponse save(@RequestBody QuestionRequest questionRequest, @PathVariable("testId") Long id) {

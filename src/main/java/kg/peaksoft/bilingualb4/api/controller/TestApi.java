@@ -15,7 +15,8 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bilingual/api/test")
+@RequestMapping("api/test")
+@CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
 @Tag(name = "Test:", description = "Quote CRUD operations")
 public class TestApi {
 
