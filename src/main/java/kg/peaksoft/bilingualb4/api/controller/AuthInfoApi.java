@@ -10,17 +10,15 @@ import kg.peaksoft.bilingualb4.services.AuthInfoService;
 import kg.peaksoft.bilingualb4.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/bilingual/api")
-@Tag(name = "Authentication:",description = "Client authentication")
+@CrossOrigin(origins = "http://localhost:5001", maxAge = 3600)
+@RequestMapping("api/public")
+@Tag(name = "Authentication:", description = "Client authentication")
 public class AuthInfoApi {
 
     private final AuthInfoService authInfoService;

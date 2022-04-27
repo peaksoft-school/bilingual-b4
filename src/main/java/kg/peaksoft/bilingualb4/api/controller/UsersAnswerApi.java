@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("api/answer")
+@CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
 @Tag(name = "UserAnswer:", description = "Makes it possible to keep the user result")
-@RequestMapping("/bilingual/api/answer")
 public class UsersAnswerApi {
 
     private final UsersAnswerService usersAnswerService;
