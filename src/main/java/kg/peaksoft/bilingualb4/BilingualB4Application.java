@@ -14,23 +14,25 @@ import javax.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @AllArgsConstructor
 @SpringBootApplication
 @RestController
 public class BilingualB4Application {
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
     @GetMapping("/")
     public String checkHealth(){
         return "<h1>Welcome to Bilingual application!!!<h1/>";
     }
+
     public static void main(String[] args) {
         SpringApplication.run(BilingualB4Application.class, args);
         System.out.println("Welcome colleagues, project name is Bilingual!");
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         User user = new User();
         user.setUserName("Admin");
