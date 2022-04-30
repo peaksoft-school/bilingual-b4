@@ -46,12 +46,11 @@ public class QuestionServiceImpl implements QuestionService {
             );
         }
         if (id != null) {
-            QuestionResponse question = findById(id);
-            return question;
+            return findById(id);
         }
         if (!isNullOrEmpty(name)) {
             Question question = questionRepository.findByName(name).orElseThrow(() -> new NotFoundException(
-                    String.format("Type with name = %s does not exists", name)
+                    String.format("Question with name = %s does not exists", name)
             ));
             return questionMapper.mapToResponse(question);
         }
@@ -65,7 +64,7 @@ public class QuestionServiceImpl implements QuestionService {
         if (!exists) {
             throw new BadRequestException(
                     String.format(
-                            "Type with id %s does not exists", id
+                            "Question with id %s does not exists", id
                     )
             );
         }
@@ -91,7 +90,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     private QuestionResponse findById(Long id) {
         return questionMapper.mapToResponse(questionRepository.findById(id).orElseThrow(() -> new NotFoundException(
-                String.format("Type with id = %s does not exists", id)
+                String.format("Question with id = %s does not exists", id)
         )));
     }
 }

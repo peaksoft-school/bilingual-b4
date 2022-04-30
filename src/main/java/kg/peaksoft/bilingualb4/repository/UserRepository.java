@@ -12,4 +12,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
             " from User c where c.authInfo.email = :email")
     boolean existsByEmail(String email);
 
+    User findByEmail(String email);
 }

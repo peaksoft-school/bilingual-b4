@@ -8,6 +8,8 @@ import kg.peaksoft.bilingualb4.api.payload.UsersAnswerResponse;
 import kg.peaksoft.bilingualb4.services.UsersAnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,8 +27,10 @@ public class UsersAnswerApi {
                             "The entity object may contain references to other entities.")
     @PreAuthorize("hasAnyAuthority('CLIENT')")
     @PostMapping("{questionId}")
-    public UsersAnswerResponse save(@PathVariable Long questionId, @RequestBody UsersAnswerRequest usersAnswerRequest) {
-        return usersAnswerService.save(questionId, usersAnswerRequest);
+    public UsersAnswerResponse save(@PathVariable Long questionId,
+                                    @RequestBody UsersAnswerRequest usersAnswerRequest,
+                                    @AuthenticationPrincipal UserDetails user) {
+        return usersAnswerService.save(questionId, usersAnswerRequest, user);
     }
 
     @Operation(summary = "Detach results of user, if client will press the button 'cancel'")

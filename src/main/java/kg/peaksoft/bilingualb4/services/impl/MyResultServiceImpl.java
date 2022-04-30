@@ -3,6 +3,7 @@ package kg.peaksoft.bilingualb4.services.impl;
 import kg.peaksoft.bilingualb4.api.payload.MyResultRequest;
 import kg.peaksoft.bilingualb4.api.payload.MyResultResponse;
 import kg.peaksoft.bilingualb4.api.payload.UsersAnswerResponse;
+import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.MyResult;
 import kg.peaksoft.bilingualb4.model.entity.UsersAnswer;
 import kg.peaksoft.bilingualb4.model.enums.Status;
@@ -27,29 +28,17 @@ public class MyResultServiceImpl implements MyResultService {
     private final MyResultMapper myResultMapper;
 
     @Override
-    public MyResultResponse saveUserResult(Long id) {
-        List<UsersAnswer> usersAnswerList = usersAnswerRepository.findAllByTestId(id);
-        MyResultRequest resultRequest = new MyResultRequest();
-        for (UsersAnswer usersAnswer: usersAnswerList){
-            resultRequest.setTestName(usersAnswer.getQuestion().getTest().getTitle());
-        }
-        resultRequest.setDateOfSubmission(LocalDateTime.now());
-        resultRequest.setStatus(Status.NOT_EVALUATE);
-        resultRequest.setScore(0);
-        MyResult result = resultRepository.save(myResultMapper.mapToEntity(resultRequest));
-        return myResultMapper.mapToResponse(result);
-    }
-
-    @Override
     public MyResultResponse deleteUserResultById(Long id) {
-        MyResult myResult = resultRepository.findById(id).get();
+        MyResult myResult = resultRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(
+                        String.format("Result with %d id not found!", id)));
         resultRepository.deleteById(id);
         return myResultMapper.mapToResponse(myResult);
     }
 
     @Override
-    public List<MyResultResponse> findAll() {
-        List<MyResult>myResults = resultRepository.findAll();
+    public List<MyResultResponse> findAll(Long id) {
+        List<MyResult> myResults = resultRepository.findAllById(id);
         return myResultMapper.mapToResponse(myResults);
     }
 }

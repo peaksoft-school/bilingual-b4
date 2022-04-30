@@ -35,6 +35,10 @@ public class User {
     @JsonIgnore
     private List<Test> testList;
 
+    @JsonIgnore
+    @OneToMany(cascade = ALL, fetch = FetchType.LAZY)
+    private List<MyResult>myResults;
+
     public User(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;

@@ -16,15 +16,9 @@ public class MyResultApi {
     private final MyResultService myResultService;
 
     @PreAuthorize("hasAnyAuthority('CLIENT')")
-    @PostMapping("/{id}")
-    public MyResultResponse saveMyResult(@PathVariable Long id){
-        return myResultService.saveUserResult(id);
-    }
-
-    @PreAuthorize("hasAnyAuthority('CLIENT')")
     @GetMapping()
-    public List<MyResultResponse> findAll(){
-        return myResultService.findAll();
+    public List<MyResultResponse> findAllById(@PathVariable Long id){
+        return myResultService.findAll(id);
     }
 
     @PreAuthorize("hasAnyAuthority('CLIENT')")
