@@ -10,4 +10,6 @@ public interface TestRepository extends JpaRepository<Test,Long> {
 
     @Query("select case when count(c) > 0 then true else false end from Test c where c.title =?1")
     boolean existsByName(String title);
+
+    Test findByTitle(String name);
 }

@@ -1,29 +1,20 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
-import kg.peaksoft.bilingualb4.api.payload.MyResultRequest;
 import kg.peaksoft.bilingualb4.api.payload.MyResultResponse;
-import kg.peaksoft.bilingualb4.api.payload.UsersAnswerResponse;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.MyResult;
-import kg.peaksoft.bilingualb4.model.entity.UsersAnswer;
-import kg.peaksoft.bilingualb4.model.enums.Status;
 import kg.peaksoft.bilingualb4.model.mappers.MyResultMapper;
 import kg.peaksoft.bilingualb4.repository.MyResultRepository;
-import kg.peaksoft.bilingualb4.repository.UsersAnswerRepository;
 import kg.peaksoft.bilingualb4.services.MyResultService;
-import kg.peaksoft.bilingualb4.services.UsersAnswerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class MyResultServiceImpl implements MyResultService {
 
-    private final UsersAnswerRepository usersAnswerRepository;
     private final MyResultRepository resultRepository;
     private final MyResultMapper myResultMapper;
 
