@@ -1,13 +1,11 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
-import kg.peaksoft.bilingualb4.api.payload.TestResultRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResultResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
-import kg.peaksoft.bilingualb4.model.entity.TestResult;
-import kg.peaksoft.bilingualb4.model.enums.Status;
+import kg.peaksoft.bilingualb4.model.entity.MyResult;
 import kg.peaksoft.bilingualb4.model.mappers.TestResultMapper;
-import kg.peaksoft.bilingualb4.repository.TestResultRepository;
+import kg.peaksoft.bilingualb4.repository.MyResultRepository;
 import kg.peaksoft.bilingualb4.services.TestResultService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,45 +16,46 @@ import java.util.List;
 @AllArgsConstructor
 public class TestResultServiceImpl implements TestResultService {
 
-    private final TestResultRepository testResultRepository;
+    private final MyResultRepository myResultRepository;
     private final TestResultMapper testResultMapper;
 
     @Override
-    public List<TestResultResponse> findAll() {
-        return testResultMapper.mapToResponse(testResultRepository.findAll());
+    public TestResultResponse findById(Long id) {
+        return testResultMapper.mapToResponse(myResultRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format(
+                        "Object 'myResult' with %d id not found", id
+                ))
+        ));
     }
 
     @Override
-    public TestResultResponse findById(Long id) {
-        return testResultMapper.mapToResponse(testResultRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(String.format("Test result with %d id not found!", id))));
+    public List<TestResultResponse> findAll() {
+        List<MyResult> myResults = myResultRepository.findAll();
+        return testResultMapper.mapToResponse(myResults);
+    }
+
+    @Override
+    public TestResultResponse updateById(Long id, int score) {
+        MyResult myResult = myResultRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                String.format("Object 'myResult with %d id not found!'", id)
+
+        ));
+        if (myResult.getScore() > 0) {
+            myResult.setScore(score);
+            myResultRepository.save(myResult);
+        }else {
+            throw new BadRequestException("This question checked automatically");
+        }
+        return testResultMapper.mapToResponse(myResult);
     }
 
     @Override
     public TestResultResponse deleteById(Long id) {
-        TestResultResponse testResultResponse = testResultMapper.mapToResponse(testResultRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(String.format("Test result with %d id not found!", id))));
-        testResultRepository.deleteById(id);
-        return testResultResponse;
-    }
+        MyResult myResult = myResultRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                String.format("Object 'myResult with %d id not found!'", id)
 
-    @Override
-    public TestResultResponse updateById(Long id, TestResultRequest testResultRequest) {
-
-        if (testResultRequest.getStatus() == Status.NOT_EVALUATE) {
-            boolean exists = testResultRepository.existsById(id);
-            TestResult response;
-            if (!exists) {
-                throw new BadRequestException(
-                        String.format("question with %d is already exists", id)
-                );
-            } else {
-                response = testResultMapper.mapToEntity(id, testResultRequest);
-                testResultRepository.save(response);
-            }
-            return testResultMapper.mapToResponse(response);
-        } else {
-            throw new BadRequestException("Test is already evaluated!");
-        }
+        ));
+        myResultRepository.deleteById(id);
+        return testResultMapper.mapToResponse(myResult);
     }
 }

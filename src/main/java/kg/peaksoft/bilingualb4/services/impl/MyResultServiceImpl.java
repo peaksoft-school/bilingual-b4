@@ -6,20 +6,27 @@ import kg.peaksoft.bilingualb4.model.entity.MyResult;
 import kg.peaksoft.bilingualb4.model.mappers.MyResultMapper;
 import kg.peaksoft.bilingualb4.repository.MyResultRepository;
 import kg.peaksoft.bilingualb4.services.MyResultService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MyResultServiceImpl implements MyResultService {
 
     private final MyResultRepository resultRepository;
     private final MyResultMapper myResultMapper;
 
     @Override
-    public MyResultResponse deleteUserResultById(Long id) {
+    public MyResultResponse findById(Long id) {
+        return myResultMapper.mapToResponse(resultRepository.findById(id).orElseThrow(()-> new NotFoundException(
+                String.format("Object 'myResult with %d id not found!", id)
+        )));
+    }
+
+    @Override
+    public MyResultResponse deleteById(Long id) {
         MyResult myResult = resultRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(
                         String.format("Result with %d id not found!", id)));
@@ -28,8 +35,8 @@ public class MyResultServiceImpl implements MyResultService {
     }
 
     @Override
-    public List<MyResultResponse> findAll(Long id) {
-        List<MyResult> myResults = resultRepository.findAllById(id);
+    public List<MyResultResponse> findAll(Long userId) {
+        List<MyResult> myResults = resultRepository.findAllById(userId);
         return myResultMapper.mapToResponse(myResults);
     }
 }

@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.awt.geom.RectangularShape;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 
@@ -32,7 +33,9 @@ public class MyResult {
     private int score;
 
     @ManyToOne(cascade = {REFRESH, MERGE, DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users_id")
     private User user;
 
+    @OneToMany(cascade = ALL, mappedBy = "myResult")
+    private List<QuestionResult> questionResultList;
 }

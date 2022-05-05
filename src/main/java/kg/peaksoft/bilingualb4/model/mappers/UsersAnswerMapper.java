@@ -7,6 +7,9 @@ import kg.peaksoft.bilingualb4.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class UsersAnswerMapper {
@@ -29,7 +32,7 @@ public class UsersAnswerMapper {
                 .build();
     }
 
-    public UsersAnswerResponse mepToResponse(UsersAnswer usersAnswer) {
+    public UsersAnswerResponse mapToResponse(UsersAnswer usersAnswer) {
         return UsersAnswerResponse.builder()
                 .id(String.valueOf(usersAnswer.getId()))
                 .singleAndMultiType(usersAnswer.getSingleAndMultiType())
@@ -43,5 +46,13 @@ public class UsersAnswerMapper {
                 .counterOfWord(usersAnswer.getCounterOfWord())
                 .build();
 
+    }
+
+    public List<UsersAnswerResponse> mapToResponse(List<UsersAnswer>usersAnswerList){
+        List<UsersAnswerResponse> usersAnswerResponses = new ArrayList<>();
+        for (UsersAnswer usersAnswer: usersAnswerList){
+            usersAnswerResponses.add(mapToResponse(usersAnswer));
+        }
+        return usersAnswerResponses;
     }
 }

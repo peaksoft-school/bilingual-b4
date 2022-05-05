@@ -4,6 +4,8 @@ import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
+import kg.peaksoft.bilingualb4.model.entity.Options;
+import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import kg.peaksoft.bilingualb4.model.mappers.QuestionMapper;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
@@ -31,6 +33,18 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionResponse save(Long testId, QuestionRequest questionRequest) {
+        int counterOfCorrectOptions = 0;
+        for (Options options: questionRequest.getOptionsList()){
+            if (options.isCorrectAnswer()){
+                counterOfCorrectOptions++;
+            }
+        }
+        if (counterOfCorrectOptions>1){
+            questionRequest.setSingleAndMultiType(SingleAndMultiType.MULTI);
+        }
+        else {
+            questionRequest.setSingleAndMultiType(SingleAndMultiType.SINGLE);
+        }
         Question question = questionMapper.mapToEntity(null, testId, questionRequest);
         Question save = questionRepository.save(question);
         return questionMapper.mapToResponse(save);

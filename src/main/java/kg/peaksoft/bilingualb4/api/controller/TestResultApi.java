@@ -1,24 +1,23 @@
 package kg.peaksoft.bilingualb4.api.controller;
 
-import kg.peaksoft.bilingualb4.api.payload.TestResultRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResultResponse;
 import kg.peaksoft.bilingualb4.services.TestResultService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("/api/test_result")
+@AllArgsConstructor
+@RequestMapping("/api/submitted_result")
 public class TestResultApi {
 
     private final TestResultService testResultService;
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
-    public List<TestResultResponse> findAll(){
+    public List<TestResultResponse> findALl(){
         return testResultService.findAll();
     }
 
@@ -29,14 +28,14 @@ public class TestResultApi {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @DeleteMapping("{id}")
-    public TestResultResponse deleteById(@PathVariable Long id){
-        return testResultService.deleteById(id);
+    @PutMapping("{id}")
+    public TestResultResponse updateById(@PathVariable Long id, @RequestBody int score){
+        return testResultService.updateById(id, score);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PutMapping("{id}")
-    public TestResultResponse updateById(@PathVariable Long id, @RequestBody TestResultRequest testResultRequest){
-        return testResultService.updateById(id, testResultRequest);
+    @DeleteMapping("{id}")
+    public TestResultResponse deleteById(@PathVariable Long id){
+        return testResultService.deleteById(id);
     }
 }

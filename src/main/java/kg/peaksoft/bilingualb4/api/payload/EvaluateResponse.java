@@ -1,6 +1,5 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import kg.peaksoft.bilingualb4.model.entity.Options;
 import kg.peaksoft.bilingualb4.model.entity.UsersAnswer;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
@@ -26,7 +25,7 @@ public class EvaluateResponse {
     private List<Options> options;
     private int score;
     //@JsonProperty("user_answer")
-    private List<Options> userAnswer;
+    private List<UsersAnswerResponse> userAnswer;
     //@JsonProperty("minimum_number_of_words")
     private int minimumNumberOfWords;
     //@JsonProperty("correct_answer")

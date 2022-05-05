@@ -1,8 +1,7 @@
 package kg.peaksoft.bilingualb4.model.mappers;
 
-import kg.peaksoft.bilingualb4.api.payload.TestResultRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResultResponse;
-import kg.peaksoft.bilingualb4.model.entity.TestResult;
+import kg.peaksoft.bilingualb4.model.entity.MyResult;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,32 +10,21 @@ import java.util.List;
 @Component
 public class TestResultMapper {
 
-    public TestResultResponse mapToResponse(TestResult testResult){
+    public TestResultResponse mapToResponse(MyResult myResult){
         return TestResultResponse.builder()
-                .id(testResult.getId())
-                .userName(testResult.getUserName())
-                .dateOfSubmission(testResult.getDateOfSubmission())
-                .testName(testResult.getTestName())
-                .status(testResult.getStatus())
-                .score(testResult.getScore())
+                .id(myResult.getId())
+                .userName(myResult.getUser().getUserName())
+                .dateOfSubmission(myResult.getDateOfSubmission())
+                .testName(myResult.getTestName())
+                .status(myResult.getStatus())
+                .score(myResult.getScore())
                 .build();
     }
 
-    public TestResult mapToEntity(Long id, TestResultRequest testResultRequest){
-        return TestResult.builder()
-                .id(id)
-                .userName(testResultRequest.getUserName())
-                .dateOfSubmission(testResultRequest.getDateOfSubmission())
-                .testName(testResultRequest.getTestName())
-                .status(testResultRequest.getStatus())
-                .score(testResultRequest.getScore())
-                .build();
-    }
-
-    public List<TestResultResponse> mapToResponse(List<TestResult>testResultList){
+    public List<TestResultResponse> mapToResponse(List<MyResult>myResults){
         List<TestResultResponse> testResultResponses = new ArrayList<>();
-        for (TestResult testResult: testResultList){
-            testResultResponses.add(mapToResponse(testResult));
+        for (MyResult myResult: myResults){
+            testResultResponses.add(mapToResponse(myResult));
         }
         return testResultResponses;
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -16,8 +17,8 @@ import static javax.persistence.CascadeType.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
-    @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     private Long id;
     @Column(name = "user_name")
     private String userName;
@@ -39,9 +40,19 @@ public class User {
     @OneToMany(cascade = ALL, fetch = FetchType.LAZY)
     private List<MyResult>myResults;
 
+    @OneToMany(cascade = ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<UsersAnswer>usersAnswers;
+
     public User(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+    }
+
+    public void setTest(Test test) {
+        if (testList == null) {
+            testList = new ArrayList<>();
+        }
+        testList.add(test);
     }
 }
