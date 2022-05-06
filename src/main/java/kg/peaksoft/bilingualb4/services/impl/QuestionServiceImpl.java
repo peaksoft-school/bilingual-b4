@@ -33,16 +33,23 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionResponse save(Long testId, QuestionRequest questionRequest) {
+        System.out.println(questionRequest.getOptionsList().toString());
+        System.out.println(questionRequest.getQuestionType());
+        if (questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
+                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
+                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||
+                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_THE_BEST_TITLE) {
+            throw new BadRequestException("You should to choose at least one option!");
+        }
         int counterOfCorrectOptions = 0;
-        for (Options options: questionRequest.getOptionsList()){
-            if (options.isCorrectAnswer()){
+        for (Options options : questionRequest.getOptionsList()) {
+            if (options.isCorrectAnswer()) {
                 counterOfCorrectOptions++;
             }
         }
-        if (counterOfCorrectOptions>1){
+        if (counterOfCorrectOptions > 1) {
             questionRequest.setSingleAndMultiType(SingleAndMultiType.MULTI);
-        }
-        else {
+        } else {
             questionRequest.setSingleAndMultiType(SingleAndMultiType.SINGLE);
         }
         Question question = questionMapper.mapToEntity(null, testId, questionRequest);

@@ -1,6 +1,7 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
 import kg.peaksoft.bilingualb4.api.payload.EvaluateResponse;
+import kg.peaksoft.bilingualb4.api.payload.QuestionResultRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResultResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
@@ -39,32 +40,37 @@ public class QuestionResultServiceImpl implements QuestionResultService {
     }
 
     @Override
-    public EvaluateResponse updateById(Long id, QuestionResult questionResultRequest) {
+    public EvaluateResponse updateById(Long id, QuestionResultRequest questionResultRequest) {
         QuestionResult questionResult = questionResultRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("Object 'questionResult' with %d id not found!", id)
         ));
         questionResult.setScore(questionResultRequest.getScore());
         Long userAnswerId = null;
         EvaluateResponse evaluateResponse;
-        if (questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
-                questionResult.getQuestion().getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
-                questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||
-                questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_THE_BEST_TITLE) {
-            
-            for (User user : questionResult.getQuestion().getTest().getUserList()) {
-                for (UsersAnswer usersAnswer : user.getUsersAnswers()) {
-                    userAnswerId = usersAnswer.getId();
-                }
+//        if (questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
+//                questionResult.getQuestion().getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
+//                questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||
+//                questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_THE_BEST_TITLE) {
+//            for (User user : questionResult.getQuestion().getTest().getUserList()) {
+//                for (UsersAnswer usersAnswer : user.getUsersAnswers()) {
+//                    userAnswerId = usersAnswer.getId();
+//                }
+//            }
+//            evaluateResponse = evaluateService.autoCheck(questionResult.getId(), userAnswerId);
+//        }  else {
+//            for (User user : questionResult.getQuestion().getTest().getUserList()) {
+//                for (UsersAnswer usersAnswer : user.getUsersAnswers()) {
+//                    userAnswerId = usersAnswer.getId();
+//                }
+//            }
+//            evaluateResponse = evaluateService.manualChek(questionResult.getId(), userAnswerId, questionResultRequest);
+//        }
+        for (User user : questionResult.getQuestion().getTest().getUserList()) {
+            for (UsersAnswer usersAnswer : user.getUsersAnswers()) {
+                userAnswerId = usersAnswer.getId();
             }
-             evaluateResponse = evaluateService.autoCheck(questionResult.getId(), userAnswerId);
-        } else {
-            for (User user : questionResult.getQuestion().getTest().getUserList()) {
-                for (UsersAnswer usersAnswer : user.getUsersAnswers()) {
-                    userAnswerId = usersAnswer.getId();
-                }
-            }
-            evaluateResponse =  evaluateService.manualChek(questionResult.getId(), userAnswerId, questionResult);
         }
+        evaluateResponse = evaluateService.methodForHighlightType(questionResult.getId(), userAnswerId);
         return evaluateResponse;
     }
 }

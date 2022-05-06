@@ -1,6 +1,7 @@
 package kg.peaksoft.bilingualb4.api.controller;
 
 import kg.peaksoft.bilingualb4.api.payload.EvaluateResponse;
+import kg.peaksoft.bilingualb4.api.payload.QuestionResultRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResultResponse;
 import kg.peaksoft.bilingualb4.model.entity.QuestionResult;
 import kg.peaksoft.bilingualb4.services.QuestionResultService;
@@ -30,7 +31,7 @@ public class QuestionResultApi {
 
     //@PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("{id}")
-    public EvaluateResponse updateById(@PathVariable Long id, @RequestBody QuestionResult questionResult){
-        return questionResultService.updateById(id, questionResult);
+    public EvaluateResponse updateById(@PathVariable Long id, @RequestBody(required = false) QuestionResultRequest questionResultRequest){
+        return questionResultService.updateById(id, questionResultRequest);
     }
 }
