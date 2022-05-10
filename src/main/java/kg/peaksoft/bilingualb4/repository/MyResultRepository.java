@@ -11,7 +11,7 @@ import java.util.List;
 public interface MyResultRepository extends JpaRepository<MyResult, Long> {
 
     @Query("select case when count(c) > 0 then true else false end from MyResult c where c.user.id =?1")
-    boolean existsByName(Long userId);
+    boolean existsByUserId(Long userId);
 
     @Query("from MyResult c where c.user.id=?1")
     List<MyResult> findAllById(Long userId);

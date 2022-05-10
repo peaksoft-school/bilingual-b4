@@ -2,6 +2,7 @@ package kg.peaksoft.bilingualb4.services.impl;
 
 import kg.peaksoft.bilingualb4.api.payload.EvaluateResponse;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResultRequest;
+import kg.peaksoft.bilingualb4.api.payload.UsersAnswerResponse;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.*;
 import kg.peaksoft.bilingualb4.model.enums.Status;
@@ -58,21 +59,24 @@ public class EvaluateServiceImpl implements EvaluateService {
             }
         }
 
+        List<UsersAnswer> usersAnswerList;
         for (User user : test.getUserList()) {
             evaluate.setUserName(user.getUserName());
             UsersAnswer usersAnswer = usersAnswerRepository.findById(userAnswerId).orElseThrow(() ->
                     new NotFoundException(String.format("Object 'user_answer' with %d id not found!", userAnswerId)));
-            exist = myResultRepository.existsByName(user.getId());
-            List<UsersAnswer> usersAnswerList = new ArrayList<>();
+            exist = myResultRepository.existsByUserId(user.getId());
+            usersAnswerList = new ArrayList<>();
             usersAnswerList.add(usersAnswer);
             evaluate.setUserAnswer(usersAnswerMapper.mapToResponse(usersAnswerList));
         }
 
         for (int i = 0; i < evaluate.getUserAnswer().size(); i++) {
-            if (evaluate.getUserAnswer().get(i).getOptionsList().get(i).isCorrectAnswer()) {
-                allUserCorrectAnswer++;
-                if (evaluate.getUserAnswer().get(i).getOptionsList().get(i).isCorrectAnswer() == evaluate.getOptions().get(i).isCorrectAnswer()) {
-                    userCorrectAnswer++;
+            for (int j = 0; j < evaluate.getUserAnswer().get(i).getOptionsList().size(); j++) {
+                if (evaluate.getUserAnswer().get(i).getOptionsList().get(j).isCorrectAnswer()) {
+                    allUserCorrectAnswer++;
+                    if (evaluate.getUserAnswer().get(i).getOptionsList().get(j).isCorrectAnswer() == evaluate.getOptions().get(j).isCorrectAnswer()) {
+                        userCorrectAnswer++;
+                    }
                 }
             }
         }
@@ -152,7 +156,7 @@ public class EvaluateServiceImpl implements EvaluateService {
             evaluate.setUserName(user.getUserName());
             UsersAnswer usersAnswer = usersAnswerRepository.findById(userAnswerId).orElseThrow(() ->
                     new NotFoundException(String.format("Object 'user_answer' with %d id not found!", userAnswerId)));
-            exist = myResultRepository.existsByName(user.getId());
+            exist = myResultRepository.existsByUserId(user.getId());
             List<UsersAnswer> usersAnswerList = new ArrayList<>(List.of(usersAnswer));
             evaluate.setUserAnswer(usersAnswerMapper.mapToResponse(usersAnswerList));
         }
@@ -209,7 +213,6 @@ public class EvaluateServiceImpl implements EvaluateService {
         boolean exist = false;
         int wrongAnswer = 0;
         int userCorrectAnswer = 0;
-        int allUserCorrectAnswer = 0;
         int counterForFinalStatus = 0;
 
         evaluate.setTestName(test.getTitle());
@@ -224,7 +227,7 @@ public class EvaluateServiceImpl implements EvaluateService {
             evaluate.setUserName(user.getUserName());
             UsersAnswer usersAnswer = usersAnswerRepository.findById(userAnswerId).orElseThrow(() ->
                     new NotFoundException(String.format("Object 'user_answer' with %d id not found!", userAnswerId)));
-            exist = myResultRepository.existsByName(user.getId());
+            exist = myResultRepository.existsByUserId(user.getId());
             List<UsersAnswer> usersAnswerList = new ArrayList<>();
             usersAnswerList.add(usersAnswer);
             evaluate.setUserAnswer(usersAnswerMapper.mapToResponse(usersAnswerList));
@@ -245,7 +248,7 @@ public class EvaluateServiceImpl implements EvaluateService {
                 wrongAnswer++;
             }
         }
-        int score = (userCorrectAnswer * 100/(userCorrectAnswer+wrongAnswer)/10);
+        int score = (userCorrectAnswer * 100 / (userCorrectAnswer + wrongAnswer) / 10);
 
         evaluate.setScore(Math.round(score));
 
