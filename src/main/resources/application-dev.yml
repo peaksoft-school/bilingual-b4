@@ -1,21 +1,21 @@
-spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bilingual
-    username: postgres
-    password: 5996
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-
-server:
-    port: 5000
-    error:
-        include-message: always
-application:
-  jwt:
-    secret-key: HRlELXqpSB
-    token-prefix: Bearer
-    expiration-date-after-days: 30
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/bilingual
+#    username: postgres
+#    password: 5996
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+#    hibernate:
+#      ddl-auto: create-drop
+#    show-sql: true
+#
+#server:
+#    port: 5000
+#    error:
+#        include-message: always
+#application:
+#  jwt:
+#    secret-key: HRlELXqpSB
+#    token-prefix: Bearer
+#    expiration-date-after-days: 30
