@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import kg.peaksoft.bilingualb4.model.entity.Options;
 import kg.peaksoft.bilingualb4.model.entity.UsersAnswer;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
@@ -13,33 +14,33 @@ import java.util.List;
 @Setter
 public class EvaluateResponse {
 
-    //@JsonProperty("user_name")
+    @JsonProperty("user_name")
     private String userName;
-//    @JsonProperty("test_name")
+    @JsonProperty("test_name")
     private String testName;
-//    @JsonProperty("question_name")
+    @JsonProperty("question_name")
     private String  questionName;
     private LocalDateTime duration;
-//    @JsonProperty("question_type")
+    @JsonProperty("question_type")
     private QuestionType questionType;
     private List<Options> options;
     private int score;
-    //@JsonProperty("user_answer")
+    @JsonProperty("user_answer")
     private List<UsersAnswerResponse> userAnswer;
-    //@JsonProperty("minimum_number_of_words")
+    @JsonProperty("minimum_number_of_words")
     private int minimumNumberOfWords;
-    //@JsonProperty("correct_answer")
+    @JsonProperty("correct_answer")
     private String correctAnswer;
-    //@JsonProperty("play_audio")
+    @JsonProperty("play_audio")
     private String playAudio;
-    //@JsonProperty("entered_statement")
+    @JsonProperty("entered_statement")
     private String enteredStatement;
-    //@JsonProperty("number_of_plays")
+    @JsonProperty("number_of_plays")
     private int numberOfPlays;
     private String statement;
-    //@JsonProperty("question_statement")
+    @JsonProperty("question_statement")
     private String questionStatement;
-    //@JsonProperty("number_of_words")
+    @JsonProperty("number_of_words")
     private int numberOfWords;
     private String passage;
 }
