@@ -47,6 +47,7 @@ public class TestServiceImpl implements TestService {
         }
         Test test = testMapper.mapToEntity(null, testRequest);
         Test save = testRepository.save(test);
+        log.info("Saving object!");
         return testMapper.mapToResponse(save);
     }
 
@@ -56,6 +57,7 @@ public class TestServiceImpl implements TestService {
         if (!exists) {
             throw new BadRequestException("You should write one of {id} to get Type");
         }
+        log.info("Successful find by id {} :",id);
         return testMapper.mapToResponse(testRepository.findById(id).orElseThrow(()->new NotFoundException(String.format("Test with %d id not found.",id))));
     }
 
@@ -68,6 +70,7 @@ public class TestServiceImpl implements TestService {
                     String.format("Type with id %s does not exists", id));
         }
         testRepository.deleteById(id);
+        log.info("Successful delete by id {} :",id);
         return testResponse;
     }
 
@@ -83,10 +86,12 @@ public class TestServiceImpl implements TestService {
             response = testMapper.mapToEntity(id, testRequest);
             testRepository.save(response);
         }
+        log.info("Successful update object by id {} :",id);
         return testMapper.mapToResponse(response);
     }
 
     private TestResponse getById(Long id) {
+        log.info("Successful get object by id {} :",id);
         return testMapper.mapToResponse(testRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("User with id = %s does not exists", id)
         )));

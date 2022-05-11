@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.mapToEntity(null, userRequest);
         User save = userRepository.save(user);
+
         return userMapper.mapToResponse(save);
     }
 
@@ -58,6 +59,7 @@ public class UserServiceImpl implements UserService {
         if (!exists) {
             throw new BadRequestException(String.format("while user with %d not in database", id));
         }
+        log.info("Fetching client with id {} : ",id);
         return userMapper.mapToResponse(userRepository.findById(id).orElseThrow(()->new NotFoundException(String.format("User with %d id not found.",id))));
     }
 
@@ -71,6 +73,7 @@ public class UserServiceImpl implements UserService {
             );
         }
         userRepository.deleteById(id);
+        log.info("Successful removed client by id {} :",id);
         return userResponse;
     }
 
@@ -85,11 +88,13 @@ public class UserServiceImpl implements UserService {
             response = userMapper.mapToEntity(id, userRequest);
             userRepository.save(response);
         }
+        log.info("Successful update client by id {} !",id);
         return userMapper.mapToResponse(response);
 
     }
 
     private UserResponse getById(Long id) {
+        log.info("Received client with id {}.",id);
         return userMapper.mapToResponse(userRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("User with id = %s does not exists", id)
         )));

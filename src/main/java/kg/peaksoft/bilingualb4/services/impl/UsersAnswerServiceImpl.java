@@ -14,6 +14,7 @@ import kg.peaksoft.bilingualb4.repository.*;
 import kg.peaksoft.bilingualb4.services.EvaluateService;
 import kg.peaksoft.bilingualb4.services.UsersAnswerService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UsersAnswerServiceImpl implements UsersAnswerService {
 
     private final UsersAnswerRepository usersAnswerRepository;
@@ -44,9 +46,13 @@ public class UsersAnswerServiceImpl implements UsersAnswerService {
         usersAnswer.setUser(user);
         usersAnswerRepository.save(usersAnswer);
 
+        log.info("Saving user's answer");
+
         Test test = usersAnswer.getQuestion().getTest();
         test.setUser(userRepository.findByEmail(userDetails.getUsername()));
         testRepository.save(test);
+
+        log.info("Saving test");
 
         QuestionResult questionResult;
         questionResult = new QuestionResult();
@@ -59,6 +65,7 @@ public class UsersAnswerServiceImpl implements UsersAnswerService {
         questionResult.setQuestion(questionRepository.findById(questionId).orElseThrow(() -> new NotFoundException(String.format("QuestionResult with %d id not found!", questionId))));
         questionResultRepository.save(questionResult);
 
+        log.info("Saving result of question");
         //QuestionResult questionResult1 = questionResultRepository.findById(questionResult.getId()).orElseThrow(() -> new NotFoundException(String.format("Object 'questionResult' with %d id not found!", questionResult.getId())));
 
         if (questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
@@ -70,12 +77,15 @@ public class UsersAnswerServiceImpl implements UsersAnswerService {
 
             evaluateService.methodForHighlightType(questionResult.getId(), usersAnswer.getId());
         }
+        log.info("Condition is done!");
         return usersAnswerEditMapper.mapToResponse(usersAnswer);
     }
 
     @Override
     public void toCancel(Long id) {
+
         List<UsersAnswer> usersAnswerList = usersAnswerRepository.findAllByTestId(id);
         usersAnswerRepository.deleteAll(usersAnswerList);
+        log.info("When you click the cancel button, the objects are deleted!");
     }
 }
