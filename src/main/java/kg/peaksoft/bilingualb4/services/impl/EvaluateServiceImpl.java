@@ -2,7 +2,6 @@ package kg.peaksoft.bilingualb4.services.impl;
 
 import kg.peaksoft.bilingualb4.api.payload.EvaluateResponse;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResultRequest;
-import kg.peaksoft.bilingualb4.api.payload.UsersAnswerResponse;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.*;
 import kg.peaksoft.bilingualb4.model.enums.Status;
@@ -51,13 +50,15 @@ public class EvaluateServiceImpl implements EvaluateService {
             evaluate.setQuestionName(question.getName());
             evaluate.setDuration(question.getDuration());
             evaluate.setQuestionType(question.getQuestionType());
-            evaluate.setOptions(question.getOptionsList());
+            evaluate.setOptions(question.getOptionList());
         }
-        for (Options options : evaluate.getOptions()) {
-            if (options.isCorrectAnswer()) {
+        for (Option option : evaluate.getOptions()) {
+            if (option.isCorrect()) {
                 correctOption++;
             }
         }
+
+        log.info("Successful to check!");
 
         List<UsersAnswer> usersAnswerList;
         for (User user : test.getUserList()) {
@@ -70,16 +71,18 @@ public class EvaluateServiceImpl implements EvaluateService {
             evaluate.setUserAnswer(usersAnswerMapper.mapToResponse(usersAnswerList));
         }
 
+//        --------------------------------------
         for (int i = 0; i < evaluate.getUserAnswer().size(); i++) {
-            for (int j = 0; j < evaluate.getUserAnswer().get(i).getOptionsList().size(); j++) {
-                if (evaluate.getUserAnswer().get(i).getOptionsList().get(j).isCorrectAnswer()) {
+            for (int j = 0; j < evaluate.getUserAnswer().get(i).getOptionList().size(); j++) {
+                if (evaluate.getUserAnswer().get(i).getOptionList().get(j).isCorrect()) {
                     allUserCorrectAnswer++;
-                    if (evaluate.getUserAnswer().get(i).getOptionsList().get(j).isCorrectAnswer() == evaluate.getOptions().get(j).isCorrectAnswer()) {
+                    if (evaluate.getUserAnswer().get(i).getOptionList().get(j).isCorrect() == evaluate.getOptions().get(j).isCorrect()) {
                         userCorrectAnswer++;
                     }
                 }
             }
         }
+        log.info("проверка ответов пользователя");
 
         if (allUserCorrectAnswer > correctOption) {
             evaluate.setScore(0);
@@ -87,6 +90,7 @@ public class EvaluateServiceImpl implements EvaluateService {
             int score = (((userCorrectAnswer * 100) / correctOption) / 10);
             evaluate.setScore(Math.round(score));
         }
+        log.info("вычисление баллов в процентном соотношении");
 
         questionResult.setScore(evaluate.getScore());
         questionResult.setStatus(Status.EVALUATE);
@@ -95,6 +99,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         for (User user : test.getUserList()) {
             userId = user.getId();
         }
+        log.info("создает обьект (questionResult по дефолту)");
 
         MyResult myResult;
         if (!exist) {
@@ -113,7 +118,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         }
         questionResult.setMyResult(myResult);
         myResultRepository.save(myResult);
-
+      log.info("save MyResult");
         List<QuestionResult> questionResultList = questionResultRepository.findAllByMyResultId(myResult.getId());
         for (QuestionResult questionResult1 : questionResultList) {
             if (questionResult1.getStatus() == Status.EVALUATE) {
@@ -125,11 +130,14 @@ public class EvaluateServiceImpl implements EvaluateService {
         if (counterForFinalStatus == test.getQuestionList().size()) {
             questionResult.setFinalStatus(Status.EVALUATE);
         }
-
+     log.info("вычисление суммы");
         myResult.setStatus(questionResult.getFinalStatus());
         myResult.setScore(questionResult.getFinalScore());
         myResultRepository.save(myResult);
         questionResultRepository.save(questionResult);
+
+        log.info("save questionResult");
+
         return evaluate;
     }
 
@@ -145,7 +153,7 @@ public class EvaluateServiceImpl implements EvaluateService {
             evaluate.setQuestionName(question.getName());
             evaluate.setDuration(question.getDuration());
             evaluate.setQuestionType(question.getQuestionType());
-            evaluate.setOptions(question.getOptionsList());
+            evaluate.setOptions(question.getOptionList());
         }
         int sum = 0;
         Long userId = null;
@@ -198,6 +206,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         myResult.setScore(questionResult.getFinalScore());
         myResultRepository.save(myResult);
         questionResultRepository.save(questionResult);
+        log.info("Manual check is done successfully !");
         return evaluate;
     }
 
@@ -294,6 +303,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         myResult.setScore(questionResult.getFinalScore());
         myResultRepository.save(myResult);
         questionResultRepository.save(questionResult);
+        log.info("Method 'highlight' is done successfully!");
         return evaluate;
     }
 }

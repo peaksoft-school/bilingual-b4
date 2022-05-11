@@ -12,12 +12,14 @@ import kg.peaksoft.bilingualb4.repository.QuestionResultRepository;
 import kg.peaksoft.bilingualb4.services.EvaluateService;
 import kg.peaksoft.bilingualb4.services.QuestionResultService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class QuestionResultServiceImpl implements QuestionResultService {
 
     private final QuestionResultMapper questionResultMapper;
@@ -27,11 +29,13 @@ public class QuestionResultServiceImpl implements QuestionResultService {
     @Override
     public List<QuestionResultResponse> findAll() {
         List<QuestionResult> questionResultList = questionResultRepository.findAll();
+        log.info("Successful find all !");
         return questionResultMapper.mapToResponse(questionResultList);
     }
 
     @Override
     public QuestionResultResponse findById(Long id) {
+        log.info("Successful find by id {} :",id);
         return questionResultMapper.mapToResponse(questionResultRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("Object 'questionResult' with %d id not found!", id)
         )));
@@ -51,6 +55,7 @@ public class QuestionResultServiceImpl implements QuestionResultService {
             }
         }
         evaluateResponse = evaluateService.manualChek(questionResult.getId(), userAnswerId, questionResultRequest);
+        log.info("Successful update!");
         return evaluateResponse;
     }
 }

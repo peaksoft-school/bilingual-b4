@@ -29,14 +29,12 @@ public class Question {
     private SingleAndMultiType singleAndMultiType;
 
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, fetch = FetchType.EAGER)
-    private List<Options> optionsList;
-    private String audio;
+    private List<Option> optionList;
+    private String file;
     private int numberOfReplays;
-    private String upload;
     private String play;
     private String correctAnswer;
     private String record;
-    private String uploadImage;
     private String questionStatement;
     private int wordCounter;
     private String questionToThePassage;
@@ -44,7 +42,7 @@ public class Question {
     private String highlightCorrectAnswer;
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
-    private LocalDateTime duration;
+    private int duration;
 
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")

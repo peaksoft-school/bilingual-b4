@@ -1,7 +1,7 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kg.peaksoft.bilingualb4.model.entity.Options;
+import kg.peaksoft.bilingualb4.model.entity.Option;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import lombok.Builder;
@@ -19,17 +19,14 @@ public class QuestionRequest {
     @JsonProperty("single_and_multi_type")
     private SingleAndMultiType singleAndMultiType;
     @JsonProperty("options_list")
-    private List<Options> optionsList;
-    private String audio;
+    private List<Option> optionList;
+    private String file;
     @JsonProperty("number_of_replays")
     private int numberOfReplays;
-    private String upload;
     private String play;
     @JsonProperty("correct_answer")
     private String correctAnswer;
     private String record;
-    @JsonProperty("upload_image")
-    private String uploadImage;
     @JsonProperty("question_statement")
     private String questionStatement;
     @JsonProperty("word_counter")
@@ -41,5 +38,5 @@ public class QuestionRequest {
     private String highlightCorrectAnswer;
     @JsonProperty("question_type")
     private QuestionType questionType;
-    private LocalDateTime duration;
+    private int duration;
 }

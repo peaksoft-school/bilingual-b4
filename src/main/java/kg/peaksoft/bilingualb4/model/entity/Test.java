@@ -24,6 +24,8 @@ public class Test {
 
     private String title;
     private String shortDescription;
+    private boolean isEnabled=false;
+
 
     @ManyToMany(cascade = {REFRESH, DETACH, PERSIST, MERGE}, fetch = FetchType.LAZY, mappedBy = "testList")
     private List<User> userList;

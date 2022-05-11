@@ -4,7 +4,7 @@ import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
-import kg.peaksoft.bilingualb4.model.entity.Options;
+import kg.peaksoft.bilingualb4.model.entity.Option;
 import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import kg.peaksoft.bilingualb4.model.mappers.QuestionMapper;
 import kg.peaksoft.bilingualb4.model.entity.Question;
@@ -12,6 +12,7 @@ import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.repository.QuestionRepository;
 import kg.peaksoft.bilingualb4.services.QuestionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
@@ -33,17 +35,17 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionResponse save(Long testId, QuestionRequest questionRequest) {
-        System.out.println(questionRequest.getOptionsList().toString());
+        System.out.println(questionRequest.getOptionList().toString());
         System.out.println(questionRequest.getQuestionType());
-        if (questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
-                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
-                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||
-                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_THE_BEST_TITLE) {
+        if (questionRequest.getOptionList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
+                questionRequest.getOptionList().isEmpty() && questionRequest.getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
+                questionRequest.getOptionList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||
+                questionRequest.getOptionList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_THE_BEST_TITLE) {
             throw new BadRequestException("You should to choose at least one option!");
         }
         int counterOfCorrectOptions = 0;
-        for (Options options : questionRequest.getOptionsList()) {
-            if (options.isCorrectAnswer()) {
+        for (Option option : questionRequest.getOptionList()) {
+            if (option.isCorrect()) {
                 counterOfCorrectOptions++;
             }
         }
@@ -54,6 +56,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
         Question question = questionMapper.mapToEntity(null, testId, questionRequest);
         Question save = questionRepository.save(question);
+        log.info("Successful save object!");
         return questionMapper.mapToResponse(save);
     }
 
@@ -73,6 +76,7 @@ public class QuestionServiceImpl implements QuestionService {
             Question question = questionRepository.findByName(name).orElseThrow(() -> new NotFoundException(
                     String.format("Question with name = %s does not exists", name)
             ));
+            log.info("Successful find by this id {} and by name {} :",id,name);
             return questionMapper.mapToResponse(question);
         }
         throw new BadRequestException("You should write one of {id, name} to get Type");
@@ -90,6 +94,7 @@ public class QuestionServiceImpl implements QuestionService {
             );
         }
         questionRepository.deleteById(id);
+        log.info("Successful delete by id {} :",id);
         return response;
     }
 
@@ -106,10 +111,12 @@ public class QuestionServiceImpl implements QuestionService {
             response = questionMapper.mapToEntity(id, question.getTest().getId(), questionRequest);
             questionRepository.save(response);
         }
+        log.info("Successful update by id {} on {}:",id,response);
         return questionMapper.mapToResponse(response);
     }
 
     private QuestionResponse findById(Long id) {
+        log.info("Successful find object with id {} :",id);
         return questionMapper.mapToResponse(questionRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("Question with id = %s does not exists", id)
         )));

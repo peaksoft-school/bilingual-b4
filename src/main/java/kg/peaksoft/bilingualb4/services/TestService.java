@@ -13,7 +13,7 @@ public interface TestService {
 
     TestResponse save(TestRequest testRequest);
 
-    Optional<Test> findById(Long id);
+    TestResponse findById(Long id);
 
     TestResponse deleteById(Long id);
 

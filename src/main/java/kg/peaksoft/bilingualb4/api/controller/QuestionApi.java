@@ -64,8 +64,8 @@ public class QuestionApi {
             description = "Deletes an endpoint and all its child entities.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("{id}")
-    public void deleteById(@PathVariable Long id) {
-        questionService.deleteById(id);
+    public QuestionResponse deleteById(@PathVariable Long id) {
+       return questionService.deleteById(id);
     }
 
     @Operation(summary = "Updates the entities : workshop$Question",

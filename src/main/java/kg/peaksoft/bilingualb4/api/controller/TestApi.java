@@ -45,15 +45,15 @@ public class TestApi {
             description = "Deletes an endpoint and all its child entities.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("{id}")
-    public void deleteBy(@PathVariable("id") Long id) {
-        testService.deleteById(id);
+    public TestResponse deleteBy(@PathVariable("id") Long id) {
+       return testService.deleteById(id);
     }
 
     @Operation(summary = "Gets a single entity by identifier: workshop$Test",
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping("{id}")
-    public Optional<Test> findById(@PathVariable Long id) {
+    public TestResponse findById(@PathVariable Long id) {
         return testService.findById(id);
     }
 

@@ -1,7 +1,7 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kg.peaksoft.bilingualb4.model.entity.Options;
+import kg.peaksoft.bilingualb4.model.entity.Option;
 import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class UsersAnswerResponse {
     @JsonProperty("single_and_multi_type")
     private SingleAndMultiType singleAndMultiType;
     @JsonProperty("option_list")
-    private List<Options> optionsList;
+    private List<Option> optionList;
     @JsonProperty("play_button_of_audio")
     private String playButtonOfAudio;
     @JsonProperty("some_text")

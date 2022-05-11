@@ -44,10 +44,10 @@ public class UserServiceTest {
     @Order(2)
     void findById() {
         try {
-            User user = userService.findById(2L).get();
-            assertThat(user).isNotNull();
-            assertThat(user.getUserName()).isEqualTo("User");
-            assertThat(user.getEmail()).isEqualTo("user@gmail.com");
+            UserResponse userResponse = userService.findById(2L);
+            assertThat(userResponse).isNotNull();
+            assertThat(userResponse.getUserName()).isEqualTo("User");
+            assertThat(userResponse.getEmail()).isEqualTo("user@gmail.com");
         } catch (Exception e) {
             Assertions.fail("An error occurred while getting a client by id: " + e.getMessage());
         }

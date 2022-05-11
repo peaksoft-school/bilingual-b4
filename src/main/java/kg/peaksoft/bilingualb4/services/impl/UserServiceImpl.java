@@ -53,12 +53,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public UserResponse findById(Long id) {
         boolean exists = userRepository.existsById(id);
         if (!exists) {
             throw new BadRequestException(String.format("while user with %d not in database", id));
         }
-        return userRepository.findById(id);
+        return userMapper.mapToResponse(userRepository.findById(id).orElseThrow(()->new NotFoundException(String.format("User with %d id not found.",id))));
     }
 
     @Override

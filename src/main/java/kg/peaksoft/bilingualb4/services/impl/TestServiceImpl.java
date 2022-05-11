@@ -51,12 +51,12 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Optional<Test> findById(Long id) {
+    public TestResponse findById(Long id) {
         boolean exists = testRepository.existsById(id);
         if (!exists) {
             throw new BadRequestException("You should write one of {id} to get Type");
         }
-        return testRepository.findById(id);
+        return testMapper.mapToResponse(testRepository.findById(id).orElseThrow(()->new NotFoundException(String.format("Test with %d id not found.",id))));
     }
 
     @Override
@@ -73,7 +73,6 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public TestResponse updateById(Long id, TestRequest testRequest) {
-        TestResponse test = getById(id);
         boolean exists = testRepository.existsById(id);
         Test response;
         if (!exists) {

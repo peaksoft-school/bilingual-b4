@@ -26,7 +26,7 @@ public class UsersAnswer {
     private SingleAndMultiType singleAndMultiType;
 
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST},fetch = FetchType.EAGER)
-    private List<Options> optionsList;
+    private List<Option> optionList;
     private String playButtonOfAudio;
     private String someText;
     private int numberOfReplays;
@@ -48,7 +48,7 @@ public class UsersAnswer {
         return "UsersAnswer{" +
                 "id=" + id +
                 ", singleAndMultiType=" + singleAndMultiType +
-                ", optionsList=" + optionsList +
+                ", optionList=" + optionList +
                 ", playButtonOfAudio='" + playButtonOfAudio + '\'' +
                 ", someText='" + someText + '\'' +
                 ", numberOfReplays=" + numberOfReplays +

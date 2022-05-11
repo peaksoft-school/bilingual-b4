@@ -3,13 +3,16 @@ package kg.peaksoft.bilingualb4.model.mappers;
 import kg.peaksoft.bilingualb4.api.payload.TestRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResponse;
 import kg.peaksoft.bilingualb4.model.entity.Test;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class TestMapper {
+    private final QuestionMapper questionMapper;
 
     public Test mapToEntity(Long id, TestRequest testRequest) {
         if (testRequest == null) {
@@ -38,7 +41,7 @@ public class TestMapper {
                 .id(String.valueOf(test.getId()))
                 .title(test.getTitle())
                 .shortDescription(test.getShortDescription())
+                .questionResponseList(questionMapper.mapToResponse(test.getQuestionList()))
                 .build();
-
     }
 }

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "options")
 @Getter
 @Setter
-public class Options {
+public class Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "option_sequence")
@@ -18,14 +18,6 @@ public class Options {
     @JsonIgnore
     private Long id;
     private String optionName;
-    private boolean correctAnswer = false;
+    private boolean isCorrect = false;
 
-    @Override
-    public String toString() {
-        return "Options{" +
-                "id=" + id +
-                ", optionName='" + optionName + '\'' +
-                ", correctAnswer=" + correctAnswer +
-                '}';
-    }
 }

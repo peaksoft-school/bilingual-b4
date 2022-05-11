@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -14,4 +16,5 @@ public class TestResponse {
     private String title;
     @JsonProperty("short_description")
     private String shortDescription;
+    private List<QuestionResponse>questionResponseList;
 }
