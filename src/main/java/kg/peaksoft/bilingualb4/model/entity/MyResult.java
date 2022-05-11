@@ -1,11 +1,14 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
-import jdk.jshell.Snippet;
 import kg.peaksoft.bilingualb4.model.enums.Status;
 import lombok.*;
 
 import javax.persistence.*;
+import java.awt.geom.RectangularShape;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Getter
@@ -29,4 +32,10 @@ public class MyResult {
 
     private int score;
 
+    @ManyToOne(cascade = {REFRESH, MERGE, DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id")
+    private User user;
+
+    @OneToMany(cascade = ALL, mappedBy = "myResult")
+    private List<QuestionResult> questionResultList;
 }

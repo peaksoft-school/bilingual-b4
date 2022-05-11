@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
         userRequest.setPassword(encodedPassword);
 
-        User user = userMapper.mapToEntity(userRequest);
+        User user = userMapper.mapToEntity(null, userRequest);
         User save = userRepository.save(user);
         return userMapper.mapToResponse(save);
     }
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findById(Long id) {
         boolean exists = userRepository.existsById(id);
         if (!exists) {
-            throw new BadRequestException("You should write one of {id} to get Type");
+            throw new BadRequestException(String.format("while user with %d not in database", id));
         }
         return userRepository.findById(id);
     }
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         boolean exists = userRepository.existsById(id);
         if (!exists) {
             throw new BadRequestException(
-                    String.format("Type with id = %s does not exists", id)
+                    String.format("User with id = %s does not exists", id)
             );
         }
         userRepository.deleteById(id);
@@ -76,15 +76,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse update(Long id, UserRequest userRequest) {
-        User user = userRepository.getById(id);
         boolean exists = userRepository.existsById(id);
         User response;
         if (!exists) {
             throw new BadRequestException(
-                    String.format("Client with %d is already exists", id)
-            );
+                    String.format("User with %d is already exists", id));
         } else {
-            response = userMapper.mapToEntity(userRequest);
+            response = userMapper.mapToEntity(id, userRequest);
             userRepository.save(response);
         }
         return userMapper.mapToResponse(response);
@@ -93,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
     private UserResponse getById(Long id) {
         return userMapper.mapToResponse(userRepository.findById(id).orElseThrow(() -> new NotFoundException(
-                String.format("Client with id = %s does not exists", id)
+                String.format("User with id = %s does not exists", id)
         )));
     }
 }

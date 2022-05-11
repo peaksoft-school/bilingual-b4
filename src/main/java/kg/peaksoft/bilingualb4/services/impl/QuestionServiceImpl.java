@@ -4,6 +4,8 @@ import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
+import kg.peaksoft.bilingualb4.model.entity.Options;
+import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import kg.peaksoft.bilingualb4.model.mappers.QuestionMapper;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
@@ -31,6 +33,25 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionResponse save(Long testId, QuestionRequest questionRequest) {
+        System.out.println(questionRequest.getOptionsList().toString());
+        System.out.println(questionRequest.getQuestionType());
+        if (questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
+                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
+                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||
+                questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_THE_BEST_TITLE) {
+            throw new BadRequestException("You should to choose at least one option!");
+        }
+        int counterOfCorrectOptions = 0;
+        for (Options options : questionRequest.getOptionsList()) {
+            if (options.isCorrectAnswer()) {
+                counterOfCorrectOptions++;
+            }
+        }
+        if (counterOfCorrectOptions > 1) {
+            questionRequest.setSingleAndMultiType(SingleAndMultiType.MULTI);
+        } else {
+            questionRequest.setSingleAndMultiType(SingleAndMultiType.SINGLE);
+        }
         Question question = questionMapper.mapToEntity(null, testId, questionRequest);
         Question save = questionRepository.save(question);
         return questionMapper.mapToResponse(save);
@@ -46,12 +67,11 @@ public class QuestionServiceImpl implements QuestionService {
             );
         }
         if (id != null) {
-            QuestionResponse question = findById(id);
-            return question;
+            return findById(id);
         }
         if (!isNullOrEmpty(name)) {
             Question question = questionRepository.findByName(name).orElseThrow(() -> new NotFoundException(
-                    String.format("Type with name = %s does not exists", name)
+                    String.format("Question with name = %s does not exists", name)
             ));
             return questionMapper.mapToResponse(question);
         }
@@ -65,7 +85,7 @@ public class QuestionServiceImpl implements QuestionService {
         if (!exists) {
             throw new BadRequestException(
                     String.format(
-                            "Type with id %s does not exists", id
+                            "Question with id %s does not exists", id
                     )
             );
         }
@@ -91,7 +111,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     private QuestionResponse findById(Long id) {
         return questionMapper.mapToResponse(questionRepository.findById(id).orElseThrow(() -> new NotFoundException(
-                String.format("Type with id = %s does not exists", id)
+                String.format("Question with id = %s does not exists", id)
         )));
     }
 }

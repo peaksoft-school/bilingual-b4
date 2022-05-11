@@ -39,4 +39,25 @@ public class UsersAnswer {
     @JoinColumn(name = "question_id")
     private Question question;
 
+    @ManyToOne(cascade = {DETACH,MERGE,REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Override
+    public String toString() {
+        return "UsersAnswer{" +
+                "id=" + id +
+                ", singleAndMultiType=" + singleAndMultiType +
+                ", optionsList=" + optionsList +
+                ", playButtonOfAudio='" + playButtonOfAudio + '\'' +
+                ", someText='" + someText + '\'' +
+                ", numberOfReplays=" + numberOfReplays +
+                ", image='" + image + '\'' +
+                ", record='" + record + '\'' +
+                ", textOfRecord='" + textOfRecord + '\'' +
+                ", counterOfWord=" + counterOfWord +
+                ", question=" + question +
+                ", user=" + user +
+                '}';
+    }
 }
