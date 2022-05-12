@@ -19,4 +19,13 @@ public class Options {
     private Long id;
     private String optionName;
     private boolean correctAnswer = false;
+
+    @Override
+    public String toString() {
+        return "Options{" +
+                "id=" + id +
+                ", optionName='" + optionName + '\'' +
+                ", correctAnswer=" + correctAnswer +
+                '}';
+    }
 }

@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface MyResultService {
 
-    MyResultResponse saveUserResult(Long id);
 
-    MyResultResponse deleteUserResultById(Long id);
+    MyResultResponse findById(Long id);
 
-    List<MyResultResponse> findAll();
+    MyResultResponse deleteById(Long id);
+
+    List<MyResultResponse> findAll(Long id);
 }

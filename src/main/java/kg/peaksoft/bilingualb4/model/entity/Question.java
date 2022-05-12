@@ -54,4 +54,7 @@ public class Question {
     @OneToMany(cascade = {MERGE,DETACH,REFRESH},mappedBy = "question")
     private List<UsersAnswer> usersAnswerList;
 
+    @OneToMany(cascade = ALL)
+    private List<QuestionResult>questionResultList;
+
 }

@@ -21,11 +21,12 @@ public class UserMapper {
         this.roleRepository = roleRepository;
     }
 
-    public User mapToEntity(UserRequest userRequest) {
+    public User mapToEntity(Long id, UserRequest userRequest) {
         if (userRequest == null) {
             return null;
         }
         User user = new User();
+        user.setId(id);
         user.setUserName(userRequest.getUserName());
         user.setEmail(userRequest.getEmail());
         user.setPassword(userRequest.getPassword());

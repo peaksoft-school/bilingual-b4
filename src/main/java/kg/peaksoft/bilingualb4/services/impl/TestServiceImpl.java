@@ -5,11 +5,14 @@ import kg.peaksoft.bilingualb4.api.payload.TestResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.Test;
+import kg.peaksoft.bilingualb4.model.entity.User;
 import kg.peaksoft.bilingualb4.model.mappers.TestMapper;
 import kg.peaksoft.bilingualb4.repository.TestRepository;
+import kg.peaksoft.bilingualb4.repository.UserRepository;
 import kg.peaksoft.bilingualb4.services.TestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,7 @@ import java.util.Optional;
 public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
+    private final UserRepository userRepository;
     private final TestMapper testMapper;
 
     @Override

@@ -2,6 +2,7 @@ package kg.peaksoft.bilingualb4.model.mappers;
 
 import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
+import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.repository.TestRepository;
 import lombok.AllArgsConstructor;
@@ -44,7 +45,9 @@ public class QuestionMapper {
                 .highlightCorrectAnswer(questionRequest.getHighlightCorrectAnswer())
                 .questionType(questionRequest.getQuestionType())
                 .duration(questionRequest.getDuration())
-                .test(testRepository.findById(tesId).get())
+                .test(testRepository.findById(tesId).orElseThrow(()-> new NotFoundException(
+                        String.format("Object 'test' with %d id not found!",id)
+                )))
                 .build();
     }
     public QuestionResponse mapToResponse(Question question){

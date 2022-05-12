@@ -1,9 +1,7 @@
 package kg.peaksoft.bilingualb4.model.mappers;
 
-import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.api.payload.TestRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResponse;
-import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.entity.Test;
 import org.springframework.stereotype.Component;
 
