@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static kg.peaksoft.bilingualb4.model.enums.Status.EVALUATE;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -81,17 +83,21 @@ public class EvaluateServiceImpl implements EvaluateService {
             }
         }
 
+        int finalScore = 0;
         if (allUserCorrectAnswer > correctOption) {
             evaluate.setScore(0);
         } else {
             int score = (((userCorrectAnswer * 100) / correctOption) / 10);
             evaluate.setScore(Math.round(score));
+            finalScore += score;
         }
 
         questionResult.setScore(evaluate.getScore());
-        questionResult.setStatus(Status.EVALUATE);
-        questionResult.setFinalScore(0);
-        questionResult.setFinalStatus(Status.NOT_EVALUATE);
+        questionResult.setStatus(EVALUATE);
+        questionResult.setFinalScore(finalScore);
+        if (questionResult.getFinalScore() != 0) {
+            questionResult.setFinalStatus(EVALUATE);
+        }
         for (User user : test.getUserList()) {
             userId = user.getId();
         }
@@ -116,14 +122,14 @@ public class EvaluateServiceImpl implements EvaluateService {
 
         List<QuestionResult> questionResultList = questionResultRepository.findAllByMyResultId(myResult.getId());
         for (QuestionResult questionResult1 : questionResultList) {
-            if (questionResult1.getStatus() == Status.EVALUATE) {
+            if (questionResult1.getStatus() == EVALUATE) {
                 counterForFinalStatus++;
             }
             sum += questionResult1.getScore();
         }
         questionResult.setFinalScore(sum);
         if (counterForFinalStatus == test.getQuestionList().size()) {
-            questionResult.setFinalStatus(Status.EVALUATE);
+            questionResult.setFinalStatus(EVALUATE);
         }
 
         myResult.setStatus(questionResult.getFinalStatus());
@@ -162,7 +168,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         }
         evaluate.setScore(questionResult.getScore());
         questionResult.setScore(evaluate.getScore());
-        questionResult.setStatus(Status.EVALUATE);
+        questionResult.setStatus(EVALUATE);
         questionResult.setFinalScore(0);
         questionResult.setFinalStatus(Status.NOT_EVALUATE);
         for (User user : test.getUserList()) {
@@ -192,7 +198,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         }
         questionResult.setFinalScore(sum);
         if (counterForFinalStatus == test.getQuestionList().size()) {
-            questionResult.setFinalStatus(Status.EVALUATE);
+            questionResult.setFinalStatus(EVALUATE);
         }
         myResult.setStatus(questionResult.getFinalStatus());
         myResult.setScore(questionResult.getFinalScore());
@@ -253,7 +259,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         evaluate.setScore(Math.round(score));
 
         questionResult.setScore(evaluate.getScore());
-        questionResult.setStatus(Status.EVALUATE);
+        questionResult.setStatus(EVALUATE);
         questionResult.setFinalScore(0);
         questionResult.setFinalStatus(Status.NOT_EVALUATE);
         for (User user : test.getUserList()) {
@@ -280,14 +286,14 @@ public class EvaluateServiceImpl implements EvaluateService {
 
         List<QuestionResult> questionResultList = questionResultRepository.findAllByMyResultId(myResult.getId());
         for (QuestionResult questionResult1 : questionResultList) {
-            if (questionResult1.getStatus() == Status.EVALUATE) {
+            if (questionResult1.getStatus() == EVALUATE) {
                 counterForFinalStatus++;
             }
             sum += questionResult1.getScore();
         }
         questionResult.setFinalScore(sum);
         if (counterForFinalStatus == test.getQuestionList().size()) {
-            questionResult.setFinalStatus(Status.EVALUATE);
+            questionResult.setFinalStatus(EVALUATE);
         }
 
         myResult.setStatus(questionResult.getFinalStatus());

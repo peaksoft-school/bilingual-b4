@@ -55,4 +55,12 @@ public class QuestionResultApi {
     public EvaluateResponse updateById(@PathVariable Long id, @RequestBody(required = false) QuestionResultRequest questionResultRequest){
         return questionResultService.updateById(id, questionResultRequest);
     }
+
+    @Operation(summary = "Send the result to user : workshop$QuestionResult",
+            description = "First this method finds the user's result and send to owner")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PostMapping("/sendMessage/{myResultId}")
+    public void sendResultsToUsers(@PathVariable Long myResultId){
+        questionResultService.sendResultsToUser(myResultId);
+    }
 }

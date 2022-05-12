@@ -59,8 +59,6 @@ public class UsersAnswerServiceImpl implements UsersAnswerService {
         questionResult.setQuestion(questionRepository.findById(questionId).orElseThrow(() -> new NotFoundException(String.format("QuestionResult with %d id not found!", questionId))));
         questionResultRepository.save(questionResult);
 
-        //QuestionResult questionResult1 = questionResultRepository.findById(questionResult.getId()).orElseThrow(() -> new NotFoundException(String.format("Object 'questionResult' with %d id not found!", questionResult.getId())));
-
         if (questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
                 questionResult.getQuestion().getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
                 questionResult.getQuestion().getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||

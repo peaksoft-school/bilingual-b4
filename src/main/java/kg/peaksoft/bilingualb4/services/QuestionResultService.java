@@ -15,5 +15,6 @@ public interface QuestionResultService {
 
     EvaluateResponse updateById(Long id, QuestionResultRequest questionResultRequest);
 
+    String sendResultsToUser(Long id);
 
 }

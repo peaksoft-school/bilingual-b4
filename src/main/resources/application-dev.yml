@@ -1,22 +1,35 @@
-spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bilingual
-    username: postgres
-    password: postgres
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-
-
-server:
-    port: 5000
-    error:
-        include-message: always
-application:
-  jwt:
-    secret-key: HRlELXqpSB
-    token-prefix: Bearer
-    expiration-date-after-days: 30
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/bilingual
+#    username: postgres
+#    password: 5996
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+#    hibernate:
+#      ddl-auto: create-drop
+#    show-sql: true
+#
+#  mail:
+#    host: smtp.gmail.com
+#    port: 25
+#    username: mailfromspringboot0@gmail.com
+#    password: okm9ijnuhb
+#    properties:
+#      mail:
+#        debug: true
+#        transport:
+#          protocol: smtp
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#server:
+#    port: 5000
+#    error:
+#        include-message: always
+#application:
+#  jwt:
+#    secret-key: HRlELXqpSB
+#    token-prefix: Bearer
+#    expiration-date-after-days: 30

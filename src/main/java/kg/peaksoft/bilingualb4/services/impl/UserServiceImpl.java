@@ -4,7 +4,6 @@ import kg.peaksoft.bilingualb4.api.payload.UserRequest;
 import kg.peaksoft.bilingualb4.api.payload.UserResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
-import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.entity.User;
 import kg.peaksoft.bilingualb4.model.mappers.UserMapper;
 import kg.peaksoft.bilingualb4.repository.UserRepository;
@@ -16,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -37,6 +38,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse registration(UserRequest userRequest) {
         String email = userRequest.getEmail();
+        String[] emailArray = userRequest.getEmail().split("@");
+        String[] passwordArray = userRequest.getPassword().split("");
+        int counter = 0;
+        if (!emailArray[1].equals("gmail.com")) {
+            throw new BadRequestException("Email does not correct");
+        }
+        for (String s : passwordArray) {
+            if (Objects.equals(s, s.toUpperCase(Locale.ROOT))) {
+                counter++;
+            }
+        }
+        if (counter < 1) {
+            throw new BadRequestException("Password must have one capital letter!");
+        }
+        if (passwordArray.length<6){
+            throw new BadRequestException("password must have at least 6 characters");
+        }
         boolean exists = userRepository.existsByEmail(email);
         log.info("Saving new client {} to the database", userRequest.getUserName());
         if (exists) {

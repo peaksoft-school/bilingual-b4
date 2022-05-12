@@ -12,4 +12,5 @@ public interface MyResultService {
     MyResultResponse deleteById(Long id);
 
     List<MyResultResponse> findAll(Long id);
+
 }
