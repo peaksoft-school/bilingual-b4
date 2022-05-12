@@ -82,7 +82,7 @@ public class EvaluateServiceImpl implements EvaluateService {
                 }
             }
         }
-        log.info("проверка ответов пользователя");
+        log.info("Checking user responses");
 
         if (allUserCorrectAnswer > correctOption) {
             evaluate.setScore(0);
@@ -90,7 +90,7 @@ public class EvaluateServiceImpl implements EvaluateService {
             int score = (((userCorrectAnswer * 100) / correctOption) / 10);
             evaluate.setScore(Math.round(score));
         }
-        log.info("вычисление баллов в процентном соотношении");
+        log.info("Calculation of points as a percentage");
 
         questionResult.setScore(evaluate.getScore());
         questionResult.setStatus(Status.EVALUATE);
@@ -99,7 +99,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         for (User user : test.getUserList()) {
             userId = user.getId();
         }
-        log.info("создает обьект (questionResult по дефолту)");
+        log.info("Creates an object (questionResult by default)");
 
         MyResult myResult;
         if (!exist) {
@@ -118,7 +118,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         }
         questionResult.setMyResult(myResult);
         myResultRepository.save(myResult);
-      log.info("save MyResult");
+      log.info("Save my result");
         List<QuestionResult> questionResultList = questionResultRepository.findAllByMyResultId(myResult.getId());
         for (QuestionResult questionResult1 : questionResultList) {
             if (questionResult1.getStatus() == Status.EVALUATE) {
@@ -130,13 +130,13 @@ public class EvaluateServiceImpl implements EvaluateService {
         if (counterForFinalStatus == test.getQuestionList().size()) {
             questionResult.setFinalStatus(Status.EVALUATE);
         }
-     log.info("вычисление суммы");
+     log.info("Sum calculation");
         myResult.setStatus(questionResult.getFinalStatus());
         myResult.setScore(questionResult.getFinalScore());
         myResultRepository.save(myResult);
         questionResultRepository.save(questionResult);
 
-        log.info("save questionResult");
+        log.info("Save question's result");
 
         return evaluate;
     }

@@ -19,5 +19,6 @@ public class Option {
     private Long id;
     private String optionName;
     private boolean isCorrect = false;
+    private String audio;
 
 }
