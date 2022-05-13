@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/submitted_result")
-@CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
+@CrossOrigin(origins = "*",maxAge = 3600)
 @Tag(name = "TestResult: ", description = "Quote CRUD operations")
 public class TestResultApi {
 

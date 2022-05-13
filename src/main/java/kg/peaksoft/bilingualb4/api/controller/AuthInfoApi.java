@@ -16,7 +16,7 @@ import javax.annotation.security.PermitAll;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5001", maxAge = 3600)
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RequestMapping("api/public")
 @Tag(name = "Authentication:", description = "Client authentication")
 public class AuthInfoApi {

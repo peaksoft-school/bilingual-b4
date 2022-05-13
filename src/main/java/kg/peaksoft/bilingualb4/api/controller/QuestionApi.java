@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/question")
-@CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
+@CrossOrigin(origins = "*",maxAge = 3600)
 @Tag(name = "Question: ", description = "Quote CRUD operations")
 public class QuestionApi {
 
