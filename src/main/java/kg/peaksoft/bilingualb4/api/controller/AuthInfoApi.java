@@ -37,7 +37,6 @@ public class AuthInfoApi {
                     "The method expects a JSON with entity object in the request body." +
                             "The entity object may contain references to other entities.")
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/registration")
     public UserResponse registration(@RequestBody UserRequest userRequest) {
         return userService.registration(userRequest);
