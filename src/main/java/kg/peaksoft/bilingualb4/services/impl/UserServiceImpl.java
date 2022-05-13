@@ -49,11 +49,8 @@ public class UserServiceImpl implements UserService {
                 counter++;
             }
         }
-        if (counter < 1) {
-            throw new BadRequestException("Password must have one capital letter!");
-        }
-        if (passwordArray.length<6){
-            throw new BadRequestException("password must have at least 6 characters");
+        if (passwordArray.length<5){
+            throw new BadRequestException("password must have at least 5 characters");
         }
         boolean exists = userRepository.existsByEmail(email);
         log.info("Saving new client {} to the database", userRequest.getUserName());

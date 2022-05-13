@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -20,6 +21,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -50,7 +53,12 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService getUserDetailsService() {
         return (email) -> authInfoRepository.findByEmail(email)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(()-> {
+                    throw new BadCredentialsException (
+                            String.format("This id is not exists exception")
+
+                    );
+                });
     }
 
     @Override
@@ -58,7 +66,7 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/swagger-ui.html","api/public**").permitAll()
                 .anyRequest()
                 .permitAll();
 
