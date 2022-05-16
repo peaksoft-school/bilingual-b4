@@ -9,7 +9,6 @@ import lombok.Setter;
 public class TestRequest {
 
     private String title;
-    @JsonProperty("short_description")
     private String shortDescription;
 
 }
