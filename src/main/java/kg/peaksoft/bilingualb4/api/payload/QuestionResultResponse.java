@@ -1,6 +1,5 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import kg.peaksoft.bilingualb4.model.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,18 +13,12 @@ import java.time.LocalDateTime;
 public class QuestionResultResponse {
 
     private Long id;
-    @JsonProperty("user_name")
     private String userName;
-    @JsonProperty("test_name")
     private String testName;
-    @JsonProperty("date_of_submission")
     private LocalDateTime dateOfSubmission;
-    @JsonProperty("question_name")
     private String questionName;
     private int score;
     private Status status;
-    @JsonProperty("final_score")
     private int finalScore;
-    @JsonProperty("final_status")
     private Status finalStatus;
 }
