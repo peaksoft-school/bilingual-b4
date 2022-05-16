@@ -39,4 +39,7 @@ public class QuestionResult {
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @ManyToOne(cascade ={CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private MyResult myResult;
 }

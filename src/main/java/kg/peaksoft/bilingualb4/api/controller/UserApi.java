@@ -39,7 +39,6 @@ public class UserApi {
         return userService.findAll();
     }
 
-
     @Operation(summary = "Deletes the entity: workshop$Client",
             description = "Deletes an endpoint and all its child entities.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
