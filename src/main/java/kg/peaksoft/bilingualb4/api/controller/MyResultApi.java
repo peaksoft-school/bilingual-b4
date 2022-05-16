@@ -11,6 +11,8 @@ import kg.peaksoft.bilingualb4.api.payload.MyResultResponse;
 import kg.peaksoft.bilingualb4.services.MyResultService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +35,9 @@ public class MyResultApi {
             summary = "Get a list of entity by {userId}: workshop MyResult",
             description = "Returns a map of status codes to quantities:")
     @PreAuthorize("hasAnyAuthority('CLIENT')")
-    @GetMapping("{userId}")
-    public List<MyResultResponse> findAllById(@PathVariable Long userId) {
-        return myResultService.findAll(userId);
+    @GetMapping("")
+    public List<MyResultResponse> findAllById(@AuthenticationPrincipal UserDetails userDetails) {
+        return myResultService.findAll(userDetails);
     }
 
     @Operation(summary = "Gets a single entity by identifier: workshop$MyResult",

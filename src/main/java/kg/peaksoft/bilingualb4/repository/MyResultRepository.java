@@ -14,7 +14,7 @@ public interface MyResultRepository extends JpaRepository<MyResult, Long> {
     boolean existsByUserId(Long userId);
 
     @Query("from MyResult c where c.user.id=?1")
-    List<MyResult> findAllById(Long userId);
+    List<MyResult> findAllByUserId(Long userId);
 
     @Query("from MyResult c where c.user.id =?1")
     MyResult findByUserId(Long id);

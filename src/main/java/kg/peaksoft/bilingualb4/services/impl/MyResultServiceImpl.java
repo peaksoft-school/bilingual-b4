@@ -3,10 +3,13 @@ package kg.peaksoft.bilingualb4.services.impl;
 import kg.peaksoft.bilingualb4.api.payload.MyResultResponse;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.MyResult;
+import kg.peaksoft.bilingualb4.model.entity.User;
 import kg.peaksoft.bilingualb4.model.mappers.MyResultMapper;
 import kg.peaksoft.bilingualb4.repository.MyResultRepository;
+import kg.peaksoft.bilingualb4.repository.UserRepository;
 import kg.peaksoft.bilingualb4.services.MyResultService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +20,7 @@ public class MyResultServiceImpl implements MyResultService {
 
     private final MyResultRepository resultRepository;
     private final MyResultMapper myResultMapper;
+    private final UserRepository userRepository;
 
     @Override
     public MyResultResponse findById(Long id) {
@@ -35,8 +39,9 @@ public class MyResultServiceImpl implements MyResultService {
     }
 
     @Override
-    public List<MyResultResponse> findAll(Long userId) {
-        List<MyResult> myResults = resultRepository.findAllById(userId);
+    public List<MyResultResponse> findAll(UserDetails userDetails) {
+        User user = userRepository.findByEmail(userDetails.getUsername());
+        List<MyResult> myResults = resultRepository.findAllByUserId(user.getId());
         return myResultMapper.mapToResponse(myResults);
     }
 }
