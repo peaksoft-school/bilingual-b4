@@ -1,6 +1,7 @@
 package kg.peaksoft.bilingualb4.services;
 
 import kg.peaksoft.bilingualb4.api.payload.MyResultResponse;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -11,6 +12,6 @@ public interface MyResultService {
 
     MyResultResponse deleteById(Long id);
 
-    List<MyResultResponse> findAll(Long id);
+    List<MyResultResponse> findAll(UserDetails userDetails);
 
 }
