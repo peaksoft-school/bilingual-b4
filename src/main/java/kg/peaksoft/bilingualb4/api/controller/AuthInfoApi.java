@@ -19,7 +19,7 @@ import javax.annotation.security.PermitAll;
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RequestMapping("api/public")
 @Tag(name = "Authentication:", description = "Client authentication")
-public class AuthInfoApi {
+public class  AuthInfoApi {
 
     private final AuthInfoService authInfoService;
     private final UserService userService;

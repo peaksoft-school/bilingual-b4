@@ -53,13 +53,10 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService getUserDetailsService() {
         return (email) -> authInfoRepository.findByEmail(email)
-                .orElseThrow(()-> {
-                    throw new BadCredentialsException (
-                            String.format("This id is not exists exception")
+                .orElseThrow(()-> new BadCredentialsException (
+                            "This id is not exists exception"));
+                }
 
-                    );
-                });
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
