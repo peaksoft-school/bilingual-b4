@@ -14,6 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/file")
 @AllArgsConstructor
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class UploadFileController {
 
     private AwsService awsService;
