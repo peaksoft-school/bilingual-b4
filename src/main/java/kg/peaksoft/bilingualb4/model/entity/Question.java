@@ -44,7 +44,7 @@ public class Question {
     private String highlightCorrectAnswer;
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
-    private LocalDateTime duration;
+    private int duration;
 
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")

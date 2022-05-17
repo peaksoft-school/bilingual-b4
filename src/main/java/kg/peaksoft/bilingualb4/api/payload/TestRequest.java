@@ -10,5 +10,6 @@ public class TestRequest {
 
     private String title;
     private String shortDescription;
+    private boolean isActive;
 
 }
