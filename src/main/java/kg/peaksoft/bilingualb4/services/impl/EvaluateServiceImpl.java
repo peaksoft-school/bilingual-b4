@@ -56,7 +56,7 @@ public class EvaluateServiceImpl implements EvaluateService {
             evaluate.setOptions(question.getOptionsList());
         }
         for (Options options : evaluate.getOptions()) {
-            if (options.isCorrectAnswer()) {
+            if (options.isCorrect()) {
                 correctOption++;
             }
         }
@@ -74,9 +74,9 @@ public class EvaluateServiceImpl implements EvaluateService {
 
         for (int i = 0; i < evaluate.getUserAnswer().size(); i++) {
             for (int j = 0; j < evaluate.getUserAnswer().get(i).getOptionsList().size(); j++) {
-                if (evaluate.getUserAnswer().get(i).getOptionsList().get(j).isCorrectAnswer()) {
+                if (evaluate.getUserAnswer().get(i).getOptionsList().get(j).isCorrect()) {
                     allUserCorrectAnswer++;
-                    if (evaluate.getUserAnswer().get(i).getOptionsList().get(j).isCorrectAnswer() == evaluate.getOptions().get(j).isCorrectAnswer()) {
+                    if (evaluate.getUserAnswer().get(i).getOptionsList().get(j).isCorrect() == evaluate.getOptions().get(j).isCorrect()) {
                         userCorrectAnswer++;
                     }
                 }

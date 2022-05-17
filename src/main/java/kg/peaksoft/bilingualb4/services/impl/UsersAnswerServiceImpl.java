@@ -42,6 +42,9 @@ public class UsersAnswerServiceImpl implements UsersAnswerService {
         usersAnswers.add(usersAnswer);
         user.setUsersAnswers(usersAnswers);
         usersAnswer.setUser(user);
+        if (usersAnswer.getQuestion().getDuration() != 0){
+
+        }
         usersAnswerRepository.save(usersAnswer);
 
         Test test = usersAnswer.getQuestion().getTest();

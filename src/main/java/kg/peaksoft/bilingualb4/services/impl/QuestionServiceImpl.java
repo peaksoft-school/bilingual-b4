@@ -33,8 +33,6 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionResponse save(Long testId, QuestionRequest questionRequest) {
-        System.out.println(questionRequest.getOptionsList().toString());
-        System.out.println(questionRequest.getQuestionType());
         if (questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
                 questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
                 questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||
@@ -43,7 +41,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
         int counterOfCorrectOptions = 0;
         for (Options options : questionRequest.getOptionsList()) {
-            if (options.isCorrectAnswer()) {
+            if (options.isCorrect()) {
                 counterOfCorrectOptions++;
             }
         }

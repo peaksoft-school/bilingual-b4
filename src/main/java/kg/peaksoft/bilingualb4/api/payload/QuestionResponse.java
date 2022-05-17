@@ -32,5 +32,5 @@ public class QuestionResponse {
     private String passage;
     private String highlightCorrectAnswer;
     private QuestionType questionType;
-    private LocalDateTime duration;
+    private int duration;
 }

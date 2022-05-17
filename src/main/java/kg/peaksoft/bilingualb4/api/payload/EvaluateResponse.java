@@ -15,7 +15,7 @@ public class EvaluateResponse {
     private String userName;
     private String testName;
     private String  questionName;
-    private LocalDateTime duration;
+    private int duration;
     private QuestionType questionType;
     private List<Options> options;
     private int score;
