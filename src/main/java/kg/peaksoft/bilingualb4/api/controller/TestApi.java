@@ -47,8 +47,8 @@ public class TestApi {
             description = "Deletes an endpoint and all its child entities.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("{id}")
-    public void deleteBy(@PathVariable("id") Long id) {
-        testService.deleteById(id);
+    public TestResponse deleteBy(@PathVariable("id") Long id) {
+        return testService.deleteById(id);
     }
 
     @Operation(summary = "Gets a single entity by identifier: workshop$Test",
