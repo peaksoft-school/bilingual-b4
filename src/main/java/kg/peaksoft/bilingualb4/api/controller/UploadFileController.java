@@ -27,7 +27,7 @@ public class UploadFileController {
             description = "Method uploads photo, audio, file.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/upload")
-    public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file")MultipartFile file) throws IOException {
+    public ResponseEntity<Map<String, String>> uploadFile(@RequestBody MultipartFile file) throws IOException {
         String publicURL = awsService.uploadFile(file);
         Map<String, String> response = new HashMap<>();
         response.put("publicURL", publicURL);
