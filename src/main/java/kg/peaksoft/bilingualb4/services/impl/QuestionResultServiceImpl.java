@@ -1,19 +1,17 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
-import kg.peaksoft.bilingualb4.api.payload.EvaluateResponse;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResultRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResultResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.MyResult;
 import kg.peaksoft.bilingualb4.model.entity.QuestionResult;
-import kg.peaksoft.bilingualb4.model.entity.User;
-import kg.peaksoft.bilingualb4.model.entity.UsersAnswer;
+import kg.peaksoft.bilingualb4.model.entity.TestResult;
 import kg.peaksoft.bilingualb4.model.enums.Status;
 import kg.peaksoft.bilingualb4.model.mappers.QuestionResultMapper;
 import kg.peaksoft.bilingualb4.repository.MyResultRepository;
 import kg.peaksoft.bilingualb4.repository.QuestionResultRepository;
-import kg.peaksoft.bilingualb4.services.EvaluateService;
+import kg.peaksoft.bilingualb4.repository.TestResultRepository;
 import kg.peaksoft.bilingualb4.services.QuestionResultService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,9 +26,9 @@ public class QuestionResultServiceImpl implements QuestionResultService {
 
     private final QuestionResultMapper questionResultMapper;
     private final QuestionResultRepository questionResultRepository;
-    private final EvaluateService evaluateService;
     private final EmailService emailService;
     private final MyResultRepository myResultRepository;
+    private final TestResultRepository testResultRepository;
 
     @Override
     public List<QuestionResultResponse> findAll() {
@@ -46,24 +44,39 @@ public class QuestionResultServiceImpl implements QuestionResultService {
     }
 
     @Override
-    public EvaluateResponse updateById(Long id, QuestionResultRequest questionResultRequest) {
-        QuestionResult questionResult = questionResultRepository.findById(id).orElseThrow(() -> new NotFoundException(
-                String.format("Object 'questionResult' with %d id not found!", id)
-        ));
-        questionResult.setScore(questionResultRequest.getScore());
-        Long userAnswerId = null;
-        EvaluateResponse evaluateResponse;
-        for (User user : questionResult.getQuestion().getTest().getUserList()) {
-            for (UsersAnswer usersAnswer : user.getUsersAnswers()) {
-                userAnswerId = usersAnswer.getId();
-            }
+    public QuestionResultResponse updateById(Long id, QuestionResultRequest questionResultRequest) {
+        QuestionResult questionResult = questionResultRepository.findById(id).orElseThrow(()->
+                new NotFoundException("Object 'questionResult' with %d id not found!"));
+        if(questionResult.getStatus() == Status.EVALUATE){
+            throw new BadRequestException("This questionResult is already checked!");
         }
-        evaluateResponse = evaluateService.manualChek(questionResult.getId(), userAnswerId, questionResultRequest);
-        return evaluateResponse;
+        int score;
+        score = questionResultRequest.getScore();
+        questionResult.setScore(score);
+        questionResult.setStatus(Status.EVALUATE);
+        TestResult testResult = questionResult.getTestResult();
+        double sum = 0;
+        for (QuestionResult questionResult1: testResult.getQuestionResults()){
+            sum+=questionResult1.getScore();
+        }
+        questionResult.setFinalScore(sum/100);
+        questionResult.setFinalStatus(Status.EVALUATE);
+        questionResultRepository.save(questionResult);
+
+        testResult.setScore(sum/100);
+        testResult.setStatus(Status.EVALUATE);
+        testResultRepository.save(testResult);
+
+        MyResult myResult = questionResult.getMyResult();
+        myResult.setScore(sum/100);
+        myResult.setStatus(Status.EVALUATE);
+        myResultRepository.save(myResult);
+
+        return questionResultMapper.mapToResponse(questionResult);
     }
 
     @Override
-    public String sendResultsToUser(Long id) {
+    public void sendResultsToUser(Long id) {
         MyResult myResult = myResultRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(
                         String.format("Result with %d id not found!", id)));
@@ -77,7 +90,7 @@ public class QuestionResultServiceImpl implements QuestionResultService {
             String userName = myResult.getUser().getUserName().toUpperCase(Locale.ROOT);
             String testName = myResult.getTestName();
             LocalDateTime date = myResult.getDateOfSubmission();
-            int score  = myResult.getScore();
+            double score  = myResult.getScore();
 
             String message =
                     "\nDear " + userName +
@@ -87,6 +100,5 @@ public class QuestionResultServiceImpl implements QuestionResultService {
 
             emailService.send(userEmail, message);
         }
-        return String.format("Result successfully send to %s", userEmail);
     }
 }

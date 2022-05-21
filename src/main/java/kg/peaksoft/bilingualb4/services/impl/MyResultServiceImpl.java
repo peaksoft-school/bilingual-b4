@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -39,8 +40,8 @@ public class MyResultServiceImpl implements MyResultService {
     }
 
     @Override
-    public List<MyResultResponse> findAll(UserDetails userDetails) {
-        User user = userRepository.findByEmail(userDetails.getUsername());
+    public List<MyResultResponse> findAll(Principal principal) {
+        User user = userRepository.findByEmail(principal.getName());
         List<MyResult> myResults = resultRepository.findAllByUserId(user.getId());
         return myResultMapper.mapToResponse(myResults);
     }

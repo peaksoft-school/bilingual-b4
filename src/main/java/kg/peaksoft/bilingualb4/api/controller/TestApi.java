@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +29,8 @@ public class TestApi {
             description = "Returns a map of status codes to quantities:")
     @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping
-    public List<TestResponse> findAll(@AuthenticationPrincipal UserDetails userDetails) {
-        return testService.findAll(userDetails);
+    public List<?> findAll(Principal principal) {
+        return testService.findAll(principal);
     }
 
     @Operation(summary = "Creates new entity: workshop$Test",
@@ -55,7 +56,7 @@ public class TestApi {
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping("{id}")
-    public TestResponse findById(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) {
+    public Object findById(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) {
         return testService.findById(userDetails, id);
     }
 

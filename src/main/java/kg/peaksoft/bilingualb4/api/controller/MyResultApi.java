@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -36,8 +37,8 @@ public class MyResultApi {
             description = "Returns a map of status codes to quantities:")
     @PreAuthorize("hasAnyAuthority('CLIENT')")
     @GetMapping("")
-    public List<MyResultResponse> findAllById(@AuthenticationPrincipal UserDetails userDetails) {
-        return myResultService.findAll(userDetails);
+    public List<MyResultResponse> findAllById(Principal principal) {
+        return myResultService.findAll(principal);
     }
 
     @Operation(summary = "Gets a single entity by identifier: workshop$MyResult",

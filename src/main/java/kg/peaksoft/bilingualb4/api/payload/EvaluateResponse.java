@@ -1,11 +1,9 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
-import kg.peaksoft.bilingualb4.model.entity.Options;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -17,9 +15,9 @@ public class EvaluateResponse {
     private String  questionName;
     private int duration;
     private QuestionType questionType;
-    private List<Options> options;
+    private List<OptionResponse> options;
     private int score;
-    private List<UsersAnswerResponse> userAnswer;
+    private UsersAnswerRequest userAnswer;
     private int minimumNumberOfWords;
     private String correctAnswer;
     private String playAudio;

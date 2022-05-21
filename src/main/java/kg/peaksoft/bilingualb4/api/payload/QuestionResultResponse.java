@@ -19,6 +19,6 @@ public class QuestionResultResponse {
     private String questionName;
     private int score;
     private Status status;
-    private int finalScore;
+    private double finalScore;
     private Status finalStatus;
 }

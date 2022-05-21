@@ -52,7 +52,7 @@ public class QuestionResultApi {
             description = "updates the QuestionResult object by the id")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("{id}")
-    public EvaluateResponse updateById(@PathVariable Long id, @RequestBody(required = false) QuestionResultRequest questionResultRequest){
+    public QuestionResultResponse updateById(@PathVariable Long id, @RequestBody QuestionResultRequest questionResultRequest){
         return questionResultService.updateById(id, questionResultRequest);
     }
 

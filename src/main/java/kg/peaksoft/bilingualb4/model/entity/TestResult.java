@@ -28,7 +28,7 @@ public class TestResult {
     private String testName;
     @Enumerated(EnumType.STRING)
     private Status status;
-    private int score;
+    private double score;
 
     @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     private List<QuestionResult> questionResults;

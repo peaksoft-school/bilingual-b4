@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
+import jdk.jfr.BooleanFlag;
 import kg.peaksoft.bilingualb4.model.enums.QuestionType;
 import kg.peaksoft.bilingualb4.model.enums.SingleAndMultiType;
 import lombok.Builder;
@@ -8,15 +9,14 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter
 @Setter
+@Getter
 @Builder
-public class QuestionResponse {
-
+public class QuestionResponseForClient {
     private String id;
     private String name;
     private SingleAndMultiType singleAndMultiType;
-    private List<OptionResponse> optionResponseList;
+    private List<OptionResponseForClient> optionResponseList;
     private String audio;
     private int numberOfReplays;
     private String upload;
