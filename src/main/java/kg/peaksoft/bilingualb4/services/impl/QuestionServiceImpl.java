@@ -26,6 +26,8 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
+    private final AWSS3Service awss3Service;
+
 
     @Override
     public List<QuestionResponse> findAll(QuestionType questionType) {
@@ -88,6 +90,8 @@ public class QuestionServiceImpl implements QuestionService {
                     )
             );
         }
+
+        awss3Service.delete(questionRepository.getById(id).getUpload());
         questionRepository.deleteById(id);
         return response;
     }
