@@ -2,6 +2,8 @@ package kg.peaksoft.bilingualb4.model.mappers;
 
 import kg.peaksoft.bilingualb4.api.payload.TestRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResponse;
+import kg.peaksoft.bilingualb4.api.payload.TestResponseForClient;
+import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.entity.Test;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -36,12 +38,19 @@ public class TestMapper {
     }
 
     public TestResponse mapToResponse(Test test) {
+        int duration = 0;
+        if (test.getUserList() != null) {
+            for (Question question : test.getQuestionList()) {
+                duration += question.getDuration();
+            }
+        }
         if (test.getQuestionList() == null) {
             return TestResponse.builder()
                     .id(String.valueOf(test.getId()))
                     .title(test.getTitle())
                     .shortDescription(test.getShortDescription())
                     .isActive(test.isActive())
+                    .duration(duration)
                     .build();
         } else {
             return TestResponse.builder()
@@ -49,8 +58,44 @@ public class TestMapper {
                     .title(test.getTitle())
                     .shortDescription(test.getShortDescription())
                     .isActive(test.isActive())
+                    .duration(duration)
                     .questionResponseList(questionMapper.mapToResponse(test.getQuestionList()))
                     .build();
         }
+    }
+
+    public TestResponseForClient mapToResponseForClient(Test test) {
+        int duration = 0;
+        if (test.getUserList() != null) {
+            for (Question question : test.getQuestionList()) {
+                duration += question.getDuration();
+            }
+        }
+        if (test.getQuestionList() == null) {
+            return TestResponseForClient.builder()
+                    .id(String.valueOf(test.getId()))
+                    .title(test.getTitle())
+                    .shortDescription(test.getShortDescription())
+                    .isActive(test.isActive())
+                    .duration(duration)
+                    .build();
+        } else {
+            return TestResponseForClient.builder()
+                    .id(String.valueOf(test.getId()))
+                    .title(test.getTitle())
+                    .shortDescription(test.getShortDescription())
+                    .isActive(test.isActive())
+                    .duration(duration)
+                    .questionResponseList(questionMapper.mapToResponseForClient(test.getQuestionList()))
+                    .build();
+        }
+    }
+
+    public List<TestResponseForClient> mapToResponseForClient(List<Test> testList) {
+        List<TestResponseForClient> responses = new ArrayList<>();
+        for (Test test : testList) {
+            responses.add(mapToResponseForClient(test));
+        }
+        return responses;
     }
 }

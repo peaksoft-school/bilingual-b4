@@ -17,5 +17,5 @@ public class TestResultResponse {
     private LocalDateTime dateOfSubmission;
     private String testName;
     private Status status;
-    private int score;
+    private double score;
 }

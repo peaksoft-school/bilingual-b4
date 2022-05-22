@@ -9,12 +9,12 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class TestResponse {
+public class TestResponseForClient {
 
     private String id;
     private String title;
     private String shortDescription;
     private boolean isActive;
     private int duration;
-    private List<QuestionResponse>questionResponseList;
+    private List<QuestionResponseForClient> questionResponseList;
 }

@@ -27,12 +27,11 @@ public class QuestionResult {
     private int score;
     @Enumerated(EnumType.STRING)
     private Status status;
-    private int finalScore;
+    private double finalScore;
     private Status finalStatus;
 
-
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "test_result_id")
     private TestResult testResult;
 

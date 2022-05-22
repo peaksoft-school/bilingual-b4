@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
+import kg.peaksoft.bilingualb4.api.payload.OptionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
@@ -42,7 +43,7 @@ public class QuestionServiceImpl implements QuestionService {
             throw new BadRequestException("You should to choose at least one option!");
         }
         int counterOfCorrectOptions = 0;
-        for (Options options : questionRequest.getOptionsList()) {
+        for (OptionRequest options : questionRequest.getOptionsList()) {
             if (options.isCorrect()) {
                 counterOfCorrectOptions++;
             }

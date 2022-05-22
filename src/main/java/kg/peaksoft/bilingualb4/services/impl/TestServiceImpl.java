@@ -16,10 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -32,13 +30,13 @@ public class TestServiceImpl implements TestService {
     private final TestMapper testMapper;
 
     @Override
-    public List<TestResponse> findAll(UserDetails userDetails) {
+    public List<?> findAll(Principal principal) {
         log.info("Fetching all test");
         List<Test> testList = testRepository.findAllByActive();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmail(principal.getName());
         for (int i = 0; i < 2; i++) {
             if (user.getAuthInfo().getRoles().get(i).getName().equals("CLIENT")) {
-                return testMapper.mapToResponse(testList);
+                return testMapper.mapToResponseForClient(testList);
             }
             if (user.getAuthInfo().getRoles().get(i).getName().equals("ADMIN")) {
                 return testMapper.mapToResponse(testRepository.findAll());
@@ -63,7 +61,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public TestResponse findById(UserDetails userDetails, Long id) {
+    public Object findById(UserDetails userDetails, Long id) {
         boolean exists = testRepository.existsById(id);
         User user = userRepository.findByEmail(userDetails.getUsername());
         for (int i = 0; i < 2; i++) {
@@ -75,7 +73,7 @@ public class TestServiceImpl implements TestService {
                         String.format("Object 'test' with %d id not found!", id)
                 ));
                 if (test.isActive()) {
-                    return testMapper.mapToResponse(test);
+                    return testMapper.mapToResponseForClient(test);
                 } else {
                     throw new BadRequestException("This test is not active");
                 }

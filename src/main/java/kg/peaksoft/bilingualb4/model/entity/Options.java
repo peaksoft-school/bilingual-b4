@@ -1,8 +1,7 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +9,9 @@ import javax.persistence.*;
 @Table(name = "options")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Options {
 
     @Id
@@ -18,6 +20,7 @@ public class Options {
     @JsonIgnore
     private Long id;
     private String optionName;
+    private String file;
     private boolean isCorrect = false;
 
 }

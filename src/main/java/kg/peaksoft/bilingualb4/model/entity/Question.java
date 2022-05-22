@@ -48,11 +48,7 @@ public class Question {
 
     @ManyToOne(cascade = {REFRESH, DETACH, MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")
-    @JsonIgnore
     private Test test;
-
-    @OneToMany(cascade = {MERGE,DETACH,REFRESH},mappedBy = "question")
-    private List<UsersAnswer> usersAnswerList;
 
     @OneToMany(cascade = ALL)
     private List<QuestionResult>questionResultList;
