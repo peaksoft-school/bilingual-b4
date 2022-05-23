@@ -17,7 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -39,9 +45,28 @@ public class TestServiceImpl implements TestService {
                 return testMapper.mapToResponseForClient(testList);
             }
             if (user.getAuthInfo().getRoles().get(i).getName().equals("ADMIN")) {
-                return testMapper.mapToResponse(testRepository.findAll());
+                List<Test> testList1 = testRepository.findAll();
+                List<Test> activeList = new ArrayList<>();
+                List<Test> inActiveList = new ArrayList<>();
+                List<Test> allTestAfterSorted = new ArrayList<>();
+                for (Test s : testList1) {
+                    if (s.isActive()) {
+                        activeList.add(s);
+                    } else {
+                        inActiveList.add(s);
+                    }
+                }
+
+                List<Test> sortedByDate = activeList.stream()
+                        .sorted(Comparator.comparing(Test::getCreatedOn))
+                        .collect(Collectors.toList());
+
+                allTestAfterSorted.addAll(sortedByDate);
+                allTestAfterSorted.addAll(inActiveList);
+                return testMapper.mapToResponse(allTestAfterSorted);
             }
         }
+
         return null;
     }
 

@@ -8,6 +8,7 @@ import kg.peaksoft.bilingualb4.model.entity.Test;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class TestMapper {
                 .title(testRequest.getTitle())
                 .shortDescription(testRequest.getShortDescription())
                 .isActive(testRequest.isActive())
+                .createdOn(LocalDateTime.now())
                 .build();
     }
 

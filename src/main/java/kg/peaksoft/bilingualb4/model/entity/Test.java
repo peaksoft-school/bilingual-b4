@@ -1,8 +1,10 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class Test {
     private String title;
     private String shortDescription;
     private boolean isActive;
+    private LocalDateTime createdOn;
 
     @ManyToMany(cascade = {REFRESH, DETACH, PERSIST, MERGE}, fetch = FetchType.LAZY, mappedBy = "testList")
     private List<User> userList;
