@@ -25,7 +25,6 @@ public class AWSS3Service implements AwsService {
     public String uploadFile(MultipartFile file) {
         String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
         String key = UUID.randomUUID().toString() + "." + extension;
-        System.out.println(key);
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(file.getSize());
         metadata.setContentType(file.getContentType());
