@@ -2,6 +2,7 @@ package kg.peaksoft.bilingualb4.model.mappers;
 
 import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
+import kg.peaksoft.bilingualb4.api.payload.QuestionResponseForClient;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.repository.TestRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 public class QuestionMapper {
 
     private final TestRepository testRepository;
+    private final OptionMapper optionMapper;
 
    public List<QuestionResponse> mapToResponse(List<Question> questions){
        List<QuestionResponse> responses = new ArrayList<>();
@@ -30,7 +32,7 @@ public class QuestionMapper {
                 .id(id)
                 .name(questionRequest.getName())
                 .singleAndMultiType(questionRequest.getSingleAndMultiType())
-                .optionsList(questionRequest.getOptionsList())
+                .optionsList(optionMapper.mapToEntity(questionRequest.getOptionsList()))
                 .audio(questionRequest.getAudio())
                 .numberOfReplays(questionRequest.getNumberOfReplays())
                 .upload(questionRequest.getUpload())
@@ -58,7 +60,7 @@ public class QuestionMapper {
                 .id(String.valueOf(question.getId()))
                 .name(question.getName())
                 .singleAndMultiType(question.getSingleAndMultiType())
-                .optionsList(question.getOptionsList())
+                .optionResponseList(optionMapper.mapToResponse(question.getOptionsList()))
                 .audio(question.getAudio())
                 .numberOfReplays(question.getNumberOfReplays())
                 .upload(question.getUpload())
@@ -74,5 +76,39 @@ public class QuestionMapper {
                 .questionType(question.getQuestionType())
                 .duration(question.getDuration())
                 .build();
+    }
+
+    public QuestionResponseForClient mapToResponseForClient(Question question){
+        if (question ==null){
+            return null;
+        }
+        return QuestionResponseForClient.builder()
+                .id(String.valueOf(question.getId()))
+                .name(question.getName())
+                .singleAndMultiType(question.getSingleAndMultiType())
+                .optionResponseList(optionMapper.mapToResponseForClient(question.getOptionsList()))
+                .audio(question.getAudio())
+                .numberOfReplays(question.getNumberOfReplays())
+                .upload(question.getUpload())
+                .play(question.getPlay())
+                .correctAnswer(question.getCorrectAnswer())
+                .record(question.getRecord())
+                .uploadImage(question.getUploadImage())
+                .questionStatement(question.getQuestionStatement())
+                .wordCounter(question.getWordCounter())
+                .questionToThePassage(question.getQuestionToThePassage())
+                .passage(question.getPassage())
+                .highlightCorrectAnswer(question.getHighlightCorrectAnswer())
+                .questionType(question.getQuestionType())
+                .duration(question.getDuration())
+                .build();
+    }
+
+    public List<QuestionResponseForClient> mapToResponseForClient(List<Question> questions){
+        List<QuestionResponseForClient> responses = new ArrayList<>();
+        for (Question question : questions) {
+            responses.add(mapToResponseForClient(question));
+        }
+        return responses;
     }
 }

@@ -2,14 +2,20 @@ package kg.peaksoft.bilingualb4.model.mappers;
 
 import kg.peaksoft.bilingualb4.api.payload.TestRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResponse;
+import kg.peaksoft.bilingualb4.api.payload.TestResponseForClient;
+import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.entity.Test;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class TestMapper {
+
+    private final QuestionMapper questionMapper;
 
     public Test mapToEntity(Long id, TestRequest testRequest) {
         if (testRequest == null) {
@@ -19,10 +25,11 @@ public class TestMapper {
                 .id(id)
                 .title(testRequest.getTitle())
                 .shortDescription(testRequest.getShortDescription())
+                .isActive(testRequest.isActive())
                 .build();
     }
 
-    public List<TestResponse> mapToResponse(List<Test> testList){
+    public List<TestResponse> mapToResponse(List<Test> testList) {
         List<TestResponse> responses = new ArrayList<>();
         for (Test test : testList) {
             responses.add(mapToResponse(test));
@@ -31,14 +38,64 @@ public class TestMapper {
     }
 
     public TestResponse mapToResponse(Test test) {
-        if (test == null) {
-            return null;
+        int duration = 0;
+        if (test.getUserList() != null) {
+            for (Question question : test.getQuestionList()) {
+                duration += question.getDuration();
+            }
         }
-        return TestResponse.builder()
-                .id(String.valueOf(test.getId()))
-                .title(test.getTitle())
-                .shortDescription(test.getShortDescription())
-                .build();
+        if (test.getQuestionList() == null) {
+            return TestResponse.builder()
+                    .id(String.valueOf(test.getId()))
+                    .title(test.getTitle())
+                    .shortDescription(test.getShortDescription())
+                    .isActive(test.isActive())
+                    .duration(duration)
+                    .build();
+        } else {
+            return TestResponse.builder()
+                    .id(String.valueOf(test.getId()))
+                    .title(test.getTitle())
+                    .shortDescription(test.getShortDescription())
+                    .isActive(test.isActive())
+                    .duration(duration)
+                    .questionResponseList(questionMapper.mapToResponse(test.getQuestionList()))
+                    .build();
+        }
+    }
 
+    public TestResponseForClient mapToResponseForClient(Test test) {
+        int duration = 0;
+        if (test.getUserList() != null) {
+            for (Question question : test.getQuestionList()) {
+                duration += question.getDuration();
+            }
+        }
+        if (test.getQuestionList() == null) {
+            return TestResponseForClient.builder()
+                    .id(String.valueOf(test.getId()))
+                    .title(test.getTitle())
+                    .shortDescription(test.getShortDescription())
+                    .isActive(test.isActive())
+                    .duration(duration)
+                    .build();
+        } else {
+            return TestResponseForClient.builder()
+                    .id(String.valueOf(test.getId()))
+                    .title(test.getTitle())
+                    .shortDescription(test.getShortDescription())
+                    .isActive(test.isActive())
+                    .duration(duration)
+                    .questionResponseList(questionMapper.mapToResponseForClient(test.getQuestionList()))
+                    .build();
+        }
+    }
+
+    public List<TestResponseForClient> mapToResponseForClient(List<Test> testList) {
+        List<TestResponseForClient> responses = new ArrayList<>();
+        for (Test test : testList) {
+            responses.add(mapToResponseForClient(test));
+        }
+        return responses;
     }
 }

@@ -2,14 +2,14 @@ package kg.peaksoft.bilingualb4.api.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kg.peaksoft.bilingualb4.api.payload.EvaluateResponse;
 import kg.peaksoft.bilingualb4.api.payload.UsersAnswerRequest;
-import kg.peaksoft.bilingualb4.api.payload.UsersAnswerResponse;
-import kg.peaksoft.bilingualb4.services.UsersAnswerService;
+import kg.peaksoft.bilingualb4.services.AnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "UserAnswer:", description = "Makes it possible to keep the user result")
 public class UsersAnswerApi {
 
-    private final UsersAnswerService usersAnswerService;
+    private final AnswerService answerService;
 
     @Operation(summary = "Create the new entity: workshop ClientsAnswer, Role 'CLIENT'",
             description =
@@ -26,16 +26,9 @@ public class UsersAnswerApi {
                             "The entity object may contain references to other entities.")
     @PreAuthorize("hasAnyAuthority('CLIENT')")
     @PostMapping("{questionId}")
-    public UsersAnswerResponse save(@PathVariable Long questionId,
+    public EvaluateResponse save(@PathVariable Long questionId,
                                  @RequestBody UsersAnswerRequest usersAnswerRequest,
-                                 @AuthenticationPrincipal UserDetails user) {
-        return usersAnswerService.save(questionId, usersAnswerRequest, user);
-    }
-
-    @Operation(summary = "Detach results of user, if client will press the button 'cancel'")
-    @PreAuthorize("hasAnyAuthority('CLIENT')")
-    @DeleteMapping("/cancel/{testId}")
-    public void toCancel(@PathVariable Long testId) {
-        usersAnswerService.toCancel(testId);
+                                 Principal principal) {
+        return answerService.save(questionId, usersAnswerRequest, principal);
     }
 }

@@ -40,9 +40,6 @@ public class User {
     @OneToMany(cascade = ALL, fetch = FetchType.LAZY)
     private List<MyResult>myResults;
 
-    @OneToMany(cascade = ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<UsersAnswer>usersAnswers;
-
     public User(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;

@@ -16,8 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -30,9 +30,19 @@ public class TestServiceImpl implements TestService {
     private final TestMapper testMapper;
 
     @Override
-    public List<TestResponse> findAll() {
+    public List<?> findAll(Principal principal) {
         log.info("Fetching all test");
-        return testMapper.mapToResponse(testRepository.findAll());
+        List<Test> testList = testRepository.findAllByActive();
+        User user = userRepository.findByEmail(principal.getName());
+        for (int i = 0; i < 2; i++) {
+            if (user.getAuthInfo().getRoles().get(i).getName().equals("CLIENT")) {
+                return testMapper.mapToResponseForClient(testList);
+            }
+            if (user.getAuthInfo().getRoles().get(i).getName().equals("ADMIN")) {
+                return testMapper.mapToResponse(testRepository.findAll());
+            }
+        }
+        return null;
     }
 
     @Override
@@ -51,12 +61,34 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Optional<Test> findById(Long id) {
+    public Object findById(UserDetails userDetails, Long id) {
         boolean exists = testRepository.existsById(id);
-        if (!exists) {
-            throw new BadRequestException("You should write one of {id} to get Type");
+        User user = userRepository.findByEmail(userDetails.getUsername());
+        for (int i = 0; i < 2; i++) {
+            if (user.getAuthInfo().getRoles().get(i).getName().equals("CLIENT")) {
+                if (!exists) {
+                    throw new BadRequestException("You should write one of {id} to get Test");
+                }
+                Test test = testRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                        String.format("Object 'test' with %d id not found!", id)
+                ));
+                if (test.isActive()) {
+                    return testMapper.mapToResponseForClient(test);
+                } else {
+                    throw new BadRequestException("This test is not active");
+                }
+            }
+            if (user.getAuthInfo().getRoles().get(i).getName().equals("ADMIN")) {
+                if (!exists) {
+                    throw new BadRequestException("You should write one of {id} to get Test");
+                }
+                Test test = testRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                        String.format("Object 'test' with %d id not found!", id)
+                ));
+                return testMapper.mapToResponse(test);
+            }
         }
-        return testRepository.findById(id);
+        return null;
     }
 
     @Override

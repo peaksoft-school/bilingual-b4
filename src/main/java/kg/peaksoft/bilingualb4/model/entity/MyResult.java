@@ -30,7 +30,7 @@ public class MyResult {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private int score;
+    private double score;
 
     @ManyToOne(cascade = {REFRESH, MERGE, DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")

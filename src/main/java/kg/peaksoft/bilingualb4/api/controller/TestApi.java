@@ -8,15 +8,18 @@ import kg.peaksoft.bilingualb4.model.entity.Test;
 import kg.peaksoft.bilingualb4.services.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/test")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Test:", description = "Quote CRUD operations")
 public class TestApi {
 
@@ -26,8 +29,8 @@ public class TestApi {
             description = "Returns a map of status codes to quantities:")
     @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping
-    public List<TestResponse> findAll() {
-        return testService.findAll();
+    public List<?> findAll(Principal principal) {
+        return testService.findAll(principal);
     }
 
     @Operation(summary = "Creates new entity: workshop$Test",
@@ -45,16 +48,16 @@ public class TestApi {
             description = "Deletes an endpoint and all its child entities.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("{id}")
-    public void deleteBy(@PathVariable("id") Long id) {
-        testService.deleteById(id);
+    public TestResponse deleteBy(@PathVariable("id") Long id) {
+        return testService.deleteById(id);
     }
 
     @Operation(summary = "Gets a single entity by identifier: workshop$Test",
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN','CLIENT')")
     @GetMapping("{id}")
-    public Optional<Test> findById(@PathVariable Long id) {
-        return testService.findById(id);
+    public Object findById(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) {
+        return testService.findById(userDetails, id);
     }
 
     //        @Operation(summary = "Updates the entity: workshop$Test", description = """

@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
+import kg.peaksoft.bilingualb4.api.payload.OptionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
@@ -25,6 +26,8 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
+    private final AWSS3Service awss3Service;
+
 
     @Override
     public List<QuestionResponse> findAll(QuestionType questionType) {
@@ -33,8 +36,6 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionResponse save(Long testId, QuestionRequest questionRequest) {
-        System.out.println(questionRequest.getOptionsList().toString());
-        System.out.println(questionRequest.getQuestionType());
         if (questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_REAL_ENGLISH_WORD ||
                 questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.LISTEN_AND_SELECT_WORD ||
                 questionRequest.getOptionsList().isEmpty() && questionRequest.getQuestionType() == QuestionType.SELECT_MAIN_IDEA ||
@@ -42,8 +43,8 @@ public class QuestionServiceImpl implements QuestionService {
             throw new BadRequestException("You should to choose at least one option!");
         }
         int counterOfCorrectOptions = 0;
-        for (Options options : questionRequest.getOptionsList()) {
-            if (options.isCorrectAnswer()) {
+        for (OptionRequest options : questionRequest.getOptionsList()) {
+            if (options.isCorrect()) {
                 counterOfCorrectOptions++;
             }
         }
@@ -89,6 +90,8 @@ public class QuestionServiceImpl implements QuestionService {
                     )
             );
         }
+
+        awss3Service.delete(questionRepository.getById(id).getUpload());
         questionRepository.deleteById(id);
         return response;
     }
