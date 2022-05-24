@@ -1,7 +1,6 @@
 package kg.peaksoft.bilingualb4.repository;
 
 import kg.peaksoft.bilingualb4.model.entity.TestResult;
-import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

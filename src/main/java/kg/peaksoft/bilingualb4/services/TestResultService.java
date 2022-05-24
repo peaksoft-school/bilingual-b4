@@ -11,8 +11,6 @@ public interface TestResultService {
 
     List<TestResultResponse> findAll();
 
-    TestResultResponse updateById(Long id, int score);
-
     TestResultResponse deleteById(Long id);
 
 }

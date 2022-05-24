@@ -3,12 +3,13 @@ package kg.peaksoft.bilingualb4.model.mappers;
 import kg.peaksoft.bilingualb4.api.payload.TestRequest;
 import kg.peaksoft.bilingualb4.api.payload.TestResponse;
 import kg.peaksoft.bilingualb4.api.payload.TestResponseForClient;
+import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.Question;
 import kg.peaksoft.bilingualb4.model.entity.Test;
+import kg.peaksoft.bilingualb4.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,19 +17,31 @@ import java.util.List;
 @AllArgsConstructor
 public class TestMapper {
 
+    private final TestRepository testRepository;
     private final QuestionMapper questionMapper;
 
     public Test mapToEntity(Long id, TestRequest testRequest) {
         if (testRequest == null) {
             return null;
         }
-        return Test.builder()
-                .id(id)
-                .title(testRequest.getTitle())
-                .shortDescription(testRequest.getShortDescription())
-                .isActive(testRequest.isActive())
-                .createdOn(LocalDateTime.now())
-                .build();
+        if(id == null) {
+            return Test.builder()
+                    .id(id)
+                    .title(testRequest.getTitle())
+                    .shortDescription(testRequest.getShortDescription())
+                    .isActive(testRequest.isActive())
+                    .build();
+        }else {
+            Test test = testRepository.findById(id).orElseThrow(()->
+                    new NotFoundException(String.format("Object 'test' with $%d id not found!", id)));
+            return Test.builder()
+                    .id(id)
+                    .title(testRequest.getTitle())
+                    .shortDescription(testRequest.getShortDescription())
+                    .isActive(testRequest.isActive())
+                    .createdOn(test.getCreatedOn())
+                    .build();
+        }
     }
 
     public List<TestResponse> mapToResponse(List<Test> testList) {

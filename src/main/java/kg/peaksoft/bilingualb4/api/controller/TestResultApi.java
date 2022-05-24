@@ -46,14 +46,6 @@ public class TestResultApi {
         return testResultService.findById(id);
     }
 
-    @Operation(summary = "Updates the entities : workshop$TestResult",
-            description = "updates the TestResult object by the id")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PutMapping("{id}")
-    public TestResultResponse updateById(@PathVariable Long id, @RequestBody int score){
-        return testResultService.updateById(id, score);
-    }
-
     @Operation(summary = "Deletes the entity: workshop$TestResult",
             description = "Deletes an endpoint and all its child entities.")
     @PreAuthorize("hasAnyAuthority('ADMIN')")

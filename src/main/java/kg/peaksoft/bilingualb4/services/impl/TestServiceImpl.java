@@ -17,13 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -45,23 +40,11 @@ public class TestServiceImpl implements TestService {
                 return testMapper.mapToResponseForClient(testList);
             }
             if (user.getAuthInfo().getRoles().get(i).getName().equals("ADMIN")) {
-                List<Test> testList1 = testRepository.findAll();
-                List<Test> activeList = new ArrayList<>();
-                List<Test> inActiveList = new ArrayList<>();
+                List<Test> activeList = testRepository.findAllWithSortByDate(true);
+                List<Test> inActiveList = testRepository.findAllWithSortByDate(false);
                 List<Test> allTestAfterSorted = new ArrayList<>();
-                for (Test s : testList1) {
-                    if (s.isActive()) {
-                        activeList.add(s);
-                    } else {
-                        inActiveList.add(s);
-                    }
-                }
 
-                List<Test> sortedByDate = activeList.stream()
-                        .sorted(Comparator.comparing(Test::getCreatedOn))
-                        .collect(Collectors.toList());
-
-                allTestAfterSorted.addAll(sortedByDate);
+                allTestAfterSorted.addAll(activeList);
                 allTestAfterSorted.addAll(inActiveList);
                 return testMapper.mapToResponse(allTestAfterSorted);
             }
@@ -130,7 +113,6 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public TestResponse updateById(Long id, TestRequest testRequest) {
-        TestResponse test = getById(id);
         boolean exists = testRepository.existsById(id);
         Test response;
         if (!exists) {
@@ -146,8 +128,7 @@ public class TestServiceImpl implements TestService {
 
     private TestResponse getById(Long id) {
         return testMapper.mapToResponse(testRepository.findById(id).orElseThrow(() -> new NotFoundException(
-                String.format("User with id = %s does not exists", id)
-        )));
+                String.format("User with id = %s does not exists", id))));
     }
 }
 

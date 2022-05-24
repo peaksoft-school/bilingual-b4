@@ -16,5 +16,6 @@ public interface TestRepository extends JpaRepository<Test, Long> {
     @Query("from Test c where c.isActive = true")
     List<Test> findAllByActive();
 
-    Test findByTitle(String name);
+    @Query("from Test c where c.isActive =?1 order by c.createdOn")
+    List<Test> findAllWithSortByDate(boolean active);
 }

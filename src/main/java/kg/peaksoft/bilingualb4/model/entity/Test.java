@@ -1,6 +1,7 @@
 package kg.peaksoft.bilingualb4.model.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Test {
     private String title;
     private String shortDescription;
     private boolean isActive;
+    @CreationTimestamp
     private LocalDateTime createdOn;
 
     @ManyToMany(cascade = {REFRESH, DETACH, PERSIST, MERGE}, fetch = FetchType.LAZY, mappedBy = "testList")
