@@ -45,7 +45,15 @@ class AnswerServiceImpl implements AnswerService {
             return autoCheck(id, usersAnswerRequest, principal);
         } else if (question.getQuestionType() == QuestionType.HIGHLIGHTS_THE_ANSWER) {
             return checkerForHighlightType(id, usersAnswerRequest, principal);
-        } else {
+        } else if (question.getQuestionType() == QuestionType.RESPOND_IN_AT_LEAST_N_WORDS) {
+            String[] userAnswer = usersAnswerRequest.getSomeText().split(" ");
+            if (question.getWordCounter() > userAnswer.length) {
+                throw new BadRequestException(String.format("Your answer should be minimum %d words",question.getWordCounter()));
+            } else {
+                return manualCheck(id, usersAnswerRequest, principal);
+            }
+        }
+        else {
             return manualCheck(id, usersAnswerRequest, principal);
         }
     }

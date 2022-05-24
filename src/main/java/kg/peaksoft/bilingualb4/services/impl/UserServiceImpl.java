@@ -97,6 +97,9 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException(
                     String.format("User with %d is already exists", id));
         } else {
+            String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
+            userRequest.setPassword(encodedPassword);
+
             response = userMapper.mapToEntity(id, userRequest);
             userRepository.save(response);
         }
