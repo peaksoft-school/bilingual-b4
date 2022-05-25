@@ -4,12 +4,14 @@ import kg.peaksoft.bilingualb4.api.payload.TestResultResponse;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
 import kg.peaksoft.bilingualb4.model.entity.MyResult;
+import kg.peaksoft.bilingualb4.model.enums.Status;
 import kg.peaksoft.bilingualb4.model.mappers.TestResultMapper;
 import kg.peaksoft.bilingualb4.repository.MyResultRepository;
 import kg.peaksoft.bilingualb4.services.TestResultService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,23 +32,12 @@ public class TestResultServiceImpl implements TestResultService {
 
     @Override
     public List<TestResultResponse> findAll() {
-        List<MyResult> myResults = myResultRepository.findAll();
-        return testResultMapper.mapToResponse(myResults);
-    }
-
-    @Override
-    public TestResultResponse updateById(Long id, int score) {
-        MyResult myResult = myResultRepository.findById(id).orElseThrow(() -> new NotFoundException(
-                String.format("Object 'myResult with %d id not found!'", id)
-
-        ));
-        if (myResult.getScore() > 0) {
-            myResult.setScore(score);
-            myResultRepository.save(myResult);
-        }else {
-            throw new BadRequestException("This question checked automatically");
-        }
-        return testResultMapper.mapToResponse(myResult);
+        List<MyResult> sortedList = new ArrayList<>();
+        List<MyResult> inActiveList = myResultRepository.findAllByActive(Status.NOT_EVALUATE);
+        List<MyResult> activeList = myResultRepository.findAllByActive(Status.EVALUATE);
+        sortedList.addAll(inActiveList);
+        sortedList.addAll(activeList);
+        return testResultMapper.mapToResponse(sortedList);
     }
 
     @Override
