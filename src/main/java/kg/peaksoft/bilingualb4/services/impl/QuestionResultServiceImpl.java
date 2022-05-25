@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,7 +35,21 @@ public class QuestionResultServiceImpl implements QuestionResultService {
     @Override
     public List<QuestionResultResponse> findAll() {
         List<QuestionResult> questionResultList = questionResultRepository.findAll();
-        return questionResultMapper.mapToResponse(questionResultList);
+        List<QuestionResult> evaluateQuestionResult = new ArrayList<>();
+        List<QuestionResult> notEvaluateQuestionResult = new ArrayList<>();
+        List<QuestionResult> sortedList = new ArrayList<>();
+        for (QuestionResult questionResult: questionResultList) {
+            if (questionResult.getStatus() == Status.EVALUATE) {
+                evaluateQuestionResult.add(questionResult);
+                Arrays.sort(new List[]{evaluateQuestionResult});
+            } else {
+                notEvaluateQuestionResult.add(questionResult);
+                Arrays.sort(new List[]{notEvaluateQuestionResult});
+            }
+        }
+        sortedList.addAll(notEvaluateQuestionResult);
+        sortedList.addAll(evaluateQuestionResult);
+        return questionResultMapper.mapToResponse(sortedList);
     }
 
     @Override
