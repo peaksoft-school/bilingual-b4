@@ -41,10 +41,12 @@ application:
 cloud:
   aws:
     credentials:
-      access-key: AKIAXOPE6YK5IOYEI5HW
-      secret-key: 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
+      access-key: AKIAXOPE6YK5DGLI4H6G
+      secret-key: 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
 
     region:
       static: eu-central-1
     stack:
       auto: false
+
+
