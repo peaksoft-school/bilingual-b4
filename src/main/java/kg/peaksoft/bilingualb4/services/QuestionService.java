@@ -12,7 +12,7 @@ public interface QuestionService {
 
     QuestionResponse save(Long id, QuestionRequest questionRequest);
 
-    QuestionResponse findByIdAndName(Long id, String name);
+    QuestionResponse findById(Long id);
 
     QuestionResponse deleteById(Long id);
 

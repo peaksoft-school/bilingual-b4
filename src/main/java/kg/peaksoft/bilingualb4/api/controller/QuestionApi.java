@@ -53,10 +53,9 @@ public class QuestionApi {
             summary = "Gets a single entity by identifier: workshop$Question",
             description = "For valid response try integer IDs with value >= 1 and:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping("/find_by_id_or_name")
-    public QuestionResponse findByIdAndName(@RequestParam(required = false) Long id,
-                                            @RequestParam(required = false) String name) {
-        return questionService.findByIdAndName(id, name);
+    @GetMapping("{id}")
+    public QuestionResponse findById(@PathVariable Long id) {
+        return questionService.findById(id);
     }
 
     @Operation(
