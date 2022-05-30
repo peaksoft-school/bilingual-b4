@@ -41,8 +41,11 @@ public class AWSS3Service implements AwsService {
 
     @Override
     public String delete(String file) {
-        String[] fileName = file.split("/");
-        awsS3Client.deleteObject("projectbilingual", fileName[fileName.length - 1]);
-        return "Deleted file: " + file;
+        if (file != null && !file.equals("")) {
+            String[] fileName = file.split("/");
+            awsS3Client.deleteObject("projectbilingual", fileName[fileName.length - 1]);
+            return "Deleted file: " + file;
+        }
+        return "exists";
     }
 }
