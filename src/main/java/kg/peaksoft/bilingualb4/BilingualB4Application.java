@@ -31,7 +31,6 @@ public class BilingualB4Application {
         SpringApplication.run(BilingualB4Application.class, args);
         System.out.println("Welcome colleagues, project name is Bilingual!");
     }
-
     @PostConstruct
     public void init() {
         User user = new User();
