@@ -59,29 +59,14 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public QuestionResponse findByIdAndName(Long id, String name) {
-        int counter = id != null ? 1 : 0;
-        counter += !isNullOrEmpty(name) ? 1 : 0;
-        if (counter > 1) {
-            throw new BadRequestException(
-                    "You should to choose  only one field"
-            );
-        }
-        if (id != null) {
-            return findById(id);
-        }
-        if (!isNullOrEmpty(name)) {
-            Question question = questionRepository.findByName(name).orElseThrow(() -> new NotFoundException(
-                    String.format("Question with name = %s does not exists", name)
-            ));
-            return questionMapper.mapToResponse(question);
-        }
-        throw new BadRequestException("You should write one of {id, name} to get Type");
+    public QuestionResponse findById(Long id) {
+         return questionMapper.mapToResponse(questionRepository.findById(id).orElseThrow(()->new NotFoundException(String.format("Object with %d id not found",id))));
+
     }
 
     @Override
     public QuestionResponse deleteById(Long id) {
-        QuestionResponse response = findById(id);
+        QuestionResponse response = findByIdN(id);
         boolean exists = questionRepository.existsById(id);
         if (!exists) {
             throw new BadRequestException(
@@ -112,7 +97,7 @@ public class QuestionServiceImpl implements QuestionService {
         return questionMapper.mapToResponse(response);
     }
 
-    private QuestionResponse findById(Long id) {
+    private QuestionResponse findByIdN(Long id) {
         return questionMapper.mapToResponse(questionRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("Question with id = %s does not exists", id)
         )));
