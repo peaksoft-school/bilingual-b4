@@ -30,20 +30,20 @@ public class AWSS3Service implements AwsService {
         metadata.setContentType(file.getContentType());
 
         try {
-            awsS3Client.putObject("projectbilingual", key, file.getInputStream(), metadata);
+            awsS3Client.putObject("bilingual-4", key, file.getInputStream(), metadata);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error occured while uploading the file");
         }
-        awsS3Client.setObjectAcl("projectbilingual", key, CannedAccessControlList.PublicRead);
+        awsS3Client.setObjectAcl("bilingual-4", key, CannedAccessControlList.PublicRead);
 
-        return awsS3Client.getResourceUrl("projectbilingual", key);
+        return awsS3Client.getResourceUrl("bilingual-4", key);
     }
 
     @Override
     public String delete(String file) {
         if (file != null && !file.equals("")) {
             String[] fileName = file.split("/");
-            awsS3Client.deleteObject("projectbilingual", fileName[fileName.length - 1]);
+            awsS3Client.deleteObject("bilingual-4", fileName[fileName.length - 1]);
             return "Deleted file: " + file;
         }
         return "exists";
