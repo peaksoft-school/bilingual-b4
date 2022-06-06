@@ -42,6 +42,7 @@ public class Question {
     private String questionStatement;
     private int wordCounter;
     private String questionToThePassage;
+    @Column(length = 1000000)
     private String passage;
     private String highlightCorrectAnswer;
     @Enumerated(EnumType.STRING)
