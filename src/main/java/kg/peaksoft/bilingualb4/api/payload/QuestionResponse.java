@@ -18,6 +18,8 @@ public class QuestionResponse {
     private SingleAndMultiType singleAndMultiType;
     private List<OptionResponse> optionResponseList;
     private String audio;
+    private boolean isActive;
+    private String fileName;
     private int numberOfReplays;
     private String upload;
     private String play;

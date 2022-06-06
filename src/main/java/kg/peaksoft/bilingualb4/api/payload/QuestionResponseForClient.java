@@ -18,6 +18,7 @@ public class QuestionResponseForClient {
     private SingleAndMultiType singleAndMultiType;
     private List<OptionResponseForClient> optionResponseList;
     private String audio;
+    private String fileName;
     private int numberOfReplays;
     private String upload;
     private String play;
