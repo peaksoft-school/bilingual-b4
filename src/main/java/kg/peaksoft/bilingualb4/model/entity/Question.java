@@ -31,6 +31,8 @@ public class Question {
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, fetch = FetchType.EAGER)
     private List<Options> optionsList;
     private String audio;
+    private boolean isActive;
+    private String fileName;
     private int numberOfReplays;
     private String upload;
     private String play;
