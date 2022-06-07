@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface QuestionResultRepository extends JpaRepository<QuestionResult, Long> {
@@ -17,4 +18,7 @@ public interface QuestionResultRepository extends JpaRepository<QuestionResult, 
 
     @Query("select c from QuestionResult c where c.question.id=:id")
     List<QuestionResult> findAllByQuestionId(Long id);
+
+    @Query("select c from QuestionResult c where c.myResult.user.authInfo.email = ?1")
+    List<QuestionResult> existsByEmail(String email);
 }
