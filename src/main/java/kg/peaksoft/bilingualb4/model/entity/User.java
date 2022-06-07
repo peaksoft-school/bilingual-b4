@@ -37,7 +37,7 @@ public class User {
     private List<Test> testList;
 
     @JsonIgnore
-    @OneToMany(cascade = ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = ALL, fetch = FetchType.LAZY,mappedBy = "user")
     private List<MyResult>myResults;
 
     public User(String userName, String email, String password) {

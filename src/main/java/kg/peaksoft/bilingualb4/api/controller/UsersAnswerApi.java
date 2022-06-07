@@ -30,6 +30,14 @@ public class UsersAnswerApi {
                                  @RequestBody UsersAnswerRequest usersAnswerRequest,
                                  Principal principal) {
         return answerService.save(questionId, usersAnswerRequest, principal);
+
+    }
+    @Operation(summary = "Deletes the entity: workshop$Results",
+            description = "Deletes an endpoint and all its child entities.")
+    @PreAuthorize("hasAnyAuthority('CLIENT')")
+    @DeleteMapping("{questionId}")
+    public void deleteUserAnswer(@PathVariable Long questionId){
+        answerService.deleteUserAnswer(questionId);
     }
 
     @DeleteMapping("{questionId}")

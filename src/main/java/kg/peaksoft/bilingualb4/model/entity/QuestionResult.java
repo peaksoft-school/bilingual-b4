@@ -31,7 +31,7 @@ public class QuestionResult {
     private Status finalStatus;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH,CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "test_result_id")
     private TestResult testResult;
 
@@ -39,6 +39,6 @@ public class QuestionResult {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @ManyToOne(cascade ={CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade ={CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH,CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private MyResult myResult;
 }
