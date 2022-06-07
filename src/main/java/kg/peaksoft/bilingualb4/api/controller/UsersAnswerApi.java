@@ -40,8 +40,4 @@ public class UsersAnswerApi {
         answerService.deleteUserAnswer(questionId);
     }
 
-    @DeleteMapping("{questionId}")
-    public void toCancel(@PathVariable Long questionId){
-        answerService.toCancel(questionId);
-    }
 }

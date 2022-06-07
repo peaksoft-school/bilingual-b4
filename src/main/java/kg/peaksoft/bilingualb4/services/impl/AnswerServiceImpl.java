@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static kg.peaksoft.bilingualb4.model.enums.Status.EVALUATE;
@@ -251,12 +252,6 @@ class AnswerServiceImpl implements AnswerService {
         return evaluateResponse;
     }
 
-    @Override
-    public void toCancel(Long questionId) {
-        List<QuestionResult> questionResultList = questionResultRepository.findAllByQuestionId(questionId);
-        questionResultRepository.deleteAll(questionResultList);
-    }
-
     public EvaluateResponse checkerForHighlightType(Long questionId, UsersAnswerRequest usersAnswerRequest, Principal principal) {
 
         if (usersAnswerRequest.getSomeText().isEmpty()) {
@@ -361,9 +356,7 @@ class AnswerServiceImpl implements AnswerService {
     @Override
     public void deleteUserAnswer(Long id) {
         List<QuestionResult> questionResultList = questionResultRepository.findAllByQuestionId(id);
-        for (QuestionResult q: questionResultList) {
-            TestResult testResult = q.getTestResult();
-            questionResultRepository.deleteAll(testResult.getQuestionResults());
-        }
+        questionResultRepository.deleteAll(questionResultList);
+
     }
 }
