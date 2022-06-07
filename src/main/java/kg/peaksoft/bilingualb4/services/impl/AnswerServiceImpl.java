@@ -130,6 +130,7 @@ class AnswerServiceImpl implements AnswerService {
         List<QuestionResult> questionResultList = new ArrayList<>();
         questionResultList.add(questionResult);
 
+        exist = myResultRepository.existsByTestName(user.getId());
         exists = testResultRepository.existsTestResultByUserName(user.getUserName());
         TestResult testResult;
         if (!exists) {
@@ -147,7 +148,6 @@ class AnswerServiceImpl implements AnswerService {
         testResult.setTest(question.getTest());
         questionResult.setTestResult(testResult);
 
-        exist = myResultRepository.existsByTestName(questionResult.getTestName());
         MyResult myResult;
         if (!exist) {
             myResult = new MyResult();
@@ -229,7 +229,7 @@ class AnswerServiceImpl implements AnswerService {
         testResult.setTest(question.getTest());
         questionResult.setTestResult(testResult);
 
-        exist = myResultRepository.existsByTestName(questionResult.getTestName());
+        exist = myResultRepository.existsByTestName(user.getId());
         MyResult myResult;
         if (!exist) {
             myResult = new MyResult();
@@ -337,7 +337,7 @@ class AnswerServiceImpl implements AnswerService {
         testResult.setTest(question.getTest());
         questionResult.setTestResult(testResult);
 
-        exist = myResultRepository.existsByTestName(questionResult.getTestName());
+        exist = myResultRepository.existsByTestName(user.getId());
         MyResult myResult;
         if (!exist) {
             myResult = new MyResult();
