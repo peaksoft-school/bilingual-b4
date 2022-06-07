@@ -39,4 +39,9 @@ public class UsersAnswerApi {
     public void deleteUserAnswer(@PathVariable Long questionId){
         answerService.deleteUserAnswer(questionId);
     }
+
+    @DeleteMapping("{questionId}")
+    public void toCancel(@PathVariable Long questionId){
+        answerService.toCancel(questionId);
+    }
 }
