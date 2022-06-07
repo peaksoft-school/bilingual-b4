@@ -31,6 +31,8 @@ public class Question {
     @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE, PERSIST}, fetch = FetchType.EAGER)
     private List<Options> optionsList;
     private String audio;
+    private boolean isActive;
+    private String fileName;
     private int numberOfReplays;
     private String upload;
     private String play;
@@ -40,6 +42,7 @@ public class Question {
     private String questionStatement;
     private int wordCounter;
     private String questionToThePassage;
+    @Column(length = 1000000)
     private String passage;
     private String highlightCorrectAnswer;
     @Enumerated(EnumType.STRING)

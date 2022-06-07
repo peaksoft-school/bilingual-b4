@@ -16,6 +16,8 @@ public class QuestionRequest {
     private SingleAndMultiType singleAndMultiType;
     private List<OptionRequest> optionsList;
     private String audio;
+    private boolean isActive;
+    private String fileName;
     private int numberOfReplays;
     private String upload;
     private String play;

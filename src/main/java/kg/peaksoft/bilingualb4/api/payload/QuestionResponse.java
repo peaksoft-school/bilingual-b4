@@ -16,8 +16,10 @@ public class QuestionResponse {
     private String id;
     private String name;
     private SingleAndMultiType singleAndMultiType;
-    private List<OptionResponse> optionResponseList;
+    private List<OptionResponse> optionsList;
     private String audio;
+    private boolean isActive;
+    private String fileName;
     private int numberOfReplays;
     private String upload;
     private String play;
