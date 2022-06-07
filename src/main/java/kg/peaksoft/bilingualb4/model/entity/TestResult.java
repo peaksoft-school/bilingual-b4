@@ -30,7 +30,7 @@ public class TestResult {
     private Status status;
     private double score;
 
-    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = ALL, fetch = FetchType.EAGER,mappedBy = "testResult")
     private List<QuestionResult> questionResults;
 
     @ManyToOne(cascade = {REFRESH, MERGE, DETACH}, fetch = FetchType.LAZY)

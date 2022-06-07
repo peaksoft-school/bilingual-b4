@@ -1,6 +1,7 @@
 package kg.peaksoft.bilingualb4.services.impl;
 
 import kg.peaksoft.bilingualb4.api.payload.EvaluateResponse;
+import kg.peaksoft.bilingualb4.api.payload.MyResultResponse;
 import kg.peaksoft.bilingualb4.api.payload.UsersAnswerRequest;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
@@ -350,5 +351,13 @@ class AnswerServiceImpl implements AnswerService {
         questionResultRepository.save(questionResult);
 
         return evaluateResponse;
+    }
+    @Override
+    public void deleteUserAnswer(Long id) {
+        List<QuestionResult> questionResultList = questionResultRepository.findAllByQuestionId(id);
+        for (QuestionResult q: questionResultList) {
+            TestResult testResult = q.getTestResult();
+            questionResultRepository.deleteAll(testResult.getQuestionResults());
+        }
     }
 }

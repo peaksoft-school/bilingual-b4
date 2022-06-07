@@ -11,4 +11,5 @@ public interface AnswerService {
 
     EvaluateResponse manualCheck(Long questionId, UsersAnswerRequest usersAnswerRequest, Principal principal);
 
+    void deleteUserAnswer(Long id);
 }
