@@ -62,7 +62,7 @@ public class QuestionMapper {
                 .id(String.valueOf(question.getId()))
                 .name(question.getName())
                 .singleAndMultiType(question.getSingleAndMultiType())
-                .optionResponseList(optionMapper.mapToResponse(question.getOptionsList()))
+                .optionsList(optionMapper.mapToResponse(question.getOptionsList()))
                 .audio(question.getAudio())
                 .isActive(question.isActive())
                 .fileName(question.getFileName())
