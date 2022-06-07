@@ -250,6 +250,12 @@ class AnswerServiceImpl implements AnswerService {
         return evaluateResponse;
     }
 
+    @Override
+    public void toCancel(Long questionId) {
+        List<QuestionResult> questionResultList = questionResultRepository.findAllByQuestionId(questionId);
+        questionResultRepository.deleteAll(questionResultList);
+    }
+
     public EvaluateResponse checkerForHighlightType(Long questionId, UsersAnswerRequest usersAnswerRequest, Principal principal) {
 
         if (usersAnswerRequest.getSomeText().isEmpty()) {

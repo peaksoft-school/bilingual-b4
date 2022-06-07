@@ -31,4 +31,9 @@ public class UsersAnswerApi {
                                  Principal principal) {
         return answerService.save(questionId, usersAnswerRequest, principal);
     }
+
+    @DeleteMapping("{questionId}")
+    public void toCancel(@PathVariable Long questionId){
+        answerService.toCancel(questionId);
+    }
 }

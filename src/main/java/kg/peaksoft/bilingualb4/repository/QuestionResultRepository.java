@@ -14,4 +14,7 @@ public interface QuestionResultRepository extends JpaRepository<QuestionResult, 
 
     @Query("select case when count(c) > 0 then true else false end from QuestionResult c where c.id =?1")
     boolean existsById(Long id);
+
+    @Query("from QuestionResult  c where c.question.id =?1")
+    List<QuestionResult> findAllByQuestionId(Long id);
 }
