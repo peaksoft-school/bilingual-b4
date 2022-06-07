@@ -130,6 +130,7 @@ class AnswerServiceImpl implements AnswerService {
         List<QuestionResult> questionResultList = new ArrayList<>();
         questionResultList.add(questionResult);
 
+        exist = myResultRepository.existsByTestName(user.getId());
         exists = testResultRepository.existsTestResultByUserName(user.getUserName());
         TestResult testResult;
         if (!exists) {
@@ -147,7 +148,6 @@ class AnswerServiceImpl implements AnswerService {
         testResult.setTest(question.getTest());
         questionResult.setTestResult(testResult);
 
-        exist = myResultRepository.existsByTestName(questionResult.getTestName());
         MyResult myResult;
         if (!exist) {
             myResult = new MyResult();
@@ -229,7 +229,7 @@ class AnswerServiceImpl implements AnswerService {
         testResult.setTest(question.getTest());
         questionResult.setTestResult(testResult);
 
-        exist = myResultRepository.existsByTestName(questionResult.getTestName());
+        exist = myResultRepository.existsByTestName(user.getId());
         MyResult myResult;
         if (!exist) {
             myResult = new MyResult();
@@ -248,6 +248,12 @@ class AnswerServiceImpl implements AnswerService {
         questionResultRepository.save(questionResult);
 
         return evaluateResponse;
+    }
+
+    @Override
+    public void toCancel(Long questionId) {
+        List<QuestionResult> questionResultList = questionResultRepository.findAllByQuestionId(questionId);
+        questionResultRepository.deleteAll(questionResultList);
     }
 
     public EvaluateResponse checkerForHighlightType(Long questionId, UsersAnswerRequest usersAnswerRequest, Principal principal) {
@@ -331,7 +337,7 @@ class AnswerServiceImpl implements AnswerService {
         testResult.setTest(question.getTest());
         questionResult.setTestResult(testResult);
 
-        exist = myResultRepository.existsByTestName(questionResult.getTestName());
+        exist = myResultRepository.existsByTestName(user.getId());
         MyResult myResult;
         if (!exist) {
             myResult = new MyResult();
