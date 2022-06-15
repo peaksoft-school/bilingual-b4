@@ -2,6 +2,7 @@ package kg.peaksoft.bilingualb4.services.impl;
 
 import kg.peaksoft.bilingualb4.api.payload.EvaluateResponse;
 import kg.peaksoft.bilingualb4.api.payload.MyResultResponse;
+import kg.peaksoft.bilingualb4.api.payload.OptionResponse;
 import kg.peaksoft.bilingualb4.api.payload.UsersAnswerRequest;
 import kg.peaksoft.bilingualb4.exception.BadRequestException;
 import kg.peaksoft.bilingualb4.exception.NotFoundException;
@@ -12,9 +13,11 @@ import kg.peaksoft.bilingualb4.repository.*;
 import kg.peaksoft.bilingualb4.services.AnswerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,12 +53,11 @@ class AnswerServiceImpl implements AnswerService {
         } else if (question.getQuestionType() == QuestionType.RESPOND_IN_AT_LEAST_N_WORDS) {
             String[] userAnswer = usersAnswerRequest.getSomeText().split(" ");
             if (question.getWordCounter() > userAnswer.length) {
-                throw new BadRequestException(String.format("Your answer should be minimum %d words",question.getWordCounter()));
+                throw new BadRequestException(String.format("Your answer should be minimum %d words", question.getWordCounter()));
             } else {
                 return manualCheck(id, usersAnswerRequest, principal);
             }
-        }
-        else {
+        } else {
             return manualCheck(id, usersAnswerRequest, principal);
         }
     }
@@ -96,7 +98,7 @@ class AnswerServiceImpl implements AnswerService {
                 correctOption++;
             }
         }
-
+        QuestionResult questionResult = new QuestionResult();
         List<Long> uniqueList = usersAnswerRequest.getOptionsList().stream().distinct().collect(Collectors.toList());
         if (correctOption < usersAnswerRequest.getOptionsList().size()) {
             evaluateResponse.setScore(0);
@@ -110,6 +112,14 @@ class AnswerServiceImpl implements AnswerService {
                     }
                 }
             }
+            for (int j = 0; j < question.getOptionsList().size(); j++) {
+                for (Long aLong : uniqueList) {
+                    if (Objects.equals(aLong, question.getOptionsList().get(j).getId())) {
+                        questionResult.addOption(question.getOptionsList().get(j));
+                        break;
+                    }
+                }
+            }
         }
 
         int score = (userRightAnswer * 100 / correctOption) / 10;
@@ -117,14 +127,13 @@ class AnswerServiceImpl implements AnswerService {
         evaluateResponse.setScore(Math.round(score));
         finalScore += score;
 
-        QuestionResult questionResult = new QuestionResult();
         questionResult.setUserName(evaluateResponse.getUserName());
         questionResult.setTestName(evaluateResponse.getTestName());
         questionResult.setQuestionName(evaluateResponse.getQuestionName());
         questionResult.setDateOfSubmission(LocalDateTime.now());
         questionResult.setScore(evaluateResponse.getScore());
         questionResult.setStatus(EVALUATE);
-        questionResult.setFinalScore(finalScore/100);
+        questionResult.setFinalScore(finalScore / 100);
         if (questionResult.getFinalScore() != 0) {
             questionResult.setFinalStatus(EVALUATE);
         }
@@ -308,7 +317,7 @@ class AnswerServiceImpl implements AnswerService {
         questionResult.setDateOfSubmission(LocalDateTime.now());
         questionResult.setScore(evaluateResponse.getScore());
         questionResult.setStatus(EVALUATE);
-        questionResult.setFinalScore(finalScore/100);
+        questionResult.setFinalScore(finalScore / 100);
         if (questionResult.getFinalScore() != 0) {
             questionResult.setFinalStatus(EVALUATE);
         }
@@ -353,10 +362,16 @@ class AnswerServiceImpl implements AnswerService {
 
         return evaluateResponse;
     }
-    @Override
-    public void deleteUserAnswer(Long id) {
-        List<QuestionResult> questionResultList = questionResultRepository.findAllByQuestionId(id);
-        questionResultRepository.deleteAll(questionResultList);
 
+    @Override
+    @Transactional
+    public void deleteUserAnswer(Long id) {
+        User byId = userRepository.getById(id);
+        List<MyResult> myResults = byId.getMyResults();
+        List<Long> forUser = new ArrayList<>();
+        for (MyResult bb : myResults) {
+            forUser.add(bb.getId());
+        }
+        myResultRepository.deleteById(id);
     }
 }
