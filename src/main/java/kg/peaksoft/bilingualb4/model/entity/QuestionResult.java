@@ -6,6 +6,12 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.MERGE;
 
 @Getter
 @Setter
@@ -31,7 +37,7 @@ public class QuestionResult {
     private Status finalStatus;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH,CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "test_result_id")
     private TestResult testResult;
 
@@ -39,6 +45,16 @@ public class QuestionResult {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @ManyToOne(cascade ={CascadeType.REFRESH,CascadeType.MERGE, CascadeType.DETACH,CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private MyResult myResult;
+    @ManyToMany(cascade = {REFRESH, DETACH, PERSIST, MERGE}, fetch = FetchType.LAZY, mappedBy = "questionResults")
+    private List<Options> options;
+
+    public void addOption(Options option) {
+        if (this.options == null) {
+            this.options = new ArrayList<>();
+        }
+        this.options.add(option);
+        option.addQuestionResult(this);
+    }
 }

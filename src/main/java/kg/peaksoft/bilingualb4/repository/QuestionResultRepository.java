@@ -21,4 +21,9 @@ public interface QuestionResultRepository extends JpaRepository<QuestionResult, 
 
     @Query("select c from QuestionResult c where c.myResult.user.authInfo.email = ?1")
     List<QuestionResult> existsByEmail(String email);
+
+    @Query("delete from QuestionResult q where q.myResult.id = ?1")
+    void deleteByMyResultId(Long id);
+
+    Optional<QuestionResult> getQuestionResultById(Long id);
 }

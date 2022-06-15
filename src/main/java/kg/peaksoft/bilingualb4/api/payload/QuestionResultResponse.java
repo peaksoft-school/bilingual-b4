@@ -1,11 +1,13 @@
 package kg.peaksoft.bilingualb4.api.payload;
 
+import kg.peaksoft.bilingualb4.model.entity.Options;
 import kg.peaksoft.bilingualb4.model.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +23,5 @@ public class QuestionResultResponse {
     private Status status;
     private double finalScore;
     private Status finalStatus;
+    private List<OptionResponse> options;
 }
