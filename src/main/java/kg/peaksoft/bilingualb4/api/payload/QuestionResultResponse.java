@@ -23,5 +23,7 @@ public class QuestionResultResponse {
     private Status status;
     private double finalScore;
     private Status finalStatus;
+    private List<OptionResponse> optionsResult;
     private List<OptionResponse> options;
+    private int duration;
 }
