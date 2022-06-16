@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.model.mappers;
 
+import kg.peaksoft.bilingualb4.api.payload.OptionRequest;
 import kg.peaksoft.bilingualb4.api.payload.QuestionResultResponse;
 import kg.peaksoft.bilingualb4.model.entity.QuestionResult;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,9 @@ public class QuestionResultMapper {
                 .status(questionResult.getStatus())
                 .finalScore(questionResult.getFinalScore())
                 .finalStatus(questionResult.getFinalStatus())
-                .options(optionMapper.mapToResponse(questionResult.getOptions()))
+                .optionsResult(optionMapper.mapToResponse(questionResult.getOptions()))
+                .options(optionMapper.mapToResponse(questionResult.getQuestion().getOptionsList()))
+                .duration(questionResult.getQuestion().getDuration())
                 .build();
     }
 
