@@ -1,5 +1,6 @@
 package kg.peaksoft.bilingualb4.repository;
 
+import kg.peaksoft.bilingualb4.api.payload.QuestionResultResponse;
 import kg.peaksoft.bilingualb4.model.entity.QuestionResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,7 @@ public interface QuestionResultRepository extends JpaRepository<QuestionResult, 
     void deleteByMyResultId(Long id);
 
     Optional<QuestionResult> getQuestionResultById(Long id);
+
+    @Query("select c from QuestionResult c where c.myResult.user.id = ?1")
+    List<QuestionResult> findAllById(Long id);
 }

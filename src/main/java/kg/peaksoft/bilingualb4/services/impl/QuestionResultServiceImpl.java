@@ -33,8 +33,8 @@ public class QuestionResultServiceImpl implements QuestionResultService {
     private final TestResultRepository testResultRepository;
 
     @Override
-    public List<QuestionResultResponse> findAll() {
-        List<QuestionResult> questionResultList = questionResultRepository.findAll();
+    public List<QuestionResultResponse> findAll(Long id) {
+        List<QuestionResult> questionResultList = questionResultRepository.findAllById(id);
         List<QuestionResult> evaluateQuestionResult = new ArrayList<>();
         List<QuestionResult> notEvaluateQuestionResult = new ArrayList<>();
         List<QuestionResult> sortedList = new ArrayList<>();

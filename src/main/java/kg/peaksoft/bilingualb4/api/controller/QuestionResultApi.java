@@ -35,9 +35,9 @@ public class QuestionResultApi {
             summary = "Get a list of entity: workshop QuestionResult",
             description = "Returns a map of status codes to quantities:")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping
-    public List<QuestionResultResponse> findAll(){
-        return questionResultService.findAll();
+    @GetMapping("test/{userId}")
+    public List<QuestionResultResponse> findAll(@PathVariable Long userId){
+        return questionResultService.findAll(userId);
     }
 
     @Operation(summary = "Gets a single entity by identifier: workshop$QuestionResult",
