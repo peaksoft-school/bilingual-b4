@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface QuestionResultService {
 
-    List<QuestionResultResponse> findAll();
+    List<QuestionResultResponse> findAll(Long id);
 
     QuestionResultResponse findById(Long id);
 
